@@ -1,0 +1,83 @@
+{
+  "name": "@sleeperhq/mini-core",
+  "version": "0.1.0",
+  "description": "Core library frameworks for developing Sleeper Mini Apps.",
+  "main": "index.ts",
+  "types": "index.d.ts",
+  "bin": {
+    "build-mini": "./bin/build_mini.js",
+    "preload-packages": "./bin/preload_packages.js"
+  },
+  "scripts": {
+    "test": "jest",
+    "lint": "eslint ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/blitzstudios/sleeper-mini-core.git"
+  },
+  "keywords": [
+    "sleeper",
+    "mini",
+    "apps",
+    "fantasy",
+    "sports"
+  ],
+  "author": "Luke Herbold <luke@sleeper.app>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/blitzstudios/sleeper-mini-core/issues"
+  },
+  "homepage": "https://github.com/blitzstudios/sleeper-mini-core#readme",  
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
+  },
+  "dependencies": {
+    "@babel/runtime": "7.15.4",
+    "@babel/plugin-transform-runtime": "7.15.0",
+    "@callstack/repack": "blitzstudios/repack.git#callstack-repack-v3.0.0-gitpkg",
+    "@callstack/repack-dev-server": "blitzstudios/repack.git#callstack-repack-dev-server-v1.0.7-gitpkg",
+    "@react-native-community/cli": "6.1.0",
+    "@react-native-community/cli-types": "6.0.0",
+    "@react-native-community/netinfo": "9.3.7",
+    "axios": "0.15.3",
+    "babel-loader": "9.1.2",
+    "react-native-fast-image": "https://github.com/blitzstudios/react-native-fast-image.git#release/1.1",
+    "react-native-interactable": "https://github.com/blitzstudios/react-native-interactable#release/1.0",
+    "react-native-linear-gradient": "2.5.6",
+    "react-native-rename": "^3.2.12",
+    "react-refresh": "0.14.0",
+    "react-test-renderer": "17.0.2",
+    "regenerator-runtime": "0.13.9",
+    "terser-webpack-plugin": "5.3.6",
+    "webpack": "5.75.0"
+  },
+  "peerDependencies": {
+    "react": "18.2.0",
+    "react-native": "0.72.6",
+    "react-native-svg": "13.7.0"
+  },
+  "devDependencies": {
+    "@babel/core": "7.15.8",
+    "@babel/preset-typescript": "7.21.4",
+    "@react-native-community/eslint-config": "^2.0.0",
+    "@types/react": "18.0.24",
+    "@types/react-native": "0.72.5",
+    "@typescript-eslint/eslint-plugin": "^5.31.0",
+    "@typescript-eslint/parser": "^5.31.0",
+    "babel-jest": "^26.6.3",
+    "eslint": "7.14.0",
+    "jest": "^26.6.3",
+    "lodash": "4.17.21",
+    "metro-react-native-babel-preset": "^0.66.2",
+    "react-native-tcp-socket": "6.0.6",
+    "typescript": "5.0.4"
+  },
+  "resolutions": {
+    "react-devtools-core": "4.23.0"
+  },
+  "jest": {
+    "preset": "react-native"
+  }
+}
