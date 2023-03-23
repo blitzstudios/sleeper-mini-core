@@ -15,6 +15,16 @@ export type Scalars = {
   SnowflakeSet: string[];
 };
 
+export type Config = {
+  name: string,
+  displayName: string,
+  remoteIP: string,
+  localSocketPort: number,
+  remoteSocketPort: number,
+  remoteBundlePort: number,
+  release: boolean,
+};
+
 export type User = {
   __typename?: 'User';
   async_bundles?: Maybe<Scalars['List']>;

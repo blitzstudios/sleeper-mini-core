@@ -1,44 +1,12 @@
 import React, {useEffect} from 'react';
 import {Platform} from 'react-native';
+import {Config} from '../types';
 import {ScriptManager, Federated} from '@callstack/repack/client';
 import NetInfo from '@react-native-community/netinfo';
 import dgram from 'react-native-udp';
-import {
-  localSocketPort,
-  remoteSocketPort,
-  remoteBundlePort as _remoteBundlePort,
-  release,
-  remoteIP,
-} from '../../app.json';
 import axios from 'axios';
 
-const remoteBundleHost = release ? remoteIP : 'localhost';
-const remoteBundlePort = release ? _remoteBundlePort : 8081;
-
-ScriptManager.shared.addResolver(async (scriptId, caller) => {
-  const extension =
-    scriptId === 'sleeper' ? '.container.bundle' : '.chunk.bundle';
-  const resolveURL = Federated.createURLResolver({
-    containers: {
-      sleeper: `http://${remoteBundleHost}:${remoteBundlePort}/[name]${extension}`,
-    },
-  });
-
-  // Try to resolve URL based on scriptId and caller
-  const url = resolveURL(scriptId, caller);
-  const query = release ? undefined : {platform: Platform.OS};
-
-  const response = await axios
-    .get(url + '?' + new URLSearchParams(query), {method: 'HEAD'})
-    .catch(() => ({
-      status: 404,
-    }));
-
-  console.log('[Sleeper] load script:', scriptId, caller);
-  if (response?.status === 200) {
-    return {url, query};
-  }
-});
+let config: Config;
 
 const DevServer = props => {
   const onSocket = msg => {
@@ -63,7 +31,7 @@ const DevServer = props => {
       return;
     }
 
-    socket.bind({port: localSocketPort, address: netInfoDetails.ipAddress});
+    socket.bind({port: config.localSocketPort, address: netInfoDetails.ipAddress});
   };
 
   const pingServer = socket => {
@@ -79,7 +47,7 @@ const DevServer = props => {
         const json = JSON.stringify({_ip: netInfoDetails.ipAddress});
 
         (async function ping() {
-          socket.send(json, undefined, undefined, remoteSocketPort, remoteIP);
+          socket.send(json, undefined, undefined, config.remoteSocketPort, config.remoteIP);
           setTimeout(ping, 5000);
         })();
       });
@@ -87,6 +55,11 @@ const DevServer = props => {
   };
 
   useEffect(() => {
+    if (!config) {
+      console.error('[Sleeper] No config file specified. Please make sure you call DevServer.init() early in the app lifecycle.');
+      return;
+    }
+
     const socket = dgram.createSocket({type: 'udp4'});
     bindSocket(socket);
     pingServer(socket);
@@ -99,6 +72,38 @@ const DevServer = props => {
   }, []);
 
   return <></>;
+};
+
+DevServer.init = (_config: Config) => {
+  config = _config;
+
+  const remoteBundleHost = config.release ? config.remoteIP : 'localhost';
+  const remoteBundlePort = config.release ? config.remoteBundlePort : 8081;
+
+  ScriptManager.shared.addResolver(async (scriptId, caller) => {
+    const extension =
+      scriptId === 'sleeper' ? '.container.bundle' : '.chunk.bundle';
+    const resolveURL = Federated.createURLResolver({
+      containers: {
+        sleeper: `http://${remoteBundleHost}:${remoteBundlePort}/[name]${extension}`,
+      },
+    });
+  
+    // Try to resolve URL based on scriptId and caller
+    const url = resolveURL(scriptId, caller);
+    const query = config.release ? undefined : {platform: Platform.OS};
+  
+    const response = await axios
+      .get(url + '?' + new URLSearchParams(query), {method: 'HEAD'})
+      .catch(() => ({
+        status: 404,
+      }));
+  
+    console.log('[Sleeper] load script:', scriptId, caller);
+    if (response?.status === 200) {
+      return {url, query};
+    }
+  });
 };
 
 export default DevServer;
