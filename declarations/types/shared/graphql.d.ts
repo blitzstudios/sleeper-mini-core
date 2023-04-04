@@ -1,49 +1,42 @@
 export declare type Maybe<T> = T | null;
+export declare type InputMaybe<T> = Maybe<T>;
+export declare type Exact<T extends {
+    [key: string]: unknown;
+}> = {
+    [K in keyof T]: T[K];
+};
+export declare type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
+    [SubKey in K]?: Maybe<T[SubKey]>;
+};
+export declare type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
+    [SubKey in K]: Maybe<T[SubKey]>;
+};
+/** All built-in and custom scalars, mapped to their actual values */
 export declare type Scalars = {
     ID: string;
     String: string;
     Boolean: boolean;
     Int: number;
     Float: number;
+    /** JSON */
     Json: {
         [key: string]: any;
     };
+    /** Lists */
     List: string[];
+    /** Map / Dictionary */
     Map: {
         [key: string]: any;
     };
     MapWithSnowflakeKey: {
         [key: string]: any;
     };
+    /** Sets */
     Set: string[];
+    /** Snowflake ID */
     Snowflake: string;
     SnowflakeList: string[];
     SnowflakeSet: string[];
-};
-export declare type User = {
-    __typename?: 'User';
-    async_bundles?: Maybe<Scalars['List']>;
-    avatar?: Maybe<Scalars['String']>;
-    cookies?: Maybe<Scalars['Int']>;
-    created?: Maybe<Scalars['Int']>;
-    currencies?: Maybe<Scalars['Map']>;
-    data_updated?: Maybe<Scalars['Map']>;
-    deleted?: Maybe<Scalars['Int']>;
-    display_name?: Maybe<Scalars['String']>;
-    email?: Maybe<Scalars['String']>;
-    is_bot?: Maybe<Scalars['Boolean']>;
-    metadata?: Maybe<Scalars['Json']>;
-    notifications?: Maybe<Scalars['Map']>;
-    pending?: Maybe<Scalars['Boolean']>;
-    phone?: Maybe<Scalars['String']>;
-    real_name?: Maybe<Scalars['String']>;
-    solicitable?: Maybe<Scalars['Boolean']>;
-    summoner_name?: Maybe<Scalars['String']>;
-    summoner_region?: Maybe<Scalars['String']>;
-    token?: Maybe<Scalars['String']>;
-    user_id?: Maybe<Scalars['Snowflake']>;
-    username?: Maybe<Scalars['String']>;
-    verification?: Maybe<Scalars['String']>;
 };
 export declare type League = {
     __typename?: 'League';
@@ -78,10 +71,28 @@ export declare type League = {
     status?: Maybe<Scalars['String']>;
     total_rosters?: Maybe<Scalars['Int']>;
 };
-export declare type NavigationType = 'DM' | 'INBOX' | 'MY_FEED' | 'FRIENDS' | 'LEAGUE' | 'ASYNC_SPORT' | 'CREATE_LEAGUE' | 'LEAGUE_SYNC' | 'DRAFTBOARDS' | 'SOLO_OVER_UNDER' | 'CHANNEL' | 'MANAGE_CHANNELS';
-export declare type NavigationTypeId = 1 | 2 | 3 | 4 | 5 | 6 | 7;
-export declare type Navigation = {
-    selectedNavType: NavigationType;
-    selectedNavTypeId: NavigationTypeId;
-    selectedNavData: {};
+export declare type User = {
+    __typename?: 'User';
+    async_bundles?: Maybe<Scalars['List']>;
+    avatar?: Maybe<Scalars['String']>;
+    cookies?: Maybe<Scalars['Int']>;
+    created?: Maybe<Scalars['Int']>;
+    currencies?: Maybe<Scalars['Map']>;
+    data_updated?: Maybe<Scalars['Map']>;
+    deleted?: Maybe<Scalars['Int']>;
+    display_name?: Maybe<Scalars['String']>;
+    email?: Maybe<Scalars['String']>;
+    is_bot?: Maybe<Scalars['Boolean']>;
+    metadata?: Maybe<Scalars['Json']>;
+    notifications?: Maybe<Scalars['Map']>;
+    pending?: Maybe<Scalars['Boolean']>;
+    phone?: Maybe<Scalars['String']>;
+    real_name?: Maybe<Scalars['String']>;
+    solicitable?: Maybe<Scalars['Boolean']>;
+    summoner_name?: Maybe<Scalars['String']>;
+    summoner_region?: Maybe<Scalars['String']>;
+    token?: Maybe<Scalars['String']>;
+    user_id?: Maybe<Scalars['Snowflake']>;
+    username?: Maybe<Scalars['String']>;
+    verification?: Maybe<Scalars['String']>;
 };

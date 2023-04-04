@@ -1,4 +1,4 @@
-export * from '../../declarations/types.d';
+export * from '../../declarations/types/index.d';
 export { default as Context } from '../../declarations/sleeper_context.d';
 
 export type Config = {
