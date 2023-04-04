@@ -1,13 +1,8 @@
 import React from 'react';
-import {
-  ColorValue,
-  GestureResponderEvent,
-  TextProps,
-  View,
-  ViewStyle,
-} from 'react-native';
+import {TextProps, View} from 'react-native';
 import {Federated} from '@callstack/repack/client';
-import {Context} from '../types';
+import type {ButtonProps} from '../../declarations/button';
+import type {JerseyProps} from '../../declarations/jersey';
 
 const _SleeperModule = React.lazy(() =>
   Federated.importModule('sleeper', 'index').catch(() => ({
@@ -20,15 +15,6 @@ const _SleeperModule = React.lazy(() =>
   })),
 );
 
-type ButtonProps = {
-  height?: number;
-  gradient?: (string | number)[];
-  start?: {x: number; y: number};
-  end?: {x: number; y: number};
-  disable?: boolean;
-  onPress?: (event: GestureResponderEvent) => void;
-  text?: string;
-};
 const Button = (props: ButtonProps) => {
   return (
     <React.Suspense fallback={<View />}>
@@ -45,12 +31,6 @@ const Text = (props: TextProps) => {
   );
 };
 
-type JerseyProps = {
-  style: ViewStyle;
-  sport: 'nfl' | 'nba' | 'cbb' | 'cfb' | 'mlb';
-  number: string;
-  fill: ColorValue;
-};
 const Jersey = (props: JerseyProps) => {
   return (
     <React.Suspense fallback={<View />}>
@@ -59,5 +39,5 @@ const Jersey = (props: JerseyProps) => {
   );
 };
 
-export type {ButtonProps, Context, TextProps, JerseyProps};
+export type {ButtonProps, TextProps, JerseyProps};
 export {Button, Text, Jersey};
