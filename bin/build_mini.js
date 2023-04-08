@@ -2,8 +2,25 @@
 
 const { spawn } = require('child_process');
 const os = require('os');
+const path = require('path');
 
 const isWindows = os.platform() === 'win32';
+
+const outputFile = 'mini-app';
+const zipFile = `${outputFile}.zip`;
+const assetsDestPath = {
+  ios: path.join(outputFile, 'ios'),
+  android: path.join(outputFile, 'android'),
+};
+const bundleOutputPath = {
+  ios: path.join(assetsDestPath["ios"], 'index.bundle'),
+  android: path.join(assetsDestPath["android"], 'index.bundle'),
+};
+const sourcemapOutputPath = {
+  ios: path.join(assetsDestPath["ios"], 'index.bundle.map'),
+  android: path.join(assetsDestPath["android"], 'index.bundle.map'),
+};
+const reactNativeCliPath = path.join('node_modules', 'react-native', 'cli.js');
 
 const spawnProcess = (command, errorMessage) => {
   return new Promise((resolve) => {
@@ -42,32 +59,25 @@ const printComplete = (message) => {
 };
 
 const getBundleCommand = (platform) => {
-  return `node node_modules/react-native/cli.js webpack-bundle \
+  return `node ${reactNativeCliPath} webpack-bundle \
   --entry-file index.tsx \
   --platform ${platform} \
   --dev false \
   --reset-cache \
-  --bundle-output mini-app/${platform}/index.bundle \
-  --sourcemap-output mini-app/${platform}/index.bundle.map \
+  --bundle-output ${bundleOutputPath[platform]} \
+  --sourcemap-output ${sourcemapOutputPath[platform]} \
   --minify false \
-  --assets-dest mini-app/${platform}`;
+  --assets-dest ${assetsDestPath[platform]}`;
 };
 
+const deleteCommand = (isWindows ? 'rmdir /s /q ' : 'rm -rf ');
 const zipCommand = isWindows ?
-  `powershell Compress-Archive -Path mini-app -DestinationPath mini-app.zip` :
-  `zip -r mini-app.zip mini-app`;
-const openCommand = isWindows ?
-  `start .` :
-  `open .`;
-const cleanIndexCommand = isWindows ?
-  `rmdir /s /q mini-app\\ios\\index.bundle mini-app\\android\\index.bundle mini-app\\ios\\index.bundle.map mini-app\\android\\index.bundle.map` : 
-  `rm -rf mini-app/ios/index.bundle mini-app/android/index.bundle mini-app/ios/index.bundle.map mini-app/android/index.bundle.map`;
-const cleanAllCommand = isWindows ?
-  `rmdir /s /q mini-app.zip mini-app` :
-  `rm -rf mini-app.zip mini-app`;
-const cleanBuildCommand = isWindows ?
-  `rmdir /s /q mini-app` :
-  `rm -rf mini-app`;
+  `powershell Compress-Archive -Path ${outputFile} -DestinationPath ${zipFile}` :
+  `zip -r ${zipFile} ${outputFile}`;
+const openCommand = isWindows ? `start .` : `open .`;
+const cleanIndexCommand = `${deleteCommand} ${bundleOutputPath["ios"]} ${bundleOutputPath["android"]} ${sourcemapOutputPath["ios"]} ${sourcemapOutputPath["android"]}`;
+const cleanAllCommand = `${deleteCommand} ${outputFile} ${zipFile}`;
+const cleanBuildCommand = `${deleteCommand} ${outputFile}`;
 
 const main = async () => {
   // Clean build folders
