@@ -9,13 +9,16 @@ import axios from 'axios';
 let config: Config;
 
 const DevServer = props => {
-  const onSocket = msg => {
+  const onSocket = (handler) => msg => {
     const json = JSON.parse(msg.toString());
     if (json?._connected) {
       return;
     }
 
-    props.onContextChanged(json);
+    // We should have a context object now
+    const context = new Proxy(json, handler);
+
+    props.onContextChanged(context);
   };
 
   const onError = err => {
@@ -33,6 +36,52 @@ const DevServer = props => {
 
     socket.bind({port: config.localSocketPort, address: netInfoDetails.ipAddress});
   };
+
+  const sendContextRequest = (socket, propertyPath) => {
+    const json = JSON.stringify({_contextGet: propertyPath});
+    socket.send(json, undefined, undefined, config.remoteSocketPort, config.remoteIP);
+  }
+
+  const proxyHandler = (socket) => {
+    return {
+      get: (target, property) => {
+        if (property in target && target[property] !== null) {
+          const value = target[property];
+
+          if (typeof value !== 'object' || value._isProxy) {
+            return value;
+          }
+
+          // Adding proxies to objects
+          // Intentionally only going 1 level deep
+          const handler = proxyHandlerLeaf(socket, property);
+          target[property] = new Proxy(value, handler);
+          target[property]._isProxy = true;
+
+          return target[property];
+        }
+
+        // This property is not in the context object yet
+        sendContextRequest(socket, property);
+        return null;
+      }
+    };
+  }
+
+  // This handler is for leaf nodes only
+  const proxyHandlerLeaf = (socket, path) => {
+    return {
+      get: (target, property) => {
+        if (target[property] !== undefined) { // Only checking undefined properites for leaves
+          return target[property];
+        }
+
+        const fullProp = path + '.' + property;
+        sendContextRequest(socket, fullProp);
+        return null;
+      }
+    };
+  }
 
   const pingServer = socket => {
     // Continue to ping the sleeper app server until it responds.
@@ -64,7 +113,9 @@ const DevServer = props => {
     bindSocket(socket);
     pingServer(socket);
 
-    socket.on('message', onSocket);
+    const handler = proxyHandler(socket);
+    const onSocketHandler = onSocket(handler);
+    socket.on('message', onSocketHandler);
     socket.on('error', onError);
     return () => {
       socket.removeAllListeners();

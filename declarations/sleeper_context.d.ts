@@ -1,10 +1,11 @@
-import { User, Navigation, League } from './types';
+import { User, Navigation, League, LeaguesMap } from './types';
 import SleeperActions from './sleeper_actions';
 declare class SleeperContext {
     user: User;
     navigation: Navigation;
     league: League;
+    leaguesMap: LeaguesMap;
     actions: SleeperActions;
-    constructor(user: User, navigation: Navigation, league: League);
+    constructor();
 }
 export default SleeperContext;
