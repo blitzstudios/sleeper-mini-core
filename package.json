@@ -4,6 +4,9 @@
   "description": "Core library frameworks for developing Sleeper Mini Apps.",
   "main": "index.ts",
   "types": "index.d.ts",
+  "bin": {
+    "build-mini": "./bin/build_mini.js"
+  },
   "scripts": {
     "test": "jest",
     "lint": "eslint ."
