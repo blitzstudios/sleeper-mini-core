@@ -108,7 +108,10 @@ const DevServer = props => {
       reuseAddress: true,
     }, () => {
       // When we establish a connection, send the IP address to the server
-      const message: SocketMessage = { _ip: ipAddress };
+      const message: SocketMessage = { 
+        _ip: ipAddress, 
+        _name: config.name, 
+      };
       const json = JSON.stringify(message);
       try {
         connection.current?.write(json, undefined, (error) => {
