@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {Platform} from 'react-native';
-import {Config} from '../types';
+import {Config, SocketMessage} from '../types';
 import {ScriptManager, Federated} from '@callstack/repack/client';
 import NetInfo from '@react-native-community/netinfo';
 import dgram from 'react-native-udp';
@@ -38,7 +38,8 @@ const DevServer = props => {
   };
 
   const sendContextRequest = (socket, propertyPath) => {
-    const json = JSON.stringify({_contextGet: propertyPath});
+    const message: SocketMessage = {_contextGet: propertyPath};
+    const json = JSON.stringify(message);
     socket.send(json, undefined, undefined, config.remoteSocketPort, config.remoteIP);
   }
 
@@ -93,7 +94,8 @@ const DevServer = props => {
           return;
         }
 
-        const json = JSON.stringify({_ip: netInfoDetails.ipAddress});
+        const message: SocketMessage = {_ip: netInfoDetails.ipAddress};
+        const json = JSON.stringify(message);
 
         (async function ping() {
           socket.send(json, undefined, undefined, config.remoteSocketPort, config.remoteIP);

@@ -1,18 +1,18 @@
-export declare type Maybe<T> = T | null;
-export declare type InputMaybe<T> = Maybe<T>;
-export declare type Exact<T extends {
+export type Maybe<T> = T | null;
+export type InputMaybe<T> = Maybe<T>;
+export type Exact<T extends {
     [key: string]: unknown;
 }> = {
     [K in keyof T]: T[K];
 };
-export declare type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
     [SubKey in K]?: Maybe<T[SubKey]>;
 };
-export declare type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
     [SubKey in K]: Maybe<T[SubKey]>;
 };
 /** All built-in and custom scalars, mapped to their actual values */
-export declare type Scalars = {
+export type Scalars = {
     ID: string;
     String: string;
     Boolean: boolean;
@@ -38,7 +38,7 @@ export declare type Scalars = {
     SnowflakeList: string[];
     SnowflakeSet: string[];
 };
-export declare type League = {
+export type League = {
     __typename?: 'League';
     avatar?: Maybe<Scalars['String']>;
     company_id?: Maybe<Scalars['Snowflake']>;
@@ -71,7 +71,22 @@ export declare type League = {
     status?: Maybe<Scalars['String']>;
     total_rosters?: Maybe<Scalars['Int']>;
 };
-export declare type User = {
+export type Roster = {
+    __typename?: 'Roster';
+    co_owners?: Maybe<Scalars['SnowflakeSet']>;
+    keepers?: Maybe<Scalars['Set']>;
+    league_id?: Maybe<Scalars['Snowflake']>;
+    metadata?: Maybe<Scalars['Map']>;
+    owner_id?: Maybe<Scalars['Snowflake']>;
+    player_map?: Maybe<Scalars['Map']>;
+    players?: Maybe<Scalars['Set']>;
+    reserve?: Maybe<Scalars['Set']>;
+    roster_id?: Maybe<Scalars['Int']>;
+    settings?: Maybe<Scalars['Map']>;
+    starters?: Maybe<Scalars['List']>;
+    taxi?: Maybe<Scalars['Set']>;
+};
+export type User = {
     __typename?: 'User';
     async_bundles?: Maybe<Scalars['List']>;
     avatar?: Maybe<Scalars['String']>;
