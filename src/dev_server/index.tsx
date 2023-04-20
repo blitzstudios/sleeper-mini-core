@@ -1,46 +1,53 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {Platform} from 'react-native';
 import {Config, SocketMessage} from '../types';
 import {ScriptManager, Federated} from '@callstack/repack/client';
 import NetInfo from '@react-native-community/netinfo';
-import dgram from 'react-native-udp';
+import TcpSocket from 'react-native-tcp-socket';
 import axios from 'axios';
 
 let config: Config;
+const RETRY_TIMER = 5000;
 
 const DevServer = props => {
+  const connection = useRef<TcpSocket.Socket>();
+  const partialMessage = useRef('');
+  const _retryTimer = useRef<NodeJS.Timeout>();
+
+  const _onConnected = async (value: boolean) => {
+    props.onConnected(value);
+  };
+
   const onSocket = (handler) => msg => {
-    const json = JSON.parse(msg.toString());
-    if (json?._connected) {
-      return;
+    let json;
+    try {
+      json = JSON.parse(msg);
+    } catch(e) {
+      partialMessage.current += msg;
+    }
+
+    if (partialMessage.current.length > 0) {
+      try {
+        json = JSON.parse(partialMessage.current);
+        partialMessage.current = '';
+      } catch (e) {
+        return;
+      }
     }
 
     // We should have a context object now
     const context = new Proxy(json, handler);
-
     props.onContextChanged(context);
-  };
-
-  const onError = err => {
-    console.error('[Sleeper] Socket error: ' + err);
-  };
-
-  const bindSocket = async socket => {
-    const netInfo = await NetInfo.fetch();
-    const netInfoDetails = netInfo?.details;
-
-    if (!netInfoDetails || !('ipAddress' in netInfoDetails)) {
-      console.error('[Sleeper] Failed to determine local IP address.');
-      return;
-    }
-
-    socket.bind({port: config.localSocketPort, address: netInfoDetails.ipAddress});
   };
 
   const sendContextRequest = (socket, propertyPath) => {
     const message: SocketMessage = {_contextGet: propertyPath};
     const json = JSON.stringify(message);
-    socket.send(json, undefined, undefined, config.remoteSocketPort, config.remoteIP);
+    try {
+      socket?.write(json);
+    } catch (e) {
+      console.log("[Sleeper] Failed to send context request: ", e);
+    }
   }
 
   const proxyHandler = (socket) => {
@@ -84,26 +91,68 @@ const DevServer = props => {
     };
   }
 
-  const pingServer = socket => {
-    // Continue to ping the sleeper app server until it responds.
-    return new Promise(() => {
-      NetInfo.fetch().then(netInfo => {
-        const netInfoDetails = netInfo?.details;
-        if (!netInfoDetails || !('ipAddress' in netInfoDetails)) {
-          console.error('[Sleeper] Failed to determine local IP address.');
-          return;
-        }
+  const startSocket = async () => {
+    const netInfo = await NetInfo.fetch();
+    const netInfoDetails = netInfo?.details;
+    const ipAddress = netInfoDetails?.ipAddress;
 
-        const message: SocketMessage = {_ip: netInfoDetails.ipAddress};
-        const json = JSON.stringify(message);
+    if (!netInfoDetails || !('ipAddress' in netInfoDetails)) {
+      console.error('[Sleeper] Failed to determine local IP address.');
+      return stopSocket();
+    }
 
-        (async function ping() {
-          socket.send(json, undefined, undefined, config.remoteSocketPort, config.remoteIP);
-          setTimeout(ping, 5000);
-        })();
-      });
+    connection.current = TcpSocket.createConnection({
+      port: config.remoteSocketPort,
+      host: config.remoteIP,
+      localAddress: ipAddress,
+      reuseAddress: true,
+    }, () => {
+      // When we establish a connection, send the IP address to the server
+      const message: SocketMessage = { _ip: ipAddress };
+      const json = JSON.stringify(message);
+      try {
+        connection.current?.write(json, undefined, (error) => {
+          if (error) {
+            return stopSocket();
+          }
+          console.log('[Sleeper] Connected to the Sleeper App.');
+          _onConnected(true);
+        });
+      } catch (e) {
+        return stopSocket();
+      }
     });
-  };
+  
+    connection.current.on('data', (data, ...args) => {
+      const handler = proxyHandler(connection.current);
+      const onSocketHandler = onSocket(handler);
+      onSocketHandler(data);
+    });
+    connection.current.on('error', err => {
+      return stopSocket();
+    });
+    connection.current.on('close', (hadError) => {
+      return stopSocket();
+    });
+  }
+
+  const stopSocket = (retry = true) => {
+    _onConnected(false);
+
+    if (connection.current) {
+      connection.current.destroy();
+      connection.current = undefined;
+    }
+
+    // Any time the socket is closed, attempt to connect again.
+    if (retry) {
+      clearTimeout(_retryTimer.current);
+      _retryTimer.current = setTimeout(() => {
+        console.log('[Sleeper] Unable to connect to sleeper, retrying...');
+        startSocket();
+      }, RETRY_TIMER);
+    }
+  }
 
   useEffect(() => {
     if (!config) {
@@ -111,16 +160,10 @@ const DevServer = props => {
       return;
     }
 
-    const socket = dgram.createSocket({type: 'udp4'});
-    bindSocket(socket);
-    pingServer(socket);
+    startSocket();
 
-    const handler = proxyHandler(socket);
-    const onSocketHandler = onSocket(handler);
-    socket.on('message', onSocketHandler);
-    socket.on('error', onError);
     return () => {
-      socket.removeAllListeners();
+      stopSocket(false);
     };
   }, []);
 
