@@ -1,18 +1,20 @@
-import { User, Navigation, League, LeaguesMap, Roster } from './types';
+import { User, Navigation, League, LeaguesMap, RostersInLeagueMap } from './types';
 import SleeperActions from './sleeper_actions';
 type SleeperContextConfig = {
     user: User;
     navigation: Navigation;
     league: League;
+    userLeagueList: string[];
     leaguesMap: LeaguesMap;
-    rostersInLeagueMap: Roster[];
+    rostersInLeagueMap: RostersInLeagueMap;
 };
 declare class SleeperContext {
     user: User;
     navigation: Navigation;
     league: League;
     leaguesMap: LeaguesMap;
-    rostersInLeagueMap: Roster[];
+    userLeagueList: string[];
+    rostersInLeagueMap: RostersInLeagueMap;
     actions: SleeperActions;
     constructor(config: SleeperContextConfig);
 }
