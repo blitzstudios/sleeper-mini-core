@@ -44,7 +44,7 @@ const DevServer = props => {
     const message: SocketMessage = {_contextGet: propertyPath};
     const json = JSON.stringify(message);
     try {
-      socket?.write(json);
+      socket?.write(json + '\n');
     } catch (e) {
       console.log("[Sleeper] Failed to send context request: ", e);
     }
@@ -111,7 +111,7 @@ const DevServer = props => {
       const message: SocketMessage = { _ip: ipAddress };
       const json = JSON.stringify(message);
       try {
-        connection.current?.write(json, undefined, (error) => {
+        connection.current?.write(json + '\n', "utf8", (error) => {
           if (error) {
             return stopSocket();
           }
