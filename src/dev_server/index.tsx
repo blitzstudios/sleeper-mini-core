@@ -1,10 +1,10 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {Platform} from 'react-native';
 import {Config, SocketMessage} from '../types';
-import {ScriptManager, Federated} from '@callstack/repack/client';
+import { ScriptLocatorResolver, ScriptManager, Federated } from '@callstack/repack/client';
 import NetInfo from '@react-native-community/netinfo';
 import TcpSocket from 'react-native-tcp-socket';
-import axios from 'axios';
+import { fetchMainVersionMap, getMainUrl } from './url_resolver';
 
 let config: Config;
 const RETRY_TIMER = 5000;
@@ -13,6 +13,15 @@ const DevServer = props => {
   const connection = useRef<TcpSocket.Socket>();
   const partialMessage = useRef('');
   const _retryTimer = useRef<NodeJS.Timeout>();
+
+  const [data, setData] = useState({
+    platform: '',
+    binaryVersion: '',
+    dist: '',
+    isStaging: false,
+  });
+  const _dataRef = useRef<typeof data>();
+  const _versionMap = useRef<Record<string, string>>();
 
   const _onConnected = async (value: boolean) => {
     props.onConnected(value);
@@ -33,6 +42,17 @@ const DevServer = props => {
       } catch (e) {
         return;
       }
+    }
+
+    // Set connection data
+    if (json._platform || json._binaryVersion || json._dist || json._isStaging) {
+      console.log("[Sleeper] Received context data:", json._platform, json._binaryVersion, json._dist, json._isStaging);
+      setData({
+        platform: json._platform,
+        binaryVersion: json._binaryVersion,
+        dist: json._dist,
+        isStaging: json._isStaging,
+      });
     }
 
     // We should have a context object now
@@ -102,7 +122,7 @@ const DevServer = props => {
     }
 
     connection.current = TcpSocket.createConnection({
-      port: config.remoteSocketPort,
+      port: 9092,
       host: config.remoteIP,
       localAddress: ipAddress,
       reuseAddress: true,
@@ -113,6 +133,7 @@ const DevServer = props => {
         _name: config.name, 
       };
       const json = JSON.stringify(message);
+      console.log('[Sleeper] Send IP address: ', ipAddress, config.name);
       try {
         connection.current?.write(json, undefined, (error) => {
           if (error) {
@@ -157,12 +178,61 @@ const DevServer = props => {
     }
   }
 
+  const _waitForInitialization = () => {
+    return new Promise<void>((resolve) => {
+      (function checkData() {
+        let isInitialized = !!_dataRef.current?.dist;
+
+        // Non-staging builds also require a version map to be defined.
+        if (!_dataRef.current?.isStaging) {
+          isInitialized = !!_versionMap.current;
+        }
+
+        if (isInitialized) return resolve();
+        setTimeout(checkData, 1000);
+      })();
+    });
+  };
+
+  const _resolveRemoteChunk: ScriptLocatorResolver = async (scriptId: string, caller: string) => {
+    await _waitForInitialization();
+
+    const bundleName = !caller ? `${scriptId}.container.bundle` : `${scriptId}.chunk.bundle`;
+    
+    // Try to resolve URL based on scriptId and caller
+    const url = getMainUrl(scriptId, caller, {
+      platform: _dataRef.current?.platform,
+      bundleVersion: _versionMap.current?.[bundleName],
+      binaryVersion: _dataRef.current?.binaryVersion,
+      dist: _dataRef.current?.dist,
+      isStaging: _dataRef.current?.isStaging,
+      remoteIP: config.remoteIP,
+      dev: config.dev,
+    });
+    const query = config.dev ? {platform: Platform.OS} : undefined;
+
+    console.log('[Sleeper] load script:', scriptId, caller, url);
+    return {url, query};
+  }
+
+  const _fetchVersionMap = async (platform, binaryVersion, dist) => {
+    _versionMap.current = await fetchMainVersionMap(platform, binaryVersion, dist);
+  }
+
+  useEffect(() => {
+    _dataRef.current = data;
+    if (!data.platform || !data.binaryVersion || !data.dist) return;
+    
+    _fetchVersionMap(data.platform, data.binaryVersion, data.dist);
+  }, [data.platform, data.binaryVersion, data.dist, data.isStaging]);
+
   useEffect(() => {
     if (!config) {
       console.error('[Sleeper] No config file specified. Please make sure you call DevServer.init() early in the app lifecycle.');
       return;
     }
 
+    ScriptManager.shared.addResolver(_resolveRemoteChunk.bind(this));
     startSocket();
 
     return () => {
@@ -175,34 +245,6 @@ const DevServer = props => {
 
 DevServer.init = (_config: Config) => {
   config = _config;
-
-  const remoteBundleHost = config.release ? config.remoteIP : 'localhost';
-  const remoteBundlePort = config.release ? config.remoteBundlePort : 8081;
-
-  ScriptManager.shared.addResolver(async (scriptId, caller) => {
-    const extension =
-      scriptId === 'sleeper' ? '.container.bundle' : '.chunk.bundle';
-    const resolveURL = Federated.createURLResolver({
-      containers: {
-        sleeper: `http://${remoteBundleHost}:${remoteBundlePort}/[name]${extension}`,
-      },
-    });
-  
-    // Try to resolve URL based on scriptId and caller
-    const url = resolveURL(scriptId, caller);
-    const query = config.release ? undefined : {platform: Platform.OS};
-  
-    const response = await axios
-      .get(url + '?' + new URLSearchParams(query), {method: 'HEAD'})
-      .catch(() => ({
-        status: 404,
-      }));
-  
-    console.log('[Sleeper] load script:', scriptId, caller);
-    if (response?.status === 200) {
-      return {url, query};
-    }
-  });
-};
+}
 
 export default DevServer;
