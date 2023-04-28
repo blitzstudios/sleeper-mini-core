@@ -1,4 +1,4 @@
-import { User, Navigation, League, LeaguesMap, RostersInLeagueMap, UserMap } from './types';
+import { User, Navigation, League, LeaguesMap, RostersInLeagueMap, UserMap, MatchupsInLeagueMap } from './types';
 import SleeperActions from './sleeper_actions';
 declare class SleeperContext {
     user: User;
@@ -8,6 +8,7 @@ declare class SleeperContext {
     userLeagueList: string[];
     rostersInLeagueMap: RostersInLeagueMap;
     userMap: UserMap;
+    matchupsInLeagueMap: MatchupsInLeagueMap;
     actions: SleeperActions;
     constructor();
 }
