@@ -71,6 +71,24 @@ export type League = {
     status?: Maybe<Scalars['String']>;
     total_rosters?: Maybe<Scalars['Int']>;
 };
+export type MatchupLeg = {
+    __typename?: 'MatchupLeg';
+    bans?: Maybe<Scalars['Map']>;
+    custom_points?: Maybe<Scalars['Float']>;
+    league_id?: Maybe<Scalars['Snowflake']>;
+    leg?: Maybe<Scalars['Int']>;
+    matchup_id?: Maybe<Scalars['Int']>;
+    max_points?: Maybe<Scalars['Float']>;
+    picks?: Maybe<Scalars['Map']>;
+    player_map?: Maybe<Scalars['Map']>;
+    players?: Maybe<Scalars['Set']>;
+    points?: Maybe<Scalars['Float']>;
+    proj_points?: Maybe<Scalars['Float']>;
+    roster_id?: Maybe<Scalars['Int']>;
+    round?: Maybe<Scalars['Int']>;
+    starters?: Maybe<Scalars['List']>;
+    starters_games?: Maybe<Scalars['Map']>;
+};
 export type Roster = {
     __typename?: 'Roster';
     co_owners?: Maybe<Scalars['SnowflakeSet']>;

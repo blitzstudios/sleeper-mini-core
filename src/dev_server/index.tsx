@@ -21,7 +21,7 @@ const DevServer = props => {
   const onSocket = (handler) => msg => {
     let json;
     try {
-      json = JSON.parse(msg);
+      json = JSON.parse(msg); 
     } catch(e) {
       partialMessage.current += msg;
     }
@@ -44,7 +44,7 @@ const DevServer = props => {
     const message: SocketMessage = {_contextGet: propertyPath};
     const json = JSON.stringify(message);
     try {
-      socket?.write(json);
+      socket?.write(json + '\n');
     } catch (e) {
       console.log("[Sleeper] Failed to send context request: ", e);
     }
@@ -53,40 +53,53 @@ const DevServer = props => {
   const proxyHandler = (socket) => {
     return {
       get: (target, property) => {
-        if (property in target && target[property] !== null) {
-          const value = target[property];
+        let value = Reflect.get(target, property);
 
-          if (typeof value !== 'object' || value._isProxy) {
-            return value;
-          }
-
+        // Check if we need to add a proxy to this object
+        if (!!value && typeof value === 'object' && !value._isProxy && value._isProxyInternal) {
+          const isLeaf = !value._continueProxy;
           // Adding proxies to objects
-          // Intentionally only going 1 level deep
-          const handler = proxyHandlerLeaf(socket, property);
-          target[property] = new Proxy(value, handler);
-          target[property]._isProxy = true;
-
-          return target[property];
+          const handler = proxyHandlerChild(socket, property, isLeaf);
+          const proxiedValue = new Proxy(value, handler);
+          Reflect.set(target, property, proxiedValue);
+          value = proxiedValue;
         }
 
-        // This property is not in the context object yet
-        sendContextRequest(socket, property);
-        return null;
+        return value;
       }
     };
   }
 
-  // This handler is for leaf nodes only
-  const proxyHandlerLeaf = (socket, path) => {
+  const proxyHandlerChild = (socket, path, isLeaf) => {
     return {
       get: (target, property) => {
-        if (target[property] !== undefined) { // Only checking undefined properites for leaves
-          return target[property];
+        // Check if a proxy was already added to this object
+        if (property === '_isProxy') {
+          return true;
         }
 
-        const fullProp = path + '.' + property;
-        sendContextRequest(socket, fullProp);
-        return null;
+        const value = Reflect.get(target, property);
+        const fullPropertyPath = `${path}.${property}`;
+
+        // If the value is undefined, we need to request it from the server
+        if (value === undefined && isLeaf) {
+          sendContextRequest(socket, fullPropertyPath);
+        }
+
+        // Check if we need to add a second layer proxy to this object
+        if (!isLeaf && !value?._isProxy) {
+          const nextLeaf = true; // Currently we only support 2 layers of proxies
+          // Adding proxies to objects
+          // These proxies aren't stored in the context object so we will regenerate them every time
+          const handler = proxyHandlerChild(socket, fullPropertyPath, nextLeaf);
+          if (value === undefined) {
+            return new Proxy({}, handler);
+          } else {
+            return new Proxy(value, handler);
+          }
+        }
+
+        return value;
       }
     };
   }
@@ -111,7 +124,7 @@ const DevServer = props => {
       const message: SocketMessage = { _ip: ipAddress };
       const json = JSON.stringify(message);
       try {
-        connection.current?.write(json, undefined, (error) => {
+        connection.current?.write(json + '\n', "utf8", (error) => {
           if (error) {
             return stopSocket();
           }
