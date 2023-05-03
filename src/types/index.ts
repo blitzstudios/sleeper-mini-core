@@ -6,5 +6,6 @@ export type Config = {
   name: string,
   displayName: string,
   remoteIP: string,
+  remoteSocketPort?: number,
   dev?: boolean,
 };

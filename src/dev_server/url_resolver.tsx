@@ -18,6 +18,9 @@ export type MainPlatformData = {
   dev?: boolean,
 }
 
+const PROD_CDN = "https://sleepercdn.com/bundles/";
+const TEST_CDN = "https://test.sleepercdn.com/bundles/";
+
 // Query a list of urls, and grab the first one that returns a 200 response.
 const _fetchFirstAvailable = (config: AxiosRequestConfig, ...urls: string[]) => {
   return new Promise<any>((resolve) => {
@@ -36,8 +39,8 @@ const _fetchFirstAvailable = (config: AxiosRequestConfig, ...urls: string[]) => 
 }
 
 export const fetchMainVersionMap = (platform: string, binaryVersion: string, dist: string) => {
-  const baseUrl = `https://sleepercdn.com/bundles/version_maps/${platform}/${binaryVersion}/${dist}.json`;
-  const codepushUrl = `https://sleepercdn.com/bundles/version_maps/${platform}/codepush/${dist}.json`;
+  const baseUrl = `${PROD_CDN}/version_maps/${platform}/${binaryVersion}/${dist}.json`;
+  const codepushUrl = `${PROD_CDN}/version_maps/${platform}/codepush/${dist}.json`;
 
   return _fetchFirstAvailable({}, baseUrl, codepushUrl);
 }
@@ -49,12 +52,12 @@ export const getMainUrl = (scriptId: string, caller: string, config: MainPlatfor
     sleeper = `http://${config.remoteIP}:8081/`;
   } else if (config.isStaging) {
     if (config.dist === '0') {
-      sleeper = `https://test.sleepercdn.com/bundles/${config.platform}/${config.binaryVersion}/${config.dist}/`;
+      sleeper = `${TEST_CDN}/${config.platform}/${config.binaryVersion}/${config.dist}/`;
     } else {
-      sleeper = `https://test.sleepercdn.com/bundles/${config.platform}/codepush/${config.dist}/`;
+      sleeper = `${TEST_CDN}/${config.platform}/codepush/${config.dist}/`;
     }
   } else {
-    sleeper = `https://sleepercdn.com/bundles/data/${Platform.OS}/${config.bundleVersion}/`;
+    sleeper = `${PROD_CDN}/data/${Platform.OS}/${config.bundleVersion}/`;
   }
 
   const resolveURL = Federated.createURLResolver({

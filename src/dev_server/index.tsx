@@ -122,7 +122,7 @@ const DevServer = props => {
     }
 
     connection.current = TcpSocket.createConnection({
-      port: 9092,
+      port: config.remoteSocketPort || 9092,
       host: config.remoteIP,
       localAddress: ipAddress,
       reuseAddress: true,
