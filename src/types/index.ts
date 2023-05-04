@@ -6,8 +6,6 @@ export type Config = {
   name: string,
   displayName: string,
   remoteIP: string,
-  localSocketPort: number,
-  remoteSocketPort: number,
-  remoteBundlePort: number,
-  release: boolean,
+  remoteSocketPort?: number,
+  dev?: boolean,
 };
