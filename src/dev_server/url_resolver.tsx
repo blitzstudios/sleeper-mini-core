@@ -18,8 +18,8 @@ export type MainPlatformData = {
   dev?: boolean,
 }
 
-const PROD_CDN = "https://sleepercdn.com/bundles/";
-const TEST_CDN = "https://test.sleepercdn.com/bundles/";
+const PROD_CDN = "https://sleepercdn.com/bundles";
+const TEST_CDN = "https://test.sleepercdn.com/bundles";
 
 // Query a list of urls, and grab the first one that returns a 200 response.
 const _fetchFirstAvailable = (config: AxiosRequestConfig, ...urls: string[]) => {
