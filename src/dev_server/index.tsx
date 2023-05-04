@@ -103,6 +103,7 @@ const DevServer = props => {
 
         // If the value is undefined, we need to request it from the server
         if (value === undefined && isLeaf) {
+          console.log("[Sleeper] Requesting context value: ", fullPropertyPath);
           sendContextRequest(socket, fullPropertyPath);
         }
 
