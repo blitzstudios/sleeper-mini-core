@@ -57,7 +57,8 @@ export const getMainUrl = (scriptId: string, caller: string, config: MainPlatfor
       sleeper = `${TEST_CDN}/${config.platform}/codepush/${config.dist}/`;
     }
   } else {
-    sleeper = `${PROD_CDN}/data/${Platform.OS}/${config.bundleVersion}/`;
+    const platform = config.platform?.split('-')[0];
+    sleeper = `${PROD_CDN}/data/${platform}/${config.bundleVersion}/`;
   }
 
   const resolveURL = Federated.createURLResolver({
