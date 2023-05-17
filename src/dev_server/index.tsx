@@ -12,6 +12,7 @@ const RETRY_TIMER = 5000;
 const DevServer = props => {
   const connection = useRef<TcpSocket.Socket>();
   const partialMessage = useRef('');
+  const messageLength = useRef(0);
   const _retryTimer = useRef<NodeJS.Timeout>();
 
   const [data, setData] = useState({
@@ -28,36 +29,61 @@ const DevServer = props => {
   };
 
   const onSocket = (handler) => msg => {
-    let json;
-    try {
-      json = JSON.parse(msg); 
-    } catch(e) {
-      partialMessage.current += msg;
-    }
-
-    if (partialMessage.current.length > 0) {
-      try {
-        json = JSON.parse(partialMessage.current);
-        partialMessage.current = '';
-      } catch (e) {
+    const msgString = msg.toString();
+    if (messageLength.current === 0) {
+      const info = msgString.split('\n', 2);
+      if (info.length !== 2) {
+        // Something unexpected
+        // TODO(jasonl) we need to handle this
         return;
       }
+
+      const header = info[0];
+      try {
+        const headerObject = JSON.parse(header);
+        messageLength.current = headerObject.size;
+      } catch (e) {
+        // Something unexpected
+        // TODO(jasonl) we need to handle this
+        return;
+      }
+
+      partialMessage.current = info[1];
+    } else {
+      partialMessage.current += msgString;
     }
 
-    // Set connection data
-    if (json._platform || json._binaryVersion || json._dist || json._isStaging) {
-      console.log("[Sleeper] Received context data:", json._platform, json._binaryVersion, json._dist, json._isStaging);
-      setData({
-        platform: json._platform,
-        binaryVersion: json._binaryVersion,
-        dist: json._dist,
-        isStaging: json._isStaging,
-      });
+    if (partialMessage.current.length < messageLength.current) {
+      // We need to wait for more data
+      return;
+    } 
+
+    try {
+      const json = JSON.parse(partialMessage.current);
+      partialMessage.current = '';
+      messageLength.current = 0;
+
+      // Set connection data
+      if (json._platform || json._binaryVersion || json._dist || json._isStaging) {
+        console.log("[Sleeper] Received context data:", json._platform, json._binaryVersion, json._dist, json._isStaging);
+        setData({
+          platform: json._platform,
+          binaryVersion: json._binaryVersion,
+          dist: json._dist,
+          isStaging: json._isStaging,
+        });
+      }
+
+      // We should have a context object now
+      const context = new Proxy(json, handler);
+      props.onContextChanged(context);
+
+    } catch (e) {
+      // Something unexpected
+      // TODO(jasonl) we need to handle this
+      return;
     }
 
-    // We should have a context object now
-    const context = new Proxy(json, handler);
-    props.onContextChanged(context);
   };
 
   const sendContextRequest = (socket, propertyPath) => {
