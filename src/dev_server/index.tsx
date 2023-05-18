@@ -13,6 +13,7 @@ const DevServer = props => {
   const connection = useRef<TcpSocket.Socket>();
   const partialMessage = useRef('');
   const messageLength = useRef(0);
+  const messageType = useRef('');
   const _retryTimer = useRef<NodeJS.Timeout>();
 
   const [data, setData] = useState({
@@ -41,6 +42,7 @@ const DevServer = props => {
       const header = info[0];
       try {
         const headerObject = JSON.parse(header);
+        messageType.current = headerObject.type;
         messageLength.current = headerObject.size;
       } catch (e) {
         // Something unexpected
@@ -74,10 +76,19 @@ const DevServer = props => {
         });
       }
 
-      // We should have a context object now
-      const context = new Proxy(json, handler);
-      props.onContextChanged(context);
-
+      switch (messageType.current) {
+        case 'context': {
+          // We should have a context object now
+          const context = new Proxy(json, handler);
+          props.onContextChanged(context);
+          break;
+        }
+        case 'context.transactionsInLeagueMap': {
+          props.onContextUpdated('transactionsInLeagueMap', json)
+          break;
+        }
+      }
+      messageType.current = '';
     } catch (e) {
       // Something unexpected
       // TODO(jasonl) we need to handle this
