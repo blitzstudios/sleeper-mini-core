@@ -8,6 +8,7 @@ import { fetchMainVersionMap, getMainUrl } from './url_resolver';
 
 let config: Config;
 const RETRY_TIMER = 5000;
+const LOGS_ENABLED = false;
 
 const DevServer = props => {
   const connection = useRef<TcpSocket.Socket>();
@@ -35,7 +36,7 @@ const DevServer = props => {
       if (messageLength.current === 0) {
         const info = msgString.split('\n', 2);
         if (info.length !== 2) {
-          console.log("[Sleeper] Message header not found, throwing out message.");
+          if (LOGS_ENABLED) console.log("[Sleeper] Message header not found, throwing out message.");
           messageLength.current = 0;
           messageType.current = '';
           return;
@@ -67,11 +68,22 @@ const DevServer = props => {
       if (remainingLength === 0) {
         // We have the full message
         partialMessage.current += msgString;
+        msgString = '';
+        if (LOGS_ENABLED) console.log("[Sleeper] Message built.", partialMessage.current.length);
         
       } else {
         // We have more than the full message
         partialMessage.current += msgString.substring(0, partialLength);
         msgString = msgString.substring(partialLength);
+
+        if (remainingLength > 0) {
+          // We have more than the full message
+          if (LOGS_ENABLED) console.log("[Sleeper] Received too much data", partialMessage.current.length, messageLength.current, remainingLength);
+        } else {
+          // We have less than the full message
+          if (LOGS_ENABLED) console.log("[Sleeper] Building message: ", partialMessage.current.length, messageLength.current, remainingLength);
+          return;
+        }
       }
 
       try {
@@ -81,7 +93,7 @@ const DevServer = props => {
 
         // Set connection data
         if (json._platform || json._binaryVersion || json._dist || json._isStaging) {
-          console.log("[Sleeper] Received context data:", json._platform, json._binaryVersion, json._dist, json._isStaging);
+          console.log("[Sleeper] Processing context data:", json._platform, json._binaryVersion, json._dist, json._isStaging);
           setData({
             platform: json._platform,
             binaryVersion: json._binaryVersion,
