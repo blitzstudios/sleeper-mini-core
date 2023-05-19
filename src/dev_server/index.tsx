@@ -30,71 +30,85 @@ const DevServer = props => {
   };
 
   const onSocket = (handler) => msg => {
-    const msgString = msg.toString();
-    if (messageLength.current === 0) {
-      const info = msgString.split('\n', 2);
-      if (info.length !== 2) {
-        // Something unexpected
-        // TODO(jasonl) we need to handle this
+    let msgString: string = msg.toString();
+    while (msgString.length > 0) {
+      if (messageLength.current === 0) {
+        const info = msgString.split('\n', 2);
+        if (info.length !== 2) {
+          console.log("[Sleeper] Message header not found, throwing out message.");
+          messageLength.current = 0;
+          messageType.current = '';
+          return;
+        }
+
+        const header = info[0];
+        try {
+          const headerObject = JSON.parse(header);
+          messageType.current = headerObject.type;
+          messageLength.current = headerObject.size;
+        } catch (e) {
+          console.log("[Sleeper] Message header malformed, throwing out message.");
+          messageLength.current = 0;
+          messageType.current = '';
+          return;
+        }
+
+        msgString = info[1];
+      }
+
+      const partialLength = messageLength.current - partialMessage.current.length;
+      if (partialLength < 0) {
+        // We need to wait for more data
+        partialMessage.current += msgString;
         return;
       }
 
-      const header = info[0];
+      const remainingLength = msgString.length - partialLength;
+      if (remainingLength === 0) {
+        // We have the full message
+        partialMessage.current += msgString;
+        
+      } else {
+        // We have more than the full message
+        partialMessage.current += msgString.substring(0, partialLength);
+        msgString = msgString.substring(partialLength);
+      }
+
       try {
-        const headerObject = JSON.parse(header);
-        messageType.current = headerObject.type;
-        messageLength.current = headerObject.size;
+        const json = JSON.parse(partialMessage.current);
+        partialMessage.current = '';
+        messageLength.current = 0;
+
+        // Set connection data
+        if (json._platform || json._binaryVersion || json._dist || json._isStaging) {
+          console.log("[Sleeper] Received context data:", json._platform, json._binaryVersion, json._dist, json._isStaging);
+          setData({
+            platform: json._platform,
+            binaryVersion: json._binaryVersion,
+            dist: json._dist,
+            isStaging: json._isStaging,
+          });
+        }
+
+        switch (messageType.current) {
+          case 'context': {
+            // We should have a context object now
+            const context = new Proxy(json, handler);
+            props.onContextChanged(context);
+            break;
+          }
+          case 'context.transactionsInLeagueMap': {
+            props.onContextUpdated('transactionsInLeagueMap', json)
+            break;
+          }
+        }
+        messageType.current = '';
       } catch (e) {
         // Something unexpected
         // TODO(jasonl) we need to handle this
         return;
       }
-
-      partialMessage.current = info[1];
-    } else {
-      partialMessage.current += msgString;
     }
-
-    if (partialMessage.current.length < messageLength.current) {
-      // We need to wait for more data
-      return;
-    } 
-
-    try {
-      const json = JSON.parse(partialMessage.current);
-      partialMessage.current = '';
-      messageLength.current = 0;
-
-      // Set connection data
-      if (json._platform || json._binaryVersion || json._dist || json._isStaging) {
-        console.log("[Sleeper] Received context data:", json._platform, json._binaryVersion, json._dist, json._isStaging);
-        setData({
-          platform: json._platform,
-          binaryVersion: json._binaryVersion,
-          dist: json._dist,
-          isStaging: json._isStaging,
-        });
-      }
-
-      switch (messageType.current) {
-        case 'context': {
-          // We should have a context object now
-          const context = new Proxy(json, handler);
-          props.onContextChanged(context);
-          break;
-        }
-        case 'context.transactionsInLeagueMap': {
-          props.onContextUpdated('transactionsInLeagueMap', json)
-          break;
-        }
-      }
-      messageType.current = '';
-    } catch (e) {
-      // Something unexpected
-      // TODO(jasonl) we need to handle this
-      return;
-    }
-
   };
 
   const sendContextRequest = (socket, propertyPath) => {
