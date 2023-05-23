@@ -98,14 +98,12 @@ const DevServer = props => {
         }
 
         if (messageType.current === 'context') {
-            // We should have a context object now
-            const context = new Proxy(json, handler);
-            props.onContextChanged(context);
-        } else if (messageType.current.startsWith('context.')) {
-          // We have a single property to update in the existing context
-          const contextProperty = messageType.current.substring(8);
-          console.log("[Sleeper] Updating context property: ", contextProperty);
-          props.onContextUpdated(contextProperty, json)
+          // We should have a context object now
+          const context = new Proxy(json, handler);
+          props.onContextChanged(context);
+        } else if (messageType.current === `partialContext`) {
+          // We are updating a partial Context
+          props.onContextUpdated(json)
         }
 
         messageType.current = '';
