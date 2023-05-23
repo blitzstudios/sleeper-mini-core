@@ -34,15 +34,13 @@ const DevServer = props => {
     let msgString: string = msg.toString();
     while (msgString.length > 0) {
       if (messageLength.current === 0) {
-        const info = msgString.split('\n', 2);
-        if (info.length !== 2) {
-          if (LOGS_ENABLED) console.log("[Sleeper] Message header not found, throwing out message.");
-          messageLength.current = 0;
-          messageType.current = '';
+        const delimit = msgString.indexOf('\n');
+        if (delimit === -1) {
+          console.log("[Sleeper] Message header not found, throwing out message.");
           return;
         }
 
-        const header = info[0];
+        const header = msgString.substring(0, delimit);
         try {
           const headerObject = JSON.parse(header);
           messageType.current = headerObject.type;
@@ -54,7 +52,7 @@ const DevServer = props => {
           return;
         }
 
-        msgString = info[1];
+        msgString = msgString.substring(delimit + 1);
       }
 
       const partialLength = messageLength.current - partialMessage.current.length;
@@ -76,10 +74,7 @@ const DevServer = props => {
         partialMessage.current += msgString.substring(0, partialLength);
         msgString = msgString.substring(partialLength);
 
-        if (remainingLength > 0) {
-          // We have more than the full message
-          if (LOGS_ENABLED) console.log("[Sleeper] Received too much data", partialMessage.current.length, messageLength.current, remainingLength);
-        } else {
+        if (remainingLength <= 0) {
           // We have less than the full message
           if (LOGS_ENABLED) console.log("[Sleeper] Building message: ", partialMessage.current.length, messageLength.current, remainingLength);
           return;
@@ -102,22 +97,20 @@ const DevServer = props => {
           });
         }
 
-        switch (messageType.current) {
-          case 'context': {
+        if (messageType.current === 'context') {
             // We should have a context object now
             const context = new Proxy(json, handler);
             props.onContextChanged(context);
-            break;
-          }
-          case 'context.transactionsInLeagueMap': {
-            props.onContextUpdated('transactionsInLeagueMap', json)
-            break;
-          }
+        } else if (messageType.current.startsWith('context.')) {
+          // We have a single property to update in the existing context
+          const contextProperty = messageType.current.substring(8);
+          console.log("[Sleeper] Updating context property: ", contextProperty);
+          props.onContextUpdated(contextProperty, json)
         }
+
         messageType.current = '';
       } catch (e) {
-        // Something unexpected
-        // TODO(jasonl) we need to handle this
+        console.log("[Sleeper] Failed to parse message: ", e);
         return;
       }
     }
