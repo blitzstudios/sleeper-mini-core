@@ -8,10 +8,13 @@ import { fetchMainVersionMap, getMainUrl } from './url_resolver';
 
 let config: Config;
 const RETRY_TIMER = 5000;
+const LOGS_ENABLED = false;
 
 const DevServer = props => {
   const connection = useRef<TcpSocket.Socket>();
   const partialMessage = useRef('');
+  const messageLength = useRef(0);
+  const messageType = useRef('');
   const _retryTimer = useRef<NodeJS.Timeout>();
 
   const [data, setData] = useState({
@@ -28,36 +31,87 @@ const DevServer = props => {
   };
 
   const onSocket = (handler) => msg => {
-    let json;
-    try {
-      json = JSON.parse(msg); 
-    } catch(e) {
-      partialMessage.current += msg;
-    }
+    let msgString: string = msg.toString();
+    while (msgString.length > 0) {
+      if (messageLength.current === 0) {
+        const delimit = msgString.indexOf('\n');
+        if (delimit === -1) {
+          console.log("[Sleeper] Message header not found, throwing out message.");
+          return;
+        }
 
-    if (partialMessage.current.length > 0) {
+        const header = msgString.substring(0, delimit);
+        try {
+          const headerObject = JSON.parse(header);
+          messageType.current = headerObject.type;
+          messageLength.current = headerObject.size;
+        } catch (e) {
+          console.log("[Sleeper] Message header malformed, throwing out message.");
+          messageLength.current = 0;
+          messageType.current = '';
+          return;
+        }
+
+        msgString = msgString.substring(delimit + 1);
+      }
+
+      const partialLength = messageLength.current - partialMessage.current.length;
+      if (partialLength < 0) {
+        // We need to wait for more data
+        partialMessage.current += msgString;
+        return;
+      }
+
+      const remainingLength = msgString.length - partialLength;
+      if (remainingLength === 0) {
+        // We have the full message
+        partialMessage.current += msgString;
+        msgString = '';
+        if (LOGS_ENABLED) console.log("[Sleeper] Message built.", partialMessage.current.length);
+        
+      } else {
+        // We have more than the full message
+        partialMessage.current += msgString.substring(0, partialLength);
+        msgString = msgString.substring(partialLength);
+
+        if (remainingLength <= 0) {
+          // We have less than the full message
+          if (LOGS_ENABLED) console.log("[Sleeper] Building message: ", partialMessage.current.length, messageLength.current, remainingLength);
+          return;
+        }
+      }
+
       try {
-        json = JSON.parse(partialMessage.current);
+        const json = JSON.parse(partialMessage.current);
         partialMessage.current = '';
+        messageLength.current = 0;
+
+        // Set connection data
+        if (json._platform || json._binaryVersion || json._dist || json._isStaging) {
+          console.log("[Sleeper] Processing context data:", json._platform, json._binaryVersion, json._dist, json._isStaging);
+          setData({
+            platform: json._platform,
+            binaryVersion: json._binaryVersion,
+            dist: json._dist,
+            isStaging: json._isStaging,
+          });
+        }
+
+        if (messageType.current === 'context') {
+          // We should have a context object now
+          const context = new Proxy(json, handler);
+          props.onContextChanged(context);
+        } else if (messageType.current === `partialContext`) {
+          // We are updating a partial Context
+          props.onContextUpdated(json)
+        }
+
+        messageType.current = '';
       } catch (e) {
+        console.log("[Sleeper] Failed to parse message: ", e);
         return;
       }
     }
-
-    // Set connection data
-    if (json._platform || json._binaryVersion || json._dist || json._isStaging) {
-      console.log("[Sleeper] Received context data:", json._platform, json._binaryVersion, json._dist, json._isStaging);
-      setData({
-        platform: json._platform,
-        binaryVersion: json._binaryVersion,
-        dist: json._dist,
-        isStaging: json._isStaging,
-      });
-    }
-
-    // We should have a context object now
-    const context = new Proxy(json, handler);
-    props.onContextChanged(context);
   };
 
   const sendContextRequest = (socket, propertyPath) => {
