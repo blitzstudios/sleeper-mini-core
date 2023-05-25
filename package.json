@@ -5,7 +5,8 @@
   "main": "index.ts",
   "types": "index.d.ts",
   "bin": {
-    "build-mini": "./bin/build_mini.js"
+    "build-mini": "./bin/build_mini.js",
+    "preload-packages": "./bin/preload_packages.js"
   },
   "scripts": {
     "test": "jest",
