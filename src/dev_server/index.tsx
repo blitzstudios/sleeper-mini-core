@@ -8,7 +8,7 @@ import { fetchMainVersionMap, getMainUrl } from './url_resolver';
 
 let config: Config;
 const RETRY_TIMER = 5000;
-const LOGS_ENABLED = false;
+const LOGS_ENABLED = true;
 
 const DevServer = props => {
   const connection = useRef<TcpSocket.Socket>();
@@ -105,12 +105,7 @@ const DevServer = props => {
         switch (messageType.current) {
           case 'context': {
             // We should have a context object now
-            const context = new Proxy(json, handler);
-            props.onContextChanged(context);
-            break;
-          }
-          case 'context.transactionsInLeagueMap': {
-            props.onContextUpdated('transactionsInLeagueMap', json)
+            props.onContextChanged(json, handler);
             break;
           }
         }
@@ -118,6 +113,7 @@ const DevServer = props => {
       } catch (e) {
         // Something unexpected
         // TODO(jasonl) we need to handle this
+        console.log("[Sleeper] Something went wrong.", partialMessage.current);
         return;
       }
     }
@@ -162,7 +158,10 @@ const DevServer = props => {
         }
 
         const value = Reflect.get(target, property);
-        const fullPropertyPath = `${path}.${property}`;
+        let fullPropertyPath = `${path}`;
+        if (typeof property === 'string') {
+          fullPropertyPath += `.${property}`;
+        }
 
         // If the value is undefined, we need to request it from the server
         if (value === undefined && isLeaf) {
