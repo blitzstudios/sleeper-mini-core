@@ -8,7 +8,6 @@ import { fetchMainVersionMap, getMainUrl } from './url_resolver';
 
 let config: Config;
 const RETRY_TIMER = 5000;
-const LOGS_ENABLED = false;
 
 const DevServer = props => {
   const connection = useRef<TcpSocket.Socket>();
@@ -67,7 +66,7 @@ const DevServer = props => {
         // We have the full message
         partialMessage.current += msgString;
         msgString = '';
-        if (LOGS_ENABLED) console.log("[Sleeper] Message built.", partialMessage.current.length);
+        if (config.logsEnabled) console.log("[Sleeper] Message built.", partialMessage.current.length);
         
       } else {
         // We have more than the full message
@@ -76,7 +75,7 @@ const DevServer = props => {
 
         if (remainingLength <= 0) {
           // We have less than the full message
-          if (LOGS_ENABLED) console.log("[Sleeper] Building message: ", partialMessage.current.length, messageLength.current, remainingLength);
+          if (config.logsEnabled) console.log("[Sleeper] Building message: ", partialMessage.current.length, messageLength.current, remainingLength);
           return;
         }
       }
@@ -88,7 +87,7 @@ const DevServer = props => {
 
         // Set connection data
         if (json._platform || json._binaryVersion || json._dist || json._isStaging) {
-          console.log("[Sleeper] Processing context data:", json._platform, json._binaryVersion, json._dist, json._isStaging);
+          if (config.logsEnabled) console.log("[Sleeper] Processing context data:", json._platform, json._binaryVersion, json._dist, json._isStaging);
           setData({
             platform: json._platform,
             binaryVersion: json._binaryVersion,
@@ -157,7 +156,7 @@ const DevServer = props => {
 
         // If the value is undefined, we need to request it from the server
         if (value === undefined && isLeaf) {
-          console.log("[Sleeper] Requesting context value: ", fullPropertyPath);
+          if (config.logsEnabled) console.log("[Sleeper] Requesting context value: ", fullPropertyPath);
           sendContextRequest(socket, fullPropertyPath);
         }
 
@@ -279,7 +278,7 @@ const DevServer = props => {
     });
     const query = config.dev ? {platform: Platform.OS} : undefined;
 
-    console.log('[Sleeper] load script:', scriptId, caller, url);
+    if (config.logsEnabled) console.log('[Sleeper] load script:', scriptId, caller, url);
     return {url, query};
   }
 

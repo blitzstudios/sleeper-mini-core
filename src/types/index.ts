@@ -8,4 +8,5 @@ export type Config = {
   remoteIP: string,
   remoteSocketPort?: number,
   dev?: boolean,
+  logsEnabled?: boolean,
 };
