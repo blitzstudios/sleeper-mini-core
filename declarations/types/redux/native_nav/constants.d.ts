@@ -21,3 +21,11 @@ export declare const NAVIGATION_ID: {
     readonly MENTIONS: 6;
     readonly FRIENDS: 7;
 };
+export declare const NAVIGATION_TAB_ID: {
+    readonly FantasyTab: "FantasyTab";
+    readonly ScoresTab: "ScoresTab";
+    readonly GamesTab: "GamesTab";
+    readonly FeedTab: "FeedTab";
+    readonly InboxTab: "InboxTab";
+    readonly MinisTab: "MinisTab";
+};
