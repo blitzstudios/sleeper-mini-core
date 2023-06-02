@@ -1,14 +1,6 @@
-import { NAVIGATION_ID, NAVIGATION_TYPE, NAVIGATION_TAB_ID } from './redux/native_nav/constants.d';
 import { League, Roster, User, MatchupLeg, LeagueTransaction, Draft, DraftPick, RosterDraftPick, Player } from './shared/graphql.d';
-export type NavigationType = typeof NAVIGATION_TYPE[keyof typeof NAVIGATION_TYPE];
-export type NavigationTypeId = typeof NAVIGATION_ID[keyof typeof NAVIGATION_ID];
-export type NavigationTabId = 'LeaguesDetailScreen' | 'PicksIndexScreen';
+export type NavigationTabId = 'LeaguesIndexScreen' | 'LeaguesDetailScreen' | 'ScoreIndexScreen' | 'ScoreDetailScreen' | 'PicksIndexScreen' | 'FeedIndexScreen' | 'WebviewScreen' | 'ManageChannelsScreen' | 'InboxIndexScreen' | 'MinisIndexScreen' | 'ManageChannelsScreen' | 'InboxIndexScreen' | 'MinisIndexScreen';
 export * from './shared/graphql.d';
-export type Navigation = {
-    selectedNavType: NavigationType;
-    selectedNavTypeId: NavigationTypeId;
-    selectedNavData: {};
-};
 export type LeagueId = string;
 export type RosterId = string;
 export type UserId = string;
@@ -57,7 +49,7 @@ export type MatchupsInLeagueMap = Record<LeagueId, MathchupWeekMap>;
 export type UsersInLeagueMap = Record<LeagueId, UserMap>;
 export type PlayoffsInLeagueMap = Record<LeagueId, BracketSet>;
 export type TransactionsInLeagueMap = Record<LeagueId, TransactionId[]>;
-export type TransactionsMap = Record    <TransactionId, LeagueTransaction>;
+export type TransactionsMap = Record<TransactionId, LeagueTransaction>;
 export type SportInfoMap = Record<SportType, SportInfo>;
 export type DraftsInLeagueMap = Record<LeagueId, Draft[]>;
 export type DraftPickTradesInLeagueMap = Record<LeagueId, RosterDraftPick[]>;
