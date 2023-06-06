@@ -1,6 +1,6 @@
 {
   "name": "@sleeperhq/mini-core",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": "Core library frameworks for developing Sleeper Mini Apps.",
   "main": "index.ts",
   "types": "index.d.ts",
@@ -34,7 +34,7 @@
     "access": "public"
   },
   "peerDependencies": {
-    "@callstack/repack": "blitzstudios/repack.git#callstack-repack-v2.6.1-gitpkg",
+    "@callstack/repack": "blitzstudios/repack.git#callstack-repack-v2.6.3-gitpkg",
     "@react-native-community/netinfo": "9.3.7",
     "axios": "0.15.3",
     "lodash": "4.17.21",
