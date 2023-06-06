@@ -1,13 +1,6 @@
-import { NAVIGATION_ID, NAVIGATION_TYPE } from './redux/native_nav/constants.d';
 import { League, Roster, User, MatchupLeg, LeagueTransaction, Draft, DraftPick, RosterDraftPick, Player } from './shared/graphql.d';
-export type NavigationType = typeof NAVIGATION_TYPE[keyof typeof NAVIGATION_TYPE];
-export type NavigationTypeId = typeof NAVIGATION_ID[keyof typeof NAVIGATION_ID];
+export type NavigationTabId = 'LeaguesIndexScreen' | 'LeaguesDetailScreen' | 'ScoreIndexScreen' | 'ScoreDetailScreen' | 'PicksIndexScreen' | 'FeedIndexScreen' | 'WebviewScreen' | 'ManageChannelsScreen' | 'InboxIndexScreen' | 'MinisIndexScreen' | 'ManageChannelsScreen' | 'InboxIndexScreen' | 'MinisIndexScreen';
 export * from './shared/graphql.d';
-export type Navigation = {
-    selectedNavType: NavigationType;
-    selectedNavTypeId: NavigationTypeId;
-    selectedNavData: {};
-};
 export type LeagueId = string;
 export type RosterId = string;
 export type UserId = string;
@@ -34,18 +27,18 @@ export type Bracket = {
 export type BracketSet = {
     bracket: Bracket[];
     loserBracket: Bracket[];
-}
+};
 export type SportInfo = {
     season_type: string;
     season: string;
-    week: number;
-    display_week: number;
-    leg: number;
-    league_season: string;
-    league_create_season: string;
-    previous_season: string;
-    season_start_date: string;
-    season_end_date: string;
+    week?: number;
+    display_week?: number;
+    leg?: number;
+    league_season?: string;
+    league_create_season?: string;
+    previous_season?: string;
+    season_start_date?: string;
+    season_end_date?: string;
 };
 export type LeaguesMap = Record<LeagueId, League>;
 export type RostersMap = Record<RosterId, Roster>;
@@ -53,7 +46,7 @@ export type RostersInLeagueMap = Record<LeagueId, RostersMap>;
 export type UserMap = Record<UserId, User>;
 export type MathchupWeekMap = Record<MatchupWeek, MatchupLeg>;
 export type MatchupsInLeagueMap = Record<LeagueId, MathchupWeekMap>;
-export type UsersInLeagueMap = Record<LeagueId, Record<UserId, User>>;
+export type UsersInLeagueMap = Record<LeagueId, UserMap>;
 export type PlayoffsInLeagueMap = Record<LeagueId, BracketSet>;
 export type TransactionsInLeagueMap = Record<LeagueId, TransactionId[]>;
 export type TransactionsMap = Record<TransactionId, LeagueTransaction>;
@@ -63,3 +56,17 @@ export type DraftPickTradesInLeagueMap = Record<LeagueId, RosterDraftPick[]>;
 export type DraftPicksInDraftMap = Record<DraftId, DraftPick[]>;
 export type PlayersMap = Record<PlayerId, Player>;
 export type PlayersInSportMap = Record<SportType, PlayersMap>;
+export declare enum MiniCategory {
+    DEVELOPER = "Developer",
+    FEATURED = "Featured",
+    GAMES = "Games",
+    SPORTUTILITY = "Sport Utility"
+}
+export type Mini = {
+    name: string;
+    description: string;
+    image: string;
+    category: MiniCategory;
+    id: string;
+};
+export type VersionMap = Record<string, Mini>;

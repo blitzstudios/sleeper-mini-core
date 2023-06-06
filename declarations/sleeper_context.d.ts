@@ -1,9 +1,9 @@
-import { User, Navigation, League, LeaguesMap, RostersInLeagueMap, UserMap, MatchupsInLeagueMap, UsersInLeagueMap, PlayoffsInLeagueMap, TransactionsInLeagueMap, TransactionsMap, SportInfoMap, DraftsInLeagueMap, DraftPickTradesInLeagueMap, DraftPicksInDraftMap, PlayersInSportMap } from './types';
-import SleeperActions from './sleeper_actions';
+import { User, League, LeaguesMap, RostersInLeagueMap, UserMap, MatchupsInLeagueMap, UsersInLeagueMap, PlayoffsInLeagueMap, TransactionsInLeagueMap, TransactionsMap, SportInfoMap, DraftsInLeagueMap, DraftPickTradesInLeagueMap, DraftPicksInDraftMap, PlayersInSportMap } from './types';
+import type { SleeperActions } from './sleeper_actions';
+
 declare class SleeperContext {
     static apiLevel: string;
     user: User;
-    navigation: Navigation;
     league: League;
     leaguesMap: LeaguesMap;
     userLeagueList: string[];
@@ -20,6 +20,5 @@ declare class SleeperContext {
     draftPicksInDraftMap: DraftPicksInDraftMap;
     playersInSportMap: PlayersInSportMap;
     actions: SleeperActions;
-    constructor();
 }
 export default SleeperContext;
