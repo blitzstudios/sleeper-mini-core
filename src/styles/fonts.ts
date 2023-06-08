@@ -52,109 +52,90 @@ const Fonts = {
     H1: {
       fontFamily: SHARED.POPPINS_EXTRABOLD,
       fontSize: 32,
-      // lineHeight: 48,
     },
     H2: {
       fontFamily: SHARED.POPPINS_EXTRABOLD,
       fontSize: 28,
-      // lineHeight: 48,
     },
     H3: {
       fontFamily: SHARED.POPPINS_BOLD,
       fontSize: 24,
-      // lineHeight: 32,
     },
     H4: {
       fontFamily: SHARED.POPPINS_BOLD,
       fontSize: 20,
-      // lineHeight: 26,
     },
     Title: {
       fontFamily: SHARED.POPPINS_SEMIBOLD,
       fontSize: 18,
-      // lineHeight: 24,
     },
     Subhead: {
       fontFamily: SHARED.POPPINS_SEMIBOLD,
       fontSize: 16,
-      // lineHeight: 20,
     },
     Menu: {
       fontFamily: SHARED.POPPINS_SEMIBOLD,
       fontSize: 12,
-      // lineHeight: 16,
       letterSpacing: 0.5,
     },
     ButtonLarge: {
       fontFamily: SHARED.POPPINS_SEMIBOLD,
       fontSize: 14,
-      // lineHeight: 16, // Cuts off the text at 14
       letterSpacing: 1,
     },
     ButtonSmall: {
       fontFamily: SHARED.POPPINS_SEMIBOLD,
       fontSize: 12,
-      // lineHeight: 14, // Cuts off the text at 12
       letterSpacing: 1,
     },
     TextCtaLarge: {
       fontFamily: SHARED.POPPINS_SEMIBOLD,
       fontSize: 14,
-      // lineHeight: 14,
       letterSpacing: 1,
     },
     TextCtaSmall: {
       fontFamily: SHARED.POPPINS_SEMIBOLD,
       fontSize: 12,
-      // lineHeight: 12,
       letterSpacing: 1,
     },
     Body1: {
       fontFamily: SHARED.INTER_REGULAR,
       fontSize: 16,
-      // lineHeight: 20,
       letterSpacing: -0.15,
     },
     Body1Bold: {
       fontFamily: SHARED.INTER_SEMIBOLD,
       fontSize: 16,
-      // lineHeight: 20,
       letterSpacing: -0.15,
     },
     Body2: {
       fontFamily: SHARED.INTER_REGULAR,
       fontSize: 14,
-      // lineHeight: 18,
       letterSpacing: -0.25,
     },
     Body2Bold: {
       fontFamily: SHARED.INTER_SEMIBOLD,
       fontSize: 14,
-      // lineHeight: 18,
       letterSpacing: -0.25,
     },
     Body3: {
       fontFamily: SHARED.INTER_REGULAR,
       fontSize: 12,
-      // lineHeight: 16,
       letterSpacing: -0.15,
     },
     Body3Bold: {
       fontFamily: SHARED.INTER_SEMIBOLD,
       fontSize: 12,
-      // lineHeight: 16,
       letterSpacing: -0.25,
     },
     Caption1: {
       fontFamily: SHARED.INTER_REGULAR,
       fontSize: 10,
-      // lineHeight: 12,
       letterSpacing: -0.25,
     },
     Caption1Bold: {
       fontFamily: SHARED.INTER_BOLD,
       fontSize: 10,
-      // lineHeight: 12,
       letterSpacing: -0.15,
     },
     Overline: {
@@ -165,7 +146,6 @@ const Fonts = {
     Footnote: {
       fontFamily: SHARED.INTER_REGULAR,
       fontSize: 9,
-      // lineHeight: 12,
       letterSpacing: -0.25,
     },
   },
