@@ -1,4 +1,5 @@
 import { League, Roster, User, MatchupLeg, LeagueTransaction, Draft, DraftPick, RosterDraftPick, Player, Topic } from './shared/graphql.d';
+import { TextStyle, ViewStyle } from 'react-native';
 export type NavigationTabId = 'LeaguesIndexScreen' | 'LeaguesDetailScreen' | 'ScoreIndexScreen' | 'ScoreDetailScreen' | 'PicksIndexScreen' | 'FeedIndexScreen' | 'WebviewScreen' | 'ManageChannelsScreen' | 'InboxIndexScreen' | 'MinisIndexScreen' | 'ManageChannelsScreen' | 'InboxIndexScreen' | 'MinisIndexScreen';
 export * from './shared/graphql.d';
 export type LeagueId = string;
@@ -77,3 +78,11 @@ export type Location = {
     hasPermission: 'pending' | 'yes' | 'no';
 };
 export type VersionMap = Record<string, Mini>;
+export type ToastConfig = {
+    text: string;
+    icon?: 'success' | 'error';
+    time?: number;
+    style?: ViewStyle;
+    slideTop?: boolean;
+    textStyle?: TextStyle;
+};
