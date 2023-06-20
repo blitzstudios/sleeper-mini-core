@@ -1,4 +1,4 @@
-import { User, League, LeaguesMap, RostersInLeagueMap, UserMap, MatchupsInLeagueMap, UsersInLeagueMap, PlayoffsInLeagueMap, TransactionsInLeagueMap, TransactionsMap, SportInfoMap, DraftsInLeagueMap, DraftPickTradesInLeagueMap, DraftPicksInDraftMap, PlayersInSportMap, TopicsMap } from './types';
+import { User, League, LeaguesMap, RostersInLeagueMap, UserMap, MatchupsInLeagueMap, UsersInLeagueMap, PlayoffsInLeagueMap, TransactionsInLeagueMap, TransactionsMap, SportInfoMap, DraftsInLeagueMap, DraftPickTradesInLeagueMap, DraftPicksInDraftMap, PlayersInSportMap, Topic, Location } from './types';
 import type { SleeperActions } from './sleeper_actions';
 export * from './sleeper_actions';
 declare class SleeperContext {
@@ -19,7 +19,9 @@ declare class SleeperContext {
     draftPickTradesInLeagueMap: DraftPickTradesInLeagueMap;
     draftPicksInDraftMap: DraftPicksInDraftMap;
     playersInSportMap: PlayersInSportMap;
-    topics: TopicsMap;
+    podcasts: Topic[][];
+    videos: Topic[][];
+    location: Location;
     actions: SleeperActions;
 }
 export default SleeperContext;

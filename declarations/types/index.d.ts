@@ -11,6 +11,7 @@ export type SportType = string;
 export type DraftId = string;
 export type PlayerId = string;
 export type TopicId = 'podcasts' | 'videos';
+export type { Topic };
 export type BracketFrom = {
     w?: RosterId;
     l?: RosterId;
@@ -57,7 +58,6 @@ export type DraftPickTradesInLeagueMap = Record<LeagueId, RosterDraftPick[]>;
 export type DraftPicksInDraftMap = Record<DraftId, DraftPick[]>;
 export type PlayersMap = Record<PlayerId, Player>;
 export type PlayersInSportMap = Record<SportType, PlayersMap>;
-export type TopicsMap = Record<TopicId, Topic[][]>;
 export declare enum MiniCategory {
     DEVELOPER = "Developer",
     FEATURED = "Featured",
@@ -70,5 +70,10 @@ export type Mini = {
     image: string;
     category: MiniCategory;
     id: string;
+};
+export type Location = {
+    state: string;
+    country: string;
+    hasPermission: boolean;
 };
 export type VersionMap = Record<string, Mini>;
