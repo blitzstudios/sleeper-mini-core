@@ -251,7 +251,7 @@ const DevServer = props => {
         let isInitialized = !!_dataRef.current?.dist;
 
         // Non-staging builds also require a version map to be defined.
-        if (!_dataRef.current?.isStaging) {
+        if (!_dataRef.current?.isStaging && !config.dev) {
           isInitialized = !!_versionMap.current;
         }
 
