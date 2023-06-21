@@ -74,6 +74,6 @@ export type Mini = {
 export type Location = {
     state: string;
     country: string;
-    hasPermission: boolean;
+    hasPermission: 'pending' | 'yes' | 'no';
 };
 export type VersionMap = Record<string, Mini>;
