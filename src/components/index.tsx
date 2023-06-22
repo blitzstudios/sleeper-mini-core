@@ -3,6 +3,7 @@ import {TextProps, View} from 'react-native';
 import {Federated} from '@callstack/repack/client';
 import type {ButtonProps} from '../../declarations/button';
 import type {JerseyProps} from '../../declarations/jersey';
+import type {SwitchProps} from '../../declarations/switch';
 
 const _SleeperModule = React.lazy(() =>
   Federated.importModule('sleeper', 'index').catch(() => ({
@@ -31,6 +32,14 @@ const Text = (props: TextProps) => {
   );
 };
 
+const Switch = (props: SwitchProps) => {
+  return (
+    <React.Suspense fallback={<View />}>
+      <_SleeperModule component="Switch" {...props} />
+    </React.Suspense>
+  );
+};
+
 const Jersey = (props: JerseyProps) => {
   return (
     <React.Suspense fallback={<View />}>
@@ -39,5 +48,5 @@ const Jersey = (props: JerseyProps) => {
   );
 };
 
-export type {ButtonProps, TextProps, JerseyProps};
-export {Button, Text, Jersey};
+export type {ButtonProps, TextProps, JerseyProps, SwitchProps};
+export {Button, Text, Jersey, Switch};
