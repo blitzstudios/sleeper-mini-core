@@ -1,6 +1,6 @@
 const path = require('path');
-const TerserPlugin = require('terser-webpack-plugin');
-const Repack = require('@callstack/repack');
+const TerserPlugin = require('../../../node_modules/terser-webpack-plugin');
+const Repack = require('../../../node_modules/@callstack/repack');
 const config = require('../../../app.json');
 const {dependencies} = require('../../../package.json');
 
@@ -120,7 +120,7 @@ module.exports = env => {
      */
     output: {
       clean: true,
-      path: path.join(__dirname, 'build', platform),
+      path: path.join(__dirname, '..', '..', '..', 'build', platform),
       filename: dev
         ? 'index.bundle'
         : platform === 'android'
@@ -281,7 +281,7 @@ module.exports = env => {
           {
             include: new RegExp('.*'),
             type: 'remote',
-            outputPath: path.join(__dirname, 'dist', config.name, platform),
+            outputPath: path.join(__dirname, '..', '..', '..', 'dist', config.name, platform),
           },
         ],
         listenerIP: config.remoteIP,
