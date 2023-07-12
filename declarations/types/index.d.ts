@@ -1,4 +1,5 @@
 import { League, Roster, User, MatchupLeg, LeagueTransaction, Draft, DraftPick, RosterDraftPick, Player, Topic } from './shared/graphql.d';
+import type { ToastConfig as ToastConfigOriginal } from './utils/toast_helper';
 export type NavigationTabId = 'LeaguesIndexScreen' | 'LeaguesDetailScreen' | 'ScoreIndexScreen' | 'ScoreDetailScreen' | 'PicksIndexScreen' | 'FeedIndexScreen' | 'WebviewScreen' | 'ManageChannelsScreen' | 'InboxIndexScreen' | 'MinisIndexScreen' | 'ManageChannelsScreen' | 'InboxIndexScreen' | 'MinisIndexScreen';
 export * from './shared/graphql.d';
 export type LeagueId = string;
@@ -77,3 +78,6 @@ export type Location = {
     hasPermission: 'pending' | 'yes' | 'no';
 };
 export type VersionMap = Record<string, Mini>;
+export type ToastConfig = Omit<ToastConfigOriginal, 'icon'> & {
+    icon?: 'success' | 'error';
+};

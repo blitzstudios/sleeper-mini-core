@@ -33,37 +33,43 @@
     "registry": "https://registry.npmjs.org/",
     "access": "public"
   },
-  "peerDependencies": {
+  "dependencies": {
     "@callstack/repack": "blitzstudios/repack.git#callstack-repack-v2.6.3-gitpkg",
+    "@callstack/repack-dev-server": "blitzstudios/repack.git#callstack-repack-dev-server-v1.0.7-gitpkg",
+    "@react-native-community/cli": "6.4.0",
+    "@react-native-community/cli-types": "6.0.0",
     "@react-native-community/netinfo": "9.3.7",
     "axios": "0.15.3",
-    "lodash": "4.17.21",
+    "babel-loader": "^8.2.5",
+    "react-native-fast-image": "8.5.11",
+    "react-native-interactable": "0.1.10",
+    "react-native-linear-gradient": "2.5.6",
+    "react-native-rename": "^3.2.12",
+    "react-refresh": "0.8.3",
+    "react-test-renderer": "17.0.2",
+    "terser-webpack-plugin": "^5.3.3",
+    "webpack": "^5.73.0"
+  },
+  "peerDependencies": {
     "react": "17.0.2",
     "react-native": "0.66.5",
-    "react-native-linear-gradient": "2.5.6",
-    "react-native-rename": "3.2.12",
-    "react-native-svg": "13.7.0",
-    "react-native-tcp-socket": "6.0.6",
-    "react-native-webview": "11.23.1"
+    "react-native-svg": "13.7.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
     "@babel/preset-typescript": "^7.16.7",
     "@babel/runtime": "^7.12.5",
     "@react-native-community/eslint-config": "^2.0.0",
-    "@types/lodash": "^4.14.182",
-    "@types/react-native": "0.66.5",
+    "@types/react-native": "0.67.7",
     "@typescript-eslint/eslint-plugin": "^5.31.0",
     "@typescript-eslint/parser": "^5.31.0",
     "babel-jest": "^26.6.3",
-    "babel-loader": "^8.2.5",
     "eslint": "7.14.0",
     "jest": "^26.6.3",
+    "lodash": "4.17.21",
     "metro-react-native-babel-preset": "^0.66.2",
-    "react-test-renderer": "17.0.2",
-    "terser-webpack-plugin": "^5.3.3",
-    "typescript": "^4.7.2",
-    "webpack": "^5.73.0"
+    "react-native-tcp-socket": "6.0.6",
+    "typescript": "^4.7.2"
   },
   "resolutions": {
     "react-devtools-core": "~4.25.0",

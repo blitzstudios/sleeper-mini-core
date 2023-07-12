@@ -47,7 +47,8 @@ const getCommands = (projectName) => {
     --bundle-output "${bundleOutputPath[platform]}" \
     --sourcemap-output "${sourcemapOutputPath[platform]}" \
     --minify false \
-    --assets-dest "${assetsDestPath[platform]}"`;
+    --assets-dest "${assetsDestPath[platform]}" \
+    --webpackConfig ./node_modules/@sleeperhq/mini-core/webpack.config.js`;
   };
   
   // Exposed
