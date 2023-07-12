@@ -903,17 +903,17 @@
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
-"@callstack/repack-debugger-app@^1.0.0":
+"@callstack/repack-debugger-app@1.0.2":
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/@callstack/repack-debugger-app/-/repack-debugger-app-1.0.2.tgz#89d09dc7ccc39ccfac262fcce416cfea7be17a06"
   integrity sha512-/r1CKfzsbinc8C6z+G9E5L4pPEs+fzzWw6pjTenBTRlBJaK3QTmPtPJdMCFDvJQ4ypSuvqUGG3GTzpemyO2VmA==
 
-"@callstack/repack-dev-server@blitzstudios/repack.git#callstack-repack-dev-server-v1.0.6-gitpkg":
-  version "1.0.6"
-  resolved "https://codeload.github.com/blitzstudios/repack/tar.gz/c444282daecf6a28494c47d7519d7af06e7d6ce0"
+"@callstack/repack-dev-server@blitzstudios/repack.git#callstack-repack-dev-server-v1.0.7-gitpkg":
+  version "1.0.7"
+  resolved "https://codeload.github.com/blitzstudios/repack/tar.gz/b96dbf64c04c0d5061674573875b0ec14cd225cc"
   dependencies:
     "@babel/code-frame" "^7.16.7"
-    "@callstack/repack-debugger-app" "^1.0.0"
+    "@callstack/repack-debugger-app" "1.0.2"
     "@fastify/sensible" "^4.1.0"
     "@fastify/static" "^5.0.2"
     fastify "^3.29.0"

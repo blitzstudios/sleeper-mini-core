@@ -35,7 +35,7 @@
   },
   "dependencies": {
     "@callstack/repack": "blitzstudios/repack.git#callstack-repack-v2.6.3-gitpkg",
-    "@callstack/repack-dev-server": "blitzstudios/repack.git#callstack-repack-dev-server-v1.0.6-gitpkg",
+    "@callstack/repack-dev-server": "blitzstudios/repack.git#callstack-repack-dev-server-v1.0.7-gitpkg",
     "@react-native-community/cli": "6.4.0",
     "@react-native-community/cli-types": "6.0.0",
     "@react-native-community/netinfo": "9.3.7",
