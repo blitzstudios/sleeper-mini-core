@@ -31,8 +31,8 @@ const sampleClassPathLocal = `./src/${samples[selectedSample]}`
 module.exports = env => {
   const {
     mode = 'development',
-    context = __dirname,
-    entry = './index.tsx',
+    context = path.resolve(__dirname, '..', '..', '..'),
+    entry = './node_modules/@sleeperhq/mini-core/start.tsx',
     platform,
     minimize = mode === 'production',
     devServer = undefined,
@@ -109,6 +109,7 @@ module.exports = env => {
       // },
       alias: {
         app: path.resolve(__dirname, sampleClassPath),
+        root: path.resolve(__dirname, '..', '..', '..'),
       },
     },
     /**
