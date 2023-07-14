@@ -40,7 +40,7 @@ const getCommands = (projectName) => {
 
   const getBundleCommand = (platform) => {
     return `node "${reactNativeCliPath}" webpack-bundle \
-    --entry-file index.tsx \
+    --entry-file ./node_modules/@sleeperhq/mini-core/start.tsx \
     --platform ${platform} \
     --dev false \
     --reset-cache \
