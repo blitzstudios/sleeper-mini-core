@@ -4,11 +4,6 @@ const Repack = require('../../../node_modules/@callstack/repack');
 const config = require('../../../app.json');
 const {dependencies} = require('../../../package.json');
 
-const sharedDeps = Object.keys(dependencies).reduce((acc, key) => {
-  acc[key] = {singleton: true, eager: true, requiredVersion: dependencies[key]};
-  return acc;
-}, {});
-
 const {samples, selectedSample} = config;
 const sampleClassPath = `../../../src/${samples[selectedSample]}`;
 const sampleClassPathLocal = `./src/${samples[selectedSample]}`
@@ -47,6 +42,11 @@ module.exports = env => {
   }
 
   const dev = mode === 'development';
+
+  const sharedDeps = Object.keys(dependencies).reduce((acc, key) => {
+    acc[key] = {singleton: true, eager: dev, requiredVersion: dependencies[key]};
+    return acc;
+  }, {});
 
   /**
    * Using Module Federation might require disabling hmr.

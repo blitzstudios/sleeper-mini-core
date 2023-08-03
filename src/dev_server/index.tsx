@@ -2,7 +2,7 @@ import React, {useEffect, useRef, useState} from 'react';
 import {Platform} from 'react-native';
 import {Config, SocketMessage} from '../types';
 import { ScriptLocatorResolver, ScriptManager, Federated } from '@callstack/repack/client';
-import NetInfo from '@react-native-community/netinfo';
+import NetInfo, { NetInfoState } from '@react-native-community/netinfo';
 import TcpSocket from 'react-native-tcp-socket';
 import { fetchMainVersionMap, getMainUrl } from './url_resolver';
 
@@ -179,8 +179,10 @@ const DevServer = props => {
   }
 
   const startSocket = async () => {
-    const netInfo = await NetInfo.fetch();
+    const netInfo: NetInfoState = await NetInfo.fetch();
+
     const netInfoDetails = netInfo?.details;
+    // @ts-ignore
     const ipAddress = netInfoDetails?.ipAddress;
 
     if (!netInfoDetails || !('ipAddress' in netInfoDetails)) {
