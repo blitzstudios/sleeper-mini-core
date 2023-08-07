@@ -212,8 +212,8 @@ module.exports = env => {
               /** Add React Refresh transform only when HMR is enabled. */
               plugins:
                 devServer && devServer.hmr
-                  ? ['module:react-refresh/babel']
-                  : undefined,
+                  ? ['@babel/plugin-transform-runtime', 'module:react-refresh/babel']
+                  : ['@babel/plugin-transform-runtime'],
               babelrc: false,
               comments: true, // necessary for named chunks
               cacheDirectory: true,
