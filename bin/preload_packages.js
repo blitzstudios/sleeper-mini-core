@@ -26,6 +26,11 @@ const main = async () => {
   // Get the dependencies
   const dependencies = packageJson.dependencies;
 
+  // Remove packages that cause conflicts
+  delete dependencies['@babel/runtime'];
+  delete dependencies['@babel/plugin-transform-runtime'];
+  delete dependencies['regenerator-runtime'];
+
   // Write a ./package_list.js file that imports all dependencies
   const packageListPath = path.join('package_list.js');
   const packageList = Object.keys(dependencies).map(
