@@ -98,11 +98,13 @@ const DevServer = props => {
 
         if (messageType.current === 'context') {
           // We should have a context object now
-          const context = new Proxy(json, handler);
-          props.onContextChanged(context);
+          const context = new Proxy(json._context, handler);
+          props.onContextChanged(context, json._entitlements);
         } else if (messageType.current === `partialContext`) {
           // We are updating a partial Context
-          props.onContextUpdated(json)
+          props.onContextUpdated(json._context);
+        } else if (messageType.current === 'entitlements') {
+          props.onEntitlementsUpdated(json._entitlements);
         }
 
         messageType.current = '';
@@ -196,10 +198,12 @@ const DevServer = props => {
       localAddress: ipAddress,
       reuseAddress: true,
     }, () => {
-      // When we establish a connection, send the IP address to the server
+      // When we establish a connection, send some data to the server
       const message: SocketMessage = { 
         _ip: ipAddress, 
-        _name: config.name, 
+        _name: config.name,
+        _entitlements: config.entitlements,
+        _headerOptions: config.headerOptions,
       };
       const json = JSON.stringify(message);
       console.log('[Sleeper] Send IP address: ', ipAddress, config.name);
