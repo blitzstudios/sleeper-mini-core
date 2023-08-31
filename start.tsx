@@ -18,21 +18,31 @@ DevServer.init(config);
 const Root = () => {
   const [context, setContext] = useState<Types.Context>({} as Types.Context);
   const [connected, setConnected] = useState<boolean>(false);
+  const [entitlements, setEntitlements] = useState<Types.Entitlements>({} as Types.Entitlements);
   const [, updateState] = React.useState<any>();
   const forceUpdate = React.useCallback(() => updateState({}), []);
 
-  const _onContextChanged = useCallback((data: Types.Context) => {
-    setContext(data);
+  const _onContextChanged = useCallback((context: Types.Context, entitlements: Types.Entitlements) => {
+    setContext(context);
+    setEntitlements(entitlements);
   }, []);
 
   const _onContextUpdated = useCallback(
-    (data: any) => {
+    (context: any) => {
       setContext(existing => {
-        for (const key in data) {
-          existing[key] = data[key];
+        for (const key in context) {
+          existing[key] = context[key];
         }
         return existing;
       });
+      forceUpdate();
+    },
+    [forceUpdate],
+  );
+
+  const _onEntitlementsUpdated = useCallback(
+    (entitlements: any) => {
+      setEntitlements(entitlements);
       forceUpdate();
     },
     [forceUpdate],
@@ -59,9 +69,10 @@ const Root = () => {
       <DevServer
         onContextChanged={_onContextChanged}
         onContextUpdated={_onContextUpdated}
+        onEntitlementsUpdated={_onEntitlementsUpdated}
         onConnected={_onConnected}
       />
-      {connected && <Project context={context} />}
+      {connected && <Project context={context} entitlements={entitlements} />}
       {!connected && _renderWaitingForConnection()}
     </SafeAreaView>
   );
