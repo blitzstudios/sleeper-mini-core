@@ -32,7 +32,7 @@ const getCommands = (projectName) => {
   const zip = isWindows ?
     `powershell Compress-Archive -Path "${distPath}" -DestinationPath "${zipFilePath}"` :
     `cd dist && zip -r "${projectName}.zip" * && cd -`;
-  const openFile = isWindows ? `start .` : `open .`;
+  const openFile = isWindows ? `start dist` : `open dist`;
   const cleanIndex = `${removeDir} "${bundleOutputPath["ios"]}" "${bundleOutputPath["android"]}" "${sourcemapOutputPath["ios"]}" "${sourcemapOutputPath["android"]}"`;
   const cleanAll = `${removeDir} dist node_modules`;
   const cleanBuild = `${removeDir} "${distPath}" "${assetsDestPath["ios"]}" "${assetsDestPath["android"]}"`;
@@ -139,7 +139,7 @@ const validateProjectName = (name) => {
 const main = async () => {
   // Enter project name.
   const fallback = getProjectName();
-  const projectName = await getInput("Enter project name: ", fallback);
+  const projectName = await getInput("Enter project name (return to skip): ", fallback);
   if (!validateProjectName(projectName)) {
     printError("Invalid project name. Only alphanumeric characters and underscores are allowed.");
     process.exit(1);
@@ -167,6 +167,9 @@ const main = async () => {
   printInfo("Building Android...");
   await spawnProcess(commands.bundleAndroid, "webpack-bundle android command exited with non-zero code");
   printComplete("Android build complete.");
+
+  // Copy the app.json file to the dist folder
+  fs.copyFileSync('app.json', path.join('dist', projectName, 'app.json'));
 
   // Create Zip Archive
   printInfo("Creating zip archive...");
