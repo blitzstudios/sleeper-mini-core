@@ -1,49 +1,24 @@
 const SHARED = {
-  INTER_EXTRALIGHT: 'Inter-ExtraLight',
-  INTER_THIN: 'Inter-Thin',
-  INTER_LIGHT: 'Inter-Light',
   INTER_REGULAR: 'Inter-Regular',
   INTER_MEDIUM: 'Inter-Medium',
   INTER_SEMIBOLD: 'Inter-SemiBold',
   INTER_BOLD: 'Inter-Bold',
   INTER_BLACK: 'Inter-Black',
-  INTER_EXTRABOLD: 'Inter-ExtraBold',
 
-  POPPINS_THIN: 'Poppins-Thin',
-  POPPINS_LIGHT: 'Poppins-Light',
   POPPINS_REGULAR: 'Poppins-Regular',
   POPPINS_MEDIUM: 'Poppins-Medium',
   POPPINS_SEMIBOLD: 'Poppins-SemiBold',
   POPPINS_BOLD: 'Poppins-Bold',
   POPPINS_BLACK: 'Poppins-Black',
   POPPINS_EXTRABOLD: 'Poppins-ExtraBold',
+
+  OSWALD_MEDIUM: 'Oswald-Medium',
+  OSWALD_BOLD: 'Oswald-Bold',
 } as const;
 
-const Fonts = {
-  THIN: 'Lato-Thin',
-  LIGHT: 'Lato-Light',
-  REGULAR: 'Lato-Regular',
-  MEDIUM: 'Lato-Medium',
-  BOLD: 'Lato-Bold',
-  HEAVY: 'Lato-Heavy',
-  BLACK: 'Lato-Black',
-
-  MULI_THIN: 'Muli-ExtraLight',
-  MULI_LIGHT: 'Muli-Light',
-  MULI_REGULAR: 'Muli-Regular',
-  MULI_MEDIUM: 'Muli-SemiBold',
-  MULI_BOLD: 'Muli-Bold',
-  MULI_BLACK: 'Muli-Black',
-  MULI_EXTRABOLD: 'Muli-ExtraBold',
-
-  OSWALD__EXTRA_LIGHT: 'Oswald-ExtraLight',
-  OSWALD_LIGHT: 'Oswald-Light',
-  OSWALD_REGULAR: 'Oswald-Regular',
-  OSWALD_MEDIUM: 'Oswald-Medium',
-  OSWALD_SEMIBOLD: 'Oswald-SemiBold',
-  OSWALD_BOLD: 'Oswald-Bold',
-
+export const Fonts = {
   DRUK_SUPERITALIC: 'Druk-SuperItalic',
+  DRUK_REGULAR: 'Druk-Medium',
   CHANEY_EXTENDED: 'Chaney-Extended',
 
   ...SHARED,
@@ -81,6 +56,11 @@ const Fonts = {
     ButtonLarge: {
       fontFamily: SHARED.POPPINS_SEMIBOLD,
       fontSize: 14,
+      letterSpacing: 1,
+    },
+    ButtonXLarge: {
+      fontFamily: SHARED.POPPINS_SEMIBOLD,
+      fontSize: 16,
       letterSpacing: 1,
     },
     ButtonSmall: {
@@ -145,6 +125,11 @@ const Fonts = {
     },
     Footnote: {
       fontFamily: SHARED.INTER_REGULAR,
+      fontSize: 9,
+      letterSpacing: -0.25,
+    },
+    FootnoteBold: {
+      fontFamily: SHARED.INTER_BOLD,
       fontSize: 9,
       letterSpacing: -0.25,
     },
