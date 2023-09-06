@@ -16,7 +16,7 @@ const SHARED = {
   OSWALD_BOLD: 'Oswald-Bold',
 } as const;
 
-export const Fonts = {
+const Fonts = {
   DRUK_SUPERITALIC: 'Druk-SuperItalic',
   DRUK_REGULAR: 'Druk-Medium',
   CHANEY_EXTENDED: 'Chaney-Extended',
