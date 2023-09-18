@@ -1,12 +1,11 @@
-import type SleeperEntitlement from "@sleeperhq/mini-core/declarations/sleeper_entitlement";
-import type SleeperHeaderOptions from "@sleeperhq/mini-core/declarations/sleeper_header_options";
-
+import type { Entitlement, HeaderOptions } from './types';
 type SocketMessage = {
     _ip?: string;
     _name?: string;
     _webpack?: string;
     _contextGet?: string;
-    _entitlements?: SleeperEntitlement[];
-    _headerOptions?: SleeperHeaderOptions;
+    _description?: string;
+    _entitlements?: Entitlement[];
+    _headerOptions?: HeaderOptions;
 };
 export default SocketMessage;

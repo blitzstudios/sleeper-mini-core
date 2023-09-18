@@ -1,6 +1,6 @@
-import { NavigationTabId, ToastConfig } from './types';
+import { NavigationParams, NavigationScreen, ToastConfig } from './types';
 export type SleeperActions = {
-    navigate: (navTabType: NavigationTabId, args?: any) => void;
+    navigate: <T extends NavigationScreen>(screen: T, params: NavigationParams[T]) => void;
     requestLocation: () => void;
     showToast: (toastData: ToastConfig) => void;
 };
