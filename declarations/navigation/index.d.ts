@@ -1,3 +1,4 @@
+import type { LeagueId, PlayerId, RosterId, TransactionId } from '..';
 export type NavigationParams = {
     LeaguesIndexScreen: undefined;
     LeaguesDetailScreen: LeaguesDetailScreenParams;
@@ -14,16 +15,16 @@ export type NavigationParams = {
 };
 export type NavigationScreen = keyof NavigationParams;
 export type LeaguesDetailScreenParams = {
-    leagueId: string;
+    leagueId: LeagueId;
 };
 export type TradeCenterTransactionScreenParams = {
-    leagueId: string;
-    transactionId: string;
+    leagueId: LeagueId;
+    transactionId: TransactionId;
 };
 export type TradeCenterPlayersScreenParams = {
-    leagueId: string;
-    myRosterId: string;
-    rosterIds?: string[];
-    addMap?: any;
-    dropMap?: any;
+    leagueId: LeagueId;
+    myRosterId: RosterId;
+    rosterIds?: RosterId[];
+    addMap?: Record<RosterId, PlayerId[]>;
+    dropMap?: Record<RosterId, PlayerId[]>;
 };
