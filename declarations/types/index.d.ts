@@ -1,7 +1,7 @@
 import { League, Roster, User, MatchupLeg, LeagueTransaction, Draft, DraftPick, RosterDraftPick, Player, Topic } from './shared/graphql.d';
 import type { ToastConfig as ToastConfigOriginal } from './utils/toast_helper';
-export type NavigationTabId = 'LeaguesIndexScreen' | 'LeaguesDetailScreen' | 'ScoreIndexScreen' | 'ScoreDetailScreen' | 'PicksIndexScreen' | 'FeedIndexScreen' | 'WebviewScreen' | 'ManageChannelsScreen' | 'InboxIndexScreen' | 'MinisIndexScreen' | 'ManageChannelsScreen' | 'InboxIndexScreen' | 'MinisIndexScreen';
 export * from './shared/graphql.d';
+export * from '../navigation/index.d';
 export type LeagueId = string;
 export type RosterId = string;
 export type UserId = string;
@@ -59,18 +59,26 @@ export type DraftPickTradesInLeagueMap = Record<LeagueId, RosterDraftPick[]>;
 export type DraftPicksInDraftMap = Record<DraftId, DraftPick[]>;
 export type PlayersMap = Record<PlayerId, Player>;
 export type PlayersInSportMap = Record<SportType, PlayersMap>;
-export declare enum MiniCategory {
-    DEVELOPER = "Developer",
-    FEATURED = "Featured",
-    GAMES = "Games",
-    SPORTUTILITY = "Sport Utility"
+export type Entitlement = 'user:email' | 'user:phone' | 'wallet:date_of_birth' | 'wallet:first_name' | 'wallet:last_name' | 'wallet:country_code' | 'wallet:city' | 'location:longitude' | 'location:latitude' | 'location:state' | 'location:country' | 'location:postalCode';
+export declare const EntitlementDisplayText: Record<Entitlement, string>;
+export declare enum EventHandlerResult {
+    CONSUMED = "CONSUMED",
+    PROPAGATE = "PROPAGATE"
 }
+export type Events = {
+    onBackButtonPressed?: () => EventHandlerResult;
+};
+export type HeaderOptions = {
+    useLeagueSelector?: boolean;
+};
 export type Mini = {
     name: string;
     description: string;
-    image: string;
-    category: MiniCategory;
     id: string;
+    version?: number;
+    email?: string;
+    entitlements?: Entitlement[];
+    headerOptions?: HeaderOptions;
 };
 export type Location = {
     state: string;
