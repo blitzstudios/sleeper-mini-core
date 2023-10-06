@@ -59,14 +59,21 @@ export type DraftPickTradesInLeagueMap = Record<LeagueId, RosterDraftPick[]>;
 export type DraftPicksInDraftMap = Record<DraftId, DraftPick[]>;
 export type PlayersMap = Record<PlayerId, Player>;
 export type PlayersInSportMap = Record<SportType, PlayersMap>;
-export type Entitlement = 'user:email' | 'user:phone' | 'wallet:date_of_birth' | 'wallet:first_name' | 'wallet:last_name' | 'wallet:country_code' | 'wallet:city' | 'location:longitude' | 'location:latitude' | 'location:state' | 'location:country' | 'location:postalCode';
+export type Entitlement = 'user:email' | 'user:phone' | 'wallet:date_of_birth' | 'wallet:first_name' | 'wallet:last_name' | 'wallet:country_code' | 'wallet:city' | 'location:longitude' | 'location:latitude' | 'location:state' | 'location:country' | 'location:postalCode' | 'action:push_notification';
+export type Entitlements = Partial<Record<Entitlement, any>>;
 export declare const EntitlementDisplayText: Record<Entitlement, string>;
-export declare enum EventHandlerResult {
-    CONSUMED = "CONSUMED",
-    PROPAGATE = "PROPAGATE"
-}
+export type Notification = {
+    title?: string | undefined;
+    body?: string | undefined;
+    timestamp?: number;
+};
+export declare const EventHandlerResult: {
+    readonly CONSUMED: "CONSUMED";
+    readonly PROPAGATE: "PROPAGATE";
+};
+export type EventHandlerResultType = typeof EventHandlerResult[keyof typeof EventHandlerResult];
 export type Events = {
-    onBackButtonPressed?: () => EventHandlerResult;
+    onBackButtonPressed?: () => EventHandlerResultType;
 };
 export type HeaderOptions = {
     useLeagueSelector?: boolean;
