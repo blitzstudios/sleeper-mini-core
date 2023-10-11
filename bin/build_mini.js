@@ -46,7 +46,7 @@ const getCommands = (projectName) => {
     --reset-cache \
     --bundle-output "${bundleOutputPath[platform]}" \
     --sourcemap-output "${sourcemapOutputPath[platform]}" \
-    --minify false \
+    --minify true \
     --assets-dest "${assetsDestPath[platform]}" \
     --webpackConfig ./node_modules/@sleeperhq/mini-core/webpack.config.js`;
   };
