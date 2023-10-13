@@ -1,4 +1,4 @@
-import type { Entitlement, HeaderOptions } from './types';
+import type { Entitlement, HeaderOptions, SportType } from './types';
 type SocketMessage = {
     _ip?: string;
     _name?: string;
@@ -7,5 +7,6 @@ type SocketMessage = {
     _description?: string;
     _entitlements?: Entitlement[];
     _headerOptions?: HeaderOptions;
+    _sports?: SportType[];
 };
 export default SocketMessage;

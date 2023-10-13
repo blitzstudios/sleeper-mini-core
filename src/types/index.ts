@@ -1,4 +1,4 @@
-import type { HeaderOptions, Entitlement } from '../../declarations/types';
+import type { HeaderOptions, Entitlement, SportType } from '../../declarations/types';
 
 export * from '../../declarations/types/index.d';
 export type { default as Context } from '../../declarations/sleeper_context.d';
@@ -14,4 +14,5 @@ export type Config = {
   logsEnabled?: boolean,
   entitlements?: Entitlement[],
   headerOptions?: HeaderOptions,
+  sports?: SportType[],
 };

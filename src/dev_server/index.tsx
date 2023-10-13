@@ -204,6 +204,7 @@ const DevServer = props => {
         _name: config.name,
         _entitlements: config.entitlements,
         _headerOptions: config.headerOptions,
+        _sports: config.sports,
       };
       const json = JSON.stringify(message);
       console.log('[Sleeper] Send IP address: ', ipAddress, config.name);

@@ -86,6 +86,7 @@ export type Mini = {
     email?: string;
     entitlements?: Entitlement[];
     headerOptions?: HeaderOptions;
+    sports?: SportType[];
 };
 export type Location = {
     state: string;
