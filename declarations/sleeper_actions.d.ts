@@ -1,4 +1,4 @@
-import { NavigationParams, NavigationScreen, ToastConfig, Notification } from './types';
+import { NavigationParams, NavigationScreen, ToastConfig, Notification } from '@sleeperhq/mini-core/declarations/types';
 export type SleeperActions = {
     navigate?: <T extends NavigationScreen>(screen: T, params?: NavigationParams[T]) => void;
     requestLocation?: () => void;

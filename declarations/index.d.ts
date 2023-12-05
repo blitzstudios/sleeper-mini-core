@@ -1,4 +1,3 @@
-export * from './types';
-export * from './sleeper_message';
-declare const _default: any;
+/// <reference types="react" />
+declare const _default: (props: any) => JSX.Element;
 export default _default;
