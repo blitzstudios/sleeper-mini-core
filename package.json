@@ -66,7 +66,7 @@
     "@typescript-eslint/eslint-plugin": "^5.31.0",
     "@typescript-eslint/parser": "^5.31.0",
     "babel-jest": "^26.6.3",
-    "eslint": "7.14.0",
+    "eslint": "8.38.0",
     "jest": "^26.6.3",
     "lodash": "4.17.21",
     "metro-react-native-babel-preset": "^0.66.2",
