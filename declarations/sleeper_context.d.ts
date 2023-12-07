@@ -1,11 +1,13 @@
-import { User, League, LeaguesMap, RostersInLeagueMap, UserMap, MatchupsInLeagueMap, UsersInLeagueMap, PlayoffsInLeagueMap, TransactionsInLeagueMap, TransactionsMap, SportInfoMap, DraftsInLeagueMap, DraftPickTradesInLeagueMap, DraftPicksInDraftMap, PlayersInSportMap, Topic, Location } from './types';
-import type { SleeperActions } from './sleeper_actions';
+import { User, League, LeaguesMap, RostersInLeagueMap, UserMap, MatchupsInLeagueMap, UsersInLeagueMap, PlayoffsInLeagueMap, TransactionsInLeagueMap, TransactionsMap, SportInfoMap, DraftsInLeagueMap, DraftPickTradesInLeagueMap, DraftPicksInDraftMap, PlayersInSportMap, Topic, Location, SportType } from '@sleeperhq/mini-core/declarations/types';
+import type { SleeperActions } from '@sleeperhq/mini-core/declarations/sleeper_actions';
 declare class SleeperContext {
     static apiLevel: string;
     user: User;
     league: League;
     leaguesMap: LeaguesMap;
+    leaguesMapBySport: Record<SportType, LeaguesMap>;
     userLeagueList: string[];
+    userLeagueListBySport: Record<SportType, string[]>;
     rostersInLeagueMap: RostersInLeagueMap;
     userMap: UserMap;
     matchupsInLeagueMap: MatchupsInLeagueMap;

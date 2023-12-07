@@ -1,4 +1,4 @@
-import type { LeagueId, PlayerId, RosterId, SportType, TransactionId } from '..';
+import type { LeagueId, PlayerId, RosterId, SportType, TransactionId } from '@sleeperhq/mini-core/declarations/types';
 export type NavigationParams = {
     LeaguesIndexScreen: undefined;
     LeaguesDetailScreen: LeaguesDetailScreenParams;
