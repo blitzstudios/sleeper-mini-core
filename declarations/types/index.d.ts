@@ -1,4 +1,5 @@
 import type { ToastConfig as ToastConfigOriginal } from '@sleeperhq/mini-core/declarations/types/utils/toast_helper.d';
+import { SportType } from '@sleeperhq/mini-core/declarations/types/minis/index.d';
 export * from '@sleeperhq/mini-core/declarations/navigation/index.d';
 export * from '@sleeperhq/mini-core/declarations/types/shared/graphql.d';
 export * from '@sleeperhq/mini-core/declarations/types/minis/index.d';
@@ -8,6 +9,9 @@ export declare const EntitlementDisplayText: Record<Entitlement, string>;
 export type HeaderOptions = {
     useLeagueSelector?: boolean;
 };
+export type Metadata = {
+    sports?: SportType[];
+};
 export type Mini = {
     name: string;
     description: string;
@@ -16,6 +20,7 @@ export type Mini = {
     email?: string;
     entitlements?: Entitlement[];
     headerOptions?: HeaderOptions;
+    metadata?: Metadata;
 };
 export type Location = {
     state: string;
