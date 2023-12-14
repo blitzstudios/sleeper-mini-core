@@ -46,7 +46,7 @@ const getCommands = (projectName) => {
     --reset-cache \
     --bundle-output "${bundleOutputPath[platform]}" \
     --sourcemap-output "${sourcemapOutputPath[platform]}" \
-    --minify false \
+    --minify true \
     --assets-dest "${assetsDestPath[platform]}" \
     --webpackConfig ./node_modules/@sleeperhq/mini-core/webpack.config.js`;
   };
@@ -69,7 +69,7 @@ const spawnProcess = (command, errorMessage) => {
   return new Promise((resolve) => {
     const child = isWindows
       ? spawn('cmd.exe', ['/c', command])
-      : spawn(command, { shell: true });
+      : spawn(command, { env: process.env, shell: process.env.SHELL || true });
 
     child.stdout.on('data', (data) => {
       process.stdout.write(data); // output the data to the console
@@ -152,11 +152,14 @@ const main = async () => {
 
   const commands = getCommands(projectName);
 
-  // Clean build folders
-  await spawnProcess(commands.cleanAll, "clean command exited with non-zero code");
-
-  // Run yarn + pod install
-  await spawnProcess(commands.install, "clean command exited with non-zero code");
+  const shouldClean = await getInput("Clean and rebuild project? (y/n): ", 'y');
+  if (shouldClean === 'y') {
+    // Clean build folders
+    await spawnProcess(commands.cleanAll, "clean command exited with non-zero code");
+  
+    // Run yarn + pod install
+    await spawnProcess(commands.install, "install command exited with non-zero code");
+  }
 
   // Build iOS
   printInfo("Building iOS...");
@@ -173,12 +176,12 @@ const main = async () => {
 
   // Create Zip Archive
   printInfo("Creating zip archive...");
-  await spawnProcess(commands.cleanIndex, "clean command exited with non-zero code");
+  await spawnProcess(commands.cleanIndex, "clean index command exited with non-zero code");
   await spawnProcess(commands.zip, "zip command exited with non-zero code");
   printComplete(`Zip archive created successfully at ${commands.zipFilePath}`);
 
   // Clean build folders
-  await spawnProcess(commands.cleanBuild, "clean command exited with non-zero code");
+  await spawnProcess(commands.cleanBuild, "clean build command exited with non-zero code");
 
   // Open output folder
   await spawnProcess(commands.openFile);

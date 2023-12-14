@@ -303,6 +303,12 @@ module.exports = env => {
           // split off into a seperate chunk, and named chunks will break (assume that's a bug that we can fix).
         },
       }),
+
+      // new Repack.plugins.ChunksToHermesBytecodePlugin({
+      //   enabled: !dev,
+      //   test: /\.(js)?bundle$/,
+      //   exclude: /index\.bundle$/,
+      // }),
     ],
   };
 };
