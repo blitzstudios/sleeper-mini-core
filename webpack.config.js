@@ -185,7 +185,7 @@ module.exports = env => {
             options: {
               presets: [
                 'module:metro-react-native-babel-preset',
-                '@babel/preset-typescript',
+                ['@babel/preset-typescript', { allowDeclareFields: true }],
               ],
               babelrc: false,
               cacheDirectory: true,
@@ -206,7 +206,7 @@ module.exports = env => {
             options: {
               presets: [
                 'module:metro-react-native-babel-preset',
-                '@babel/preset-typescript',
+                ['@babel/preset-typescript', { allowDeclareFields: true }],
               ],
               // sourceType: "unambiguous",
               /** Add React Refresh transform only when HMR is enabled. */
