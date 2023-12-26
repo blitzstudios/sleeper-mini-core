@@ -112,8 +112,10 @@ const getInput = (message, fallback) => {
       const result = name.trim();
       if (!result) {
         resolve(fallback);
+      } else {
+        resolve(name.trim());
       }
-      resolve(name.trim());
+      interface.close();
     });
   });
 };
