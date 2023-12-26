@@ -1,6 +1,6 @@
 {
   "name": "@sleeperhq/mini-core",
-  "version": "1.7.3",
+  "version": "1.8.4",
   "description": "Core library frameworks for developing Sleeper Mini Apps.",
   "main": "index.ts",
   "types": "index.d.ts",
@@ -36,7 +36,7 @@
   "dependencies": {
     "@babel/runtime": "7.15.4",
     "@babel/plugin-transform-runtime": "7.15.0",
-    "@callstack/repack": "blitzstudios/repack.git#callstack-repack-v2.7.0-gitpkg",
+    "@callstack/repack": "blitzstudios/repack.git#callstack-repack-v3.0.0-gitpkg",
     "@callstack/repack-dev-server": "blitzstudios/repack.git#callstack-repack-dev-server-v1.0.7-gitpkg",
     "@react-native-community/cli": "6.1.0",
     "@react-native-community/cli-types": "6.0.0",
@@ -44,25 +44,26 @@
     "axios": "0.15.3",
     "babel-loader": "9.1.2",
     "react-native-fast-image": "https://github.com/blitzstudios/react-native-fast-image.git#release/1.1",
-    "react-native-interactable": "https://github.com/blitzstudios/react-native-interactable",
+    "react-native-interactable": "https://github.com/blitzstudios/react-native-interactable#release/1.1",
     "react-native-linear-gradient": "2.5.6",
     "react-native-rename": "^3.2.12",
     "react-refresh": "0.14.0",
     "react-test-renderer": "17.0.2",
-    "regenerator-runtime": "0.13.9",
+    "regenerator-runtime": "0.13.11",
     "terser-webpack-plugin": "5.3.6",
     "webpack": "5.75.0"
   },
   "peerDependencies": {
-    "react": "17.0.2",
-    "react-native": "0.66.5",
+    "react": "18.2.0",
+    "react-native": "0.72.7",
     "react-native-svg": "13.7.0"
   },
   "devDependencies": {
     "@babel/core": "7.15.8",
     "@babel/preset-typescript": "7.21.4",
     "@react-native-community/eslint-config": "^2.0.0",
-    "@types/react-native": "0.67.7",
+    "@types/react": "18.2.31",
+    "@types/react-native": "0.72.7",
     "@typescript-eslint/eslint-plugin": "^5.31.0",
     "@typescript-eslint/parser": "^5.31.0",
     "babel-jest": "^26.6.3",
@@ -74,8 +75,7 @@
     "typescript": "5.0.4"
   },
   "resolutions": {
-    "react-devtools-core": "4.23.0",
-    "@pmmmwh/react-refresh-webpack-plugin": "0.5.10"
+    "react-devtools-core": "4.23.0"
   },
   "jest": {
     "preset": "react-native"
