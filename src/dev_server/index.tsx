@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {Platform} from 'react-native';
+import {Platform, NativeModules} from 'react-native';
 import {Config, SocketMessage} from '../types';
-import { ScriptLocatorResolver, ScriptManager, Federated } from '@callstack/repack/client';
+import { ScriptLocatorResolver, ScriptManager } from '@callstack/repack/client';
 import NetInfo, { NetInfoState } from '@react-native-community/netinfo';
 import TcpSocket from 'react-native-tcp-socket';
 import { fetchMainVersionMap, getMainUrl } from './url_resolver';
@@ -187,6 +187,10 @@ const DevServer = props => {
     // @ts-ignore
     const ipAddress = netInfoDetails?.ipAddress;
 
+    const scriptURL = NativeModules.SourceCode.scriptURL;
+    const address = scriptURL.split('://')[1].split('/')[0];
+    const packagerIP = address.split(':')[0];
+
     if (!netInfoDetails || !('ipAddress' in netInfoDetails)) {
       console.error('[Sleeper] Failed to determine local IP address.');
       return stopSocket();
@@ -200,7 +204,7 @@ const DevServer = props => {
     }, () => {
       // When we establish a connection, send some data to the server
       const message: SocketMessage = { 
-        _ip: ipAddress, 
+        _ip: packagerIP, 
         _name: config.name,
         _entitlements: config.entitlements,
         _headerOptions: config.headerOptions,
