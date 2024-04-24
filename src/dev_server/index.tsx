@@ -204,7 +204,7 @@ const DevServer = props => {
     }, () => {
       // When we establish a connection, send some data to the server
       const message: SocketMessage = { 
-        _ip: packagerIP, 
+        _ip: packagerIP === 'localhost' ? ipAddress : packagerIP, 
         _name: config.name,
         _entitlements: config.entitlements,
         _headerOptions: config.headerOptions,
