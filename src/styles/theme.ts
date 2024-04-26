@@ -11,11 +11,11 @@ const Theme = {
   secondaryText: '#a3bbd3', // gray300
 
   gray100: '#eef2f7',
-  gray200: '#d8e2ed',
-  gray300: '#a3bbd3',
-  gray400: '#606f8c',
-  gray500: '#4a5870',
-  gray600: '#344054',
+  gray200: '#D8DEED',
+  gray300: '#A3B1D3',
+  gray400: '#60648C',
+  gray500: '#414566',
+  gray600: '#343855',
 
   aqua: '#00baff',
   blue: '#046ae0',
