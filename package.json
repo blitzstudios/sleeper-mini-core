@@ -1,6 +1,6 @@
 {
   "name": "@sleeperhq/mini-core",
-  "version": "1.8.7",
+  "version": "1.8.8",
   "description": "Core library frameworks for developing Sleeper Mini Apps.",
   "main": "index.ts",
   "types": "index.d.ts",
@@ -55,7 +55,7 @@
   },
   "peerDependencies": {
     "react": "18.2.0",
-    "react-native": "0.72.7",
+    "react-native": "0.72.14",
     "react-native-svg": "13.7.0"
   },
   "devDependencies": {
