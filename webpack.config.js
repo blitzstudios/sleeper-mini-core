@@ -184,7 +184,7 @@ module.exports = env => {
             loader: 'babel-loader',
             options: {
               presets: [
-                'module:metro-react-native-babel-preset',
+                'module:@react-native/babel-preset',
                 ['@babel/preset-typescript', { allowDeclareFields: true }],
               ],
               babelrc: false,
@@ -205,7 +205,7 @@ module.exports = env => {
             loader: 'babel-loader',
             options: {
               presets: [
-                'module:metro-react-native-babel-preset',
+                'module:@react-native/babel-preset',
                 ['@babel/preset-typescript', { allowDeclareFields: true }],
               ],
               // sourceType: "unambiguous",

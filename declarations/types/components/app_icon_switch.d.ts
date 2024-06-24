@@ -21,4 +21,4 @@ export type Props = {
     aspectRatio?: number;
     confirmationFunction?: (nextSelection: 'on' | 'off', continueAction: () => void) => void;
 };
-export declare const AppIconSwitch: React.MemoExoticComponent<({ height, options, value, width, onChange, containerStyle, toggleStyle, aspectRatio, confirmationFunction }: Props) => JSX.Element>;
+export declare const AppIconSwitch: React.MemoExoticComponent<({ height, options, value, width, onChange, containerStyle, toggleStyle, aspectRatio, confirmationFunction }: Props) => React.JSX.Element>;

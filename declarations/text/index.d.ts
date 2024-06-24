@@ -1,5 +1,6 @@
-import { PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import { TextProps } from 'react-native';
+
 type Props = {
     color?: string;
     inheritStyles?: boolean;
@@ -8,6 +9,6 @@ type Props = {
 export type AppTextProps = Props;
 export default class AppText extends PureComponent<Props> {
     private getStyles;
-    render(): JSX.Element;
+    render(): React.JSX.Element;
 }
 export {};
