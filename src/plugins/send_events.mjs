@@ -20,7 +20,7 @@ const packagerConnect = async (rootPath) => {
     client.setEncoding('utf8');
     const json = JSON.stringify({
       _webpack: 'packager_connect',
-      _name: appConfig.name ?? 'please_set_name',
+      _name: appConfig.name ?? '',
       _entitlements: appConfig.entitlements,
       _headerOptions: appConfig.headerOptions,
     });
