@@ -202,26 +202,10 @@ const DevServer = props => {
       localAddress: ipAddress,
       reuseAddress: true,
     }, () => {
-      // When we establish a connection, send some data to the server
-      const message: SocketMessage = { 
-        _ip: packagerIP === 'localhost' ? ipAddress : packagerIP, 
-        _name: config.name,
-        _entitlements: config.entitlements,
-        _headerOptions: config.headerOptions,
-      };
-      const json = JSON.stringify(message);
-      console.log('[Sleeper] Send IP address: ', ipAddress, config.name);
-      try {
-        connection.current?.write(json + '\n', "utf8", (error) => {
-          if (error) {
-            return stopSocket();
-          }
-          console.log('[Sleeper] Connected to the Sleeper App.');
-          _onConnected(true);
-        });
-      } catch (e) {
-        return stopSocket();
-      }
+      console.log('[Sleeper] Connected to the Sleeper App.');
+      // When we establish a connection, request context
+      sendContextRequest(connection.current, "");
+      _onConnected(true);
     });
   
     connection.current.on('data', (data, ...args) => {
