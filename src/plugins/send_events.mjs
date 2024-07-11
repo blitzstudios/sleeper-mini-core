@@ -3,18 +3,25 @@ import path from 'path';
 
 const appJsonFilename = 'app.json';
 const packagerConnectPort = 9092;
+const refreshTimeout = 5000; //milliseconds
+
+const socketConnect = (client, appConfig) => {
+  client.connect(packagerConnectPort, appConfig.remoteIP);
+};
 
 const packagerConnect = async (rootPath) => {
   const appJsonPath = path.join(rootPath, appJsonFilename);
-  // const appConfig = await import(appJsonPath);
   const { default: appConfig } = await import(appJsonPath, { assert: { type: "json" } });
 
   if (!appConfig.remoteIP) {
     throw new Error(appJsonFilename + ' is missing remoteIP field');
   }
 
+  console.log('Attempting to connect to Sleeper App at ', appConfig.remoteIP);
+
   const client = new Socket();
-  client.connect(packagerConnectPort, appConfig.remoteIP, () => {
+
+  client.on('connect', () => {
     console.log('Connected to Sleeper App at ', appConfig.remoteIP);
 
     client.setEncoding('utf8');
@@ -31,10 +38,24 @@ const packagerConnect = async (rootPath) => {
       }
     });
 
-    client.on('error', () => {
-      client.destroy();
-    });
+    client.setTimeout(refreshTimeout);
   });
+
+  client.on('error', (error) => {
+    if (error?.code === 'EPIPE' && error?.syscall === 'write') {
+      console.log('Connection to Sleeper App closed');
+    }
+  });
+
+  client.on('close', () => {
+    setTimeout(socketConnect, refreshTimeout, client, appConfig);
+  });
+
+  client.on('timeout', () => {
+    client.write('keepAlive'); // Check if the sleeper app is still active
+  });
+
+  socketConnect(client, appConfig);
 
   return () => {
     client.destroy();
