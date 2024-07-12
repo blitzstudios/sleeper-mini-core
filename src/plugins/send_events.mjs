@@ -25,6 +25,8 @@ const packagerConnect = async (rootPath) => {
     console.log('Connected to Sleeper App at ', appConfig.remoteIP);
 
     client.setEncoding('utf8');
+    client.setKeepAlive(true);
+
     const json = JSON.stringify({
       _webpack: 'packager_connect',
       _name: appConfig.name ?? '',
@@ -37,22 +39,30 @@ const packagerConnect = async (rootPath) => {
         console.log('Error sending message to Sleeper App:', err);
       }
     });
-
-    client.setTimeout(refreshTimeout);
   });
 
   client.on('error', (error) => {
-    if (error?.code === 'EPIPE' && error?.syscall === 'write') {
-      console.log('Connection to Sleeper App closed');
+    if (error?.code === 'ECONNREFUSED' && error?.syscall === 'connect') {
+      // We don't care about this error since we will retry the connection
+      return;
     }
+
+    console.log('Socket Error: ', error);
   });
 
-  client.on('close', () => {
+  client.on('data', (data) => {
+    // const json = JSON.parse(data);
+    // switch (json?.type) {
+    // }
+  });
+
+  client.on('close', (hadError) => {
+    if (!hadError) {
+      console.log('Connection to Sleeper App closed, retrying...');
+    }
+
+    // Retry connection
     setTimeout(socketConnect, refreshTimeout, client, appConfig);
-  });
-
-  client.on('timeout', () => {
-    client.write('keepAlive'); // Check if the sleeper app is still active
   });
 
   socketConnect(client, appConfig);
