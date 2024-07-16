@@ -3,6 +3,7 @@ const TerserPlugin = require('../../../node_modules/terser-webpack-plugin');
 const Repack = require('../../../node_modules/@callstack/repack');
 const config = require('../../../app.json');
 const {dependencies} = require('../../../package.json');
+const {RebuildNotifyPlugin} = require('./src/plugins/rebuildNotifyPlugin')
 
 const {samples, selectedSample} = config;
 const sampleClassPath = `../../../src/${samples[selectedSample]}`;
@@ -303,6 +304,8 @@ module.exports = env => {
           // split off into a seperate chunk, and named chunks will break (assume that's a bug that we can fix).
         },
       }),
+
+      new RebuildNotifyPlugin(config),
 
       // new Repack.plugins.ChunksToHermesBytecodePlugin({
       //   enabled: !dev,
