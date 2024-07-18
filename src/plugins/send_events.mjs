@@ -1,5 +1,6 @@
 import { Socket } from 'net';
 import path from 'path';
+import PacketParser from '../dev_server/packet_parser.mjs';
 
 const appJsonFilename = 'app.json';
 const packagerConnectPort = 9092;
@@ -20,6 +21,18 @@ const packagerConnect = async (rootPath) => {
   console.log('Attempting to connect to Sleeper App at ', appConfig.remoteIP);
 
   const client = new Socket();
+  const packetParser = new PacketParser({
+    logsEnabled: false,
+    onMessageRecieved: (msg) => {
+      switch (msg?.type) {
+        case 'consoleLog':
+          console.log('[MiniLog] ', msg.data?._consoleLog);
+          break;
+        default:
+          break;
+      }
+    }
+  });
 
   client.on('connect', () => {
     console.log('Connected to Sleeper App at ', appConfig.remoteIP);
@@ -51,9 +64,8 @@ const packagerConnect = async (rootPath) => {
   });
 
   client.on('data', (data) => {
-    // const json = JSON.parse(data);
-    // switch (json?.type) {
-    // }
+    const msgString = data.toString();
+    packetParser.parseMessage(msgString);
   });
 
   client.on('close', (hadError) => {
