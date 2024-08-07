@@ -26,7 +26,7 @@ const packagerConnect = async (rootPath) => {
     onMessageRecieved: (msg) => {
       switch (msg?.type) {
         case 'consoleLog':
-          console.log('[MiniLog] ', msg.data?._consoleLog);
+          console.log('[MiniLog]', msg.data?._consoleLog);
           break;
         default:
           break;
