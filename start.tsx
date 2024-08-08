@@ -9,6 +9,10 @@ import {
 } from 'react-native';
 import {DevServer, Types} from '.';
 
+const console_modified = global.console as any;
+console_modified.log_mini = (...args: any[]) => { console.log('[MiniLog]', ...args); }
+global.console = console_modified;
+
 import 'root/package_list';
 import config from 'root/app.json';
 import Project from 'app';

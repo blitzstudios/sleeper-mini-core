@@ -223,6 +223,7 @@ module.exports = env => {
         },
         {
           test: /\.[jt]sx?$/,
+          include: /src/,
           loader: 'string-replace-loader',
           options: {
             search: 'console.log',
