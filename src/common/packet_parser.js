@@ -1,5 +1,4 @@
-
-export class PacketParser {
+class PacketParser {
   constructor(props) {
     this.logsEnabled = props.logsEnabled || false;
     this.messageLength = 0;
@@ -68,31 +67,6 @@ export class PacketParser {
           type: this.messageType,
           data: json,
         });
-      // }
-
-      //   // Set connection data
-      //   // if (json._platform || json._binaryVersion || json._dist || json._isStaging) {
-      //   //   if (this.logsEnabled) console.log("[Sleeper] Processing context data:", json._platform, json._binaryVersion, json._dist, json._isStaging);
-      //   //   setData({
-      //   //     platform: json._platform,
-      //   //     binaryVersion: json._binaryVersion,
-      //   //     dist: json._dist,
-      //   //     isStaging: json._isStaging,
-      //   //   });
-      //   // }
-
-      // //   if (messageType.current === 'context') {
-      // //     // We should have a context object now
-      // //     const context = new Proxy(json._context, handler);
-      // //     props.onContextChanged(context, json._entitlements);
-      // //   } else if (messageType.current === `partialContext`) {
-      // //     // We are updating a partial Context
-      // //     props.onContextUpdated(json._context);
-      // //   } else if (messageType.current === 'entitlements') {
-      // //     props.onEntitlementsUpdated(json._entitlements);
-      // //   }
-
-      // //   messageType.current = '';
       } catch (e) {
         console.log("[Sleeper] Failed to parse message: ", e);
         return;
@@ -102,4 +76,4 @@ export class PacketParser {
 
 };
 
-export default PacketParser;
+module.exports = PacketParser;

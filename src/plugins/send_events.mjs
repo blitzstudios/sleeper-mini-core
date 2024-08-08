@@ -1,6 +1,6 @@
 import { Socket } from 'net';
 import path from 'path';
-import PacketParser from '../dev_server/packet_parser.mjs';
+import PacketParser from '../common/packet_parser.js';
 
 const appJsonFilename = 'app.json';
 const packagerConnectPort = 9092;
