@@ -1,6 +1,6 @@
 {
   "name": "@sleeperhq/mini-core",
-  "version": "1.9.3",
+  "version": "1.9.4",
   "description": "Core library frameworks for developing Sleeper Mini Apps.",
   "main": "index.ts",
   "types": "index.d.ts",
@@ -50,6 +50,7 @@
     "react-refresh": "0.14.0",
     "react-test-renderer": "17.0.2",
     "regenerator-runtime": "0.13.11",
+    "rx": "4.1.0",
     "string-replace-loader": "3.1.0",
     "terser-webpack-plugin": "5.3.6",
     "webpack": "5.75.0"

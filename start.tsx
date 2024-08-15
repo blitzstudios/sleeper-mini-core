@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react';
+import React, { useCallback, useState } from 'react';
 import {
   AppRegistry,
   ActivityIndicator,
@@ -7,15 +7,18 @@ import {
   StyleSheet,
   SafeAreaView,
 } from 'react-native';
-import {DevServer, Types} from '.';
-
-const console_modified = global.console as any;
-console_modified.log_mini = (...args: any[]) => { console.log('[MiniLog]', ...args); }
-global.console = console_modified;
+import { DevServer, Types, MiniLogger } from '.';
 
 import 'root/package_list';
 import config from 'root/app.json';
 import Project from 'app';
+
+MiniLogger.messages
+  .subscribe((data: any) => {
+    if (data.action === 'onConsoleLog') {
+      console.log('[MiniLog]', data.message);
+    }
+  })
 
 DevServer.init(config);
 
