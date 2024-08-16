@@ -227,7 +227,7 @@ module.exports = env => {
           loader: 'string-replace-loader',
           options: {
             search: 'console.log',
-            replace: 'MiniLogger.log',
+            replace: 'log_mini',
           }
         },
         /**
