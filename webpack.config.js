@@ -156,6 +156,9 @@ module.exports = env => {
       ],
       chunkIds: 'named',
     },
+    watchOptions: {
+      poll: 1000,
+    },
     module: {
       /**
        * This rule will process all React Native related dependencies with Babel.
