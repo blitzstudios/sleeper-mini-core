@@ -156,8 +156,13 @@ module.exports = env => {
       ],
       chunkIds: 'named',
     },
+    /**
+     * We turn on polling so file updates can be recognized when used with Docker.
+     */
     watchOptions: {
-      poll: 1000,
+      poll: true,
+      aggregateTimeout: 600,
+      ignored: '**/node_modules',
     },
     module: {
       /**
