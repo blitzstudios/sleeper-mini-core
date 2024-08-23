@@ -229,7 +229,7 @@ module.exports = env => {
             },
           },
         },
-        {
+        dev && {
           test: /\.[jt]sx?$/,
           include: /src/,
           loader: 'string-replace-loader',
@@ -274,7 +274,7 @@ module.exports = env => {
             },
           },
         },
-      ],
+      ].filter(Boolean),
     },
     plugins: [
       /**
