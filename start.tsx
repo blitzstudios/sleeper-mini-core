@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react';
+import React, { useCallback, useState } from 'react';
 import {
   AppRegistry,
   ActivityIndicator,
@@ -7,11 +7,18 @@ import {
   StyleSheet,
   SafeAreaView,
 } from 'react-native';
-import {DevServer, Types} from '.';
+import { DevServer, Types, MiniLogger } from '.';
 
 import 'root/package_list';
 import config from 'root/app.json';
 import Project from 'app';
+
+MiniLogger.messages
+  .subscribe((data: any) => {
+    if (data.action === 'onConsoleLog') {
+      console.log('[MiniLog]', data.message);
+    }
+  })
 
 DevServer.init(config);
 

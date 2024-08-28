@@ -156,6 +156,14 @@ module.exports = env => {
       ],
       chunkIds: 'named',
     },
+    /**
+     * We turn on polling so file updates can be recognized when used with Docker.
+     */
+    watchOptions: {
+      poll: true,
+      aggregateTimeout: 600,
+      ignored: '**/node_modules',
+    },
     module: {
       /**
        * This rule will process all React Native related dependencies with Babel.
@@ -221,6 +229,15 @@ module.exports = env => {
             },
           },
         },
+        dev && {
+          test: /\.[jt]sx?$/,
+          include: /src/,
+          loader: 'string-replace-loader',
+          options: {
+            search: 'console.log',
+            replace: 'log_mini',
+          }
+        },
         /**
          * This loader handles all static assets (images, video, audio and others), so that you can
          * use (reference) them inside your application.
@@ -257,7 +274,7 @@ module.exports = env => {
             },
           },
         },
-      ],
+      ].filter(Boolean),
     },
     plugins: [
       /**
