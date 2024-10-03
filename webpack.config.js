@@ -45,7 +45,7 @@ module.exports = env => {
   const dev = mode === 'development';
 
   const sharedDeps = Object.keys(dependencies).reduce((acc, key) => {
-    acc[key] = {singleton: true, eager: dev, requiredVersion: dependencies[key]};
+    acc[key] = { eager: dev, requiredVersion: dependencies[key] };
     return acc;
   }, {});
 
