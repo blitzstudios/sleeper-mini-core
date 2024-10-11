@@ -45,7 +45,7 @@
     "babel-loader": "9.1.2",
     "react-native-fast-image": "https://github.com/blitzstudios/react-native-fast-image.git#release/1.2",
     "react-native-interactable": "https://github.com/blitzstudios/react-native-interactable#release/1.1",
-    "react-native-linear-gradient": "2.5.6",
+    "react-native-linear-gradient": "2.8.3",
     "react-native-rename": "blitzstudios/react-native-rename.git#react-native-rename-v3.2.14-gitpkg",
     "react-refresh": "0.14.0",
     "regenerator-runtime": "0.13.11",
