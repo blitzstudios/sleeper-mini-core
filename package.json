@@ -1,6 +1,6 @@
 {
   "name": "@sleeperhq/mini-core",
-  "version": "1.9.8",
+  "version": "1.9.9",
   "description": "Core library frameworks for developing Sleeper Mini Apps.",
   "main": "index.ts",
   "types": "index.d.ts",
@@ -45,8 +45,8 @@
     "babel-loader": "9.1.2",
     "react-native-fast-image": "https://github.com/blitzstudios/react-native-fast-image.git#release/1.2",
     "react-native-interactable": "https://github.com/blitzstudios/react-native-interactable#release/1.1",
-    "react-native-linear-gradient": "2.5.6",
-    "react-native-rename": "^3.2.12",
+    "react-native-linear-gradient": "2.8.3",
+    "react-native-rename": "blitzstudios/react-native-rename.git#react-native-rename-v3.2.14-gitpkg",
     "react-refresh": "0.14.0",
     "regenerator-runtime": "0.13.11",
     "rx": "4.1.0",
