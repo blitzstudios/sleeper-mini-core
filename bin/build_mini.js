@@ -146,7 +146,7 @@ const main = async () => {
   }
   
   if (projectName !== fallback) {
-    await spawnProcess(`yarn react-native-rename "${projectName}" --skipGitStatusCheck`, "rename command exited with non-zero code");
+    await spawnProcess(`yarn react-native-rename "${projectName}" --skipAllGitChecks`, "rename command exited with non-zero code");
     setProjectName(projectName);
   }
 
