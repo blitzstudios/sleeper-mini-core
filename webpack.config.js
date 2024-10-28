@@ -3,6 +3,7 @@ const TerserPlugin = require('../../../node_modules/terser-webpack-plugin');
 const Repack = require('../../../node_modules/@callstack/repack');
 const config = require('../../../app.json');
 const {dependencies} = require('../../../package.json');
+const {RebuildNotifyPlugin} = require('./src/plugins/rebuildNotifyPlugin')
 
 const {samples, selectedSample} = config;
 const sampleClassPath = `../../../src/${samples[selectedSample]}`;
@@ -44,7 +45,7 @@ module.exports = env => {
   const dev = mode === 'development';
 
   const sharedDeps = Object.keys(dependencies).reduce((acc, key) => {
-    acc[key] = {singleton: true, eager: dev, requiredVersion: dependencies[key]};
+    acc[key] = { eager: dev, requiredVersion: dependencies[key] };
     return acc;
   }, {});
 
@@ -155,6 +156,14 @@ module.exports = env => {
       ],
       chunkIds: 'named',
     },
+    /**
+     * We turn on polling so file updates can be recognized when used with Docker.
+     */
+    watchOptions: {
+      poll: true,
+      aggregateTimeout: 600,
+      ignored: '**/node_modules',
+    },
     module: {
       /**
        * This rule will process all React Native related dependencies with Babel.
@@ -220,6 +229,15 @@ module.exports = env => {
             },
           },
         },
+        dev && {
+          test: /\.[jt]sx?$/,
+          include: /src/,
+          loader: 'string-replace-loader',
+          options: {
+            search: 'console.log',
+            replace: 'log_mini',
+          }
+        },
         /**
          * This loader handles all static assets (images, video, audio and others), so that you can
          * use (reference) them inside your application.
@@ -256,7 +274,7 @@ module.exports = env => {
             },
           },
         },
-      ],
+      ].filter(Boolean),
     },
     plugins: [
       /**
@@ -303,6 +321,8 @@ module.exports = env => {
           // split off into a seperate chunk, and named chunks will break (assume that's a bug that we can fix).
         },
       }),
+
+      new RebuildNotifyPlugin(config),
 
       // new Repack.plugins.ChunksToHermesBytecodePlugin({
       //   enabled: !dev,

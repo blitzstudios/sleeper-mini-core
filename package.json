@@ -1,6 +1,6 @@
 {
   "name": "@sleeperhq/mini-core",
-  "version": "1.8.8",
+  "version": "1.9.9",
   "description": "Core library frameworks for developing Sleeper Mini Apps.",
   "main": "index.ts",
   "types": "index.d.ts",
@@ -40,19 +40,22 @@
     "@react-native-community/netinfo": "11.3.2",
     "axios": "0.15.3",
     "babel-loader": "9.1.2",
+    "@react-native-community/cli": "6.1.0",
+    "@react-native-community/cli-types": "6.0.0",
     "react-native-fast-image": "https://github.com/blitzstudios/react-native-fast-image.git#release/1.2",
-    "react-native-linear-gradient": "2.5.6",
-    "react-native-rename": "^3.2.12",
+    "react-native-linear-gradient": "2.8.3",
+    "react-native-rename": "blitzstudios/react-native-rename.git#react-native-rename-v3.2.14-gitpkg",
     "react-refresh": "0.14.0",
-    "react-test-renderer": "17.0.2",
     "regenerator-runtime": "0.13.11",
+    "rx": "4.1.0",
+    "string-replace-loader": "3.1.0",
     "terser-webpack-plugin": "5.3.6",
     "webpack": "5.75.0"
   },
   "peerDependencies": {
     "react": "18.2.0",
     "react-native": "0.74.4",
-    "react-native-svg": "13.7.0"
+    "react-native-svg": "13.14.0"
   },
   "devDependencies": {
     "@babel/core": "7.15.8",

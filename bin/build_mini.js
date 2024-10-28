@@ -32,11 +32,10 @@ const getCommands = (projectName) => {
   const zip = isWindows ?
     `powershell Compress-Archive -Path "${distPath}" -DestinationPath "${zipFilePath}"` :
     `cd dist && zip -r "${projectName}.zip" * && cd -`;
-  const openFile = isWindows ? `start dist` : `open dist`;
   const cleanIndex = `${removeDir} "${bundleOutputPath["ios"]}" "${bundleOutputPath["android"]}" "${sourcemapOutputPath["ios"]}" "${sourcemapOutputPath["android"]}"`;
   const cleanAll = `${removeDir} dist node_modules`;
   const cleanBuild = `${removeDir} "${distPath}" "${assetsDestPath["ios"]}" "${assetsDestPath["android"]}"`;
-  const install = `yarn install && cd ios && pod install && cd -`;
+  const install = `yarn install`;
 
   const getBundleCommand = (platform) => {
     return `node "${reactNativeCliPath}" webpack-bundle \
@@ -56,7 +55,6 @@ const getCommands = (projectName) => {
     bundleIOS: getBundleCommand('ios'),
     bundleAndroid: getBundleCommand('android'),
     zip,
-    openFile,
     cleanIndex,
     cleanAll,
     cleanBuild,
@@ -148,7 +146,7 @@ const main = async () => {
   }
   
   if (projectName !== fallback) {
-    await spawnProcess(`yarn react-native-rename "${projectName}" --skipGitStatusCheck`, "rename command exited with non-zero code");
+    await spawnProcess(`yarn react-native-rename "${projectName}" --skipAllGitChecks`, "rename command exited with non-zero code");
     setProjectName(projectName);
   }
 
@@ -159,7 +157,7 @@ const main = async () => {
     // Clean build folders
     await spawnProcess(commands.cleanAll, "clean command exited with non-zero code");
   
-    // Run yarn + pod install
+    // Run yarn
     await spawnProcess(commands.install, "install command exited with non-zero code");
   }
 
@@ -185,8 +183,6 @@ const main = async () => {
   // Clean build folders
   await spawnProcess(commands.cleanBuild, "clean build command exited with non-zero code");
 
-  // Open output folder
-  await spawnProcess(commands.openFile);
   process.exit(0);
 };
 

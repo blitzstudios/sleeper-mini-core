@@ -1,20 +1,19 @@
-import React, {useEffect, useRef, useState} from 'react';
-import {Platform, NativeModules} from 'react-native';
-import {Config, SocketMessage} from '../types';
+import React, { useEffect, useRef, useState } from 'react';
+import { Platform } from 'react-native';
+import { Config, SocketMessage } from '../types';
 import { ScriptLocatorResolver, ScriptManager } from '@callstack/repack/client';
 import NetInfo, { NetInfoState } from '@react-native-community/netinfo';
 import TcpSocket from 'react-native-tcp-socket';
 import { fetchMainVersionMap, getMainUrl } from './url_resolver';
+import PacketParser from '../common/packet_parser';
 
 let config: Config;
 const RETRY_TIMER = 5000;
 
 const DevServer = props => {
   const connection = useRef<TcpSocket.Socket>();
-  const partialMessage = useRef('');
-  const messageLength = useRef(0);
-  const messageType = useRef('');
   const _retryTimer = useRef<NodeJS.Timeout>();
+  const packetParser = useRef<PacketParser>();
 
   const [data, setData] = useState({
     platform: '',
@@ -27,92 +26,6 @@ const DevServer = props => {
 
   const _onConnected = async (value: boolean) => {
     props.onConnected(value);
-  };
-
-  const onSocket = (handler) => msg => {
-    let msgString: string = msg.toString();
-    while (msgString.length > 0) {
-      if (messageLength.current === 0) {
-        const delimit = msgString.indexOf('\n');
-        if (delimit === -1) {
-          console.log("[Sleeper] Message header not found, throwing out message.");
-          return;
-        }
-
-        const header = msgString.substring(0, delimit);
-        try {
-          const headerObject = JSON.parse(header);
-          messageType.current = headerObject.type;
-          messageLength.current = headerObject.size;
-        } catch (e) {
-          console.log("[Sleeper] Message header malformed, throwing out message.");
-          messageLength.current = 0;
-          messageType.current = '';
-          return;
-        }
-
-        msgString = msgString.substring(delimit + 1);
-      }
-
-      const partialLength = messageLength.current - partialMessage.current.length;
-      if (partialLength < 0) {
-        // We need to wait for more data
-        partialMessage.current += msgString;
-        return;
-      }
-
-      const remainingLength = msgString.length - partialLength;
-      if (remainingLength === 0) {
-        // We have the full message
-        partialMessage.current += msgString;
-        msgString = '';
-        if (config.logsEnabled) console.log("[Sleeper] Message built.", partialMessage.current.length);
-        
-      } else {
-        // We have more than the full message
-        partialMessage.current += msgString.substring(0, partialLength);
-        msgString = msgString.substring(partialLength);
-
-        if (remainingLength <= 0) {
-          // We have less than the full message
-          if (config.logsEnabled) console.log("[Sleeper] Building message: ", partialMessage.current.length, messageLength.current, remainingLength);
-          return;
-        }
-      }
-
-      try {
-        const json = JSON.parse(partialMessage.current);
-        partialMessage.current = '';
-        messageLength.current = 0;
-
-        // Set connection data
-        if (json._platform || json._binaryVersion || json._dist || json._isStaging) {
-          if (config.logsEnabled) console.log("[Sleeper] Processing context data:", json._platform, json._binaryVersion, json._dist, json._isStaging);
-          setData({
-            platform: json._platform,
-            binaryVersion: json._binaryVersion,
-            dist: json._dist,
-            isStaging: json._isStaging,
-          });
-        }
-
-        if (messageType.current === 'context') {
-          // We should have a context object now
-          const context = new Proxy(json._context, handler);
-          props.onContextChanged(context, json._entitlements);
-        } else if (messageType.current === `partialContext`) {
-          // We are updating a partial Context
-          props.onContextUpdated(json._context);
-        } else if (messageType.current === 'entitlements') {
-          props.onEntitlementsUpdated(json._entitlements);
-        }
-
-        messageType.current = '';
-      } catch (e) {
-        console.log("[Sleeper] Failed to parse message: ", e);
-        return;
-      }
-    }
   };
 
   const sendContextRequest = (socket, propertyPath) => {
@@ -187,9 +100,35 @@ const DevServer = props => {
     // @ts-ignore
     const ipAddress = netInfoDetails?.ipAddress;
 
-    const scriptURL = NativeModules.SourceCode.scriptURL;
-    const address = scriptURL.split('://')[1].split('/')[0];
-    const packagerIP = address.split(':')[0];
+    const createPacketParser = (handler) => {
+      return new PacketParser({
+        logsEnabled: false,
+        onMessageRecieved: (msg) => {
+          const json = msg.data;
+          // Set connection data
+          if (json._platform || json._binaryVersion || json._dist || json._isStaging) {
+            if (config.logsEnabled) console.log("[Sleeper] Processing context data:", json._platform, json._binaryVersion, json._dist, json._isStaging);
+            setData({
+              platform: json._platform,
+              binaryVersion: json._binaryVersion,
+              dist: json._dist,
+              isStaging: json._isStaging,
+            });
+          }
+    
+          if (msg.type === 'context') {
+            // We should have a context object now
+            const context = new Proxy(json._context, handler);
+            props.onContextChanged(context, json._entitlements);
+          } else if (msg.type === `partialContext`) {
+            // We are updating a partial Context
+            props.onContextUpdated(json._context);
+          } else if (msg.type === 'entitlements') {
+            props.onEntitlementsUpdated(json._entitlements);
+          }
+        }
+      });
+    };
 
     if (!netInfoDetails || !('ipAddress' in netInfoDetails)) {
       console.error('[Sleeper] Failed to determine local IP address.');
@@ -202,32 +141,18 @@ const DevServer = props => {
       localAddress: ipAddress,
       reuseAddress: true,
     }, () => {
-      // When we establish a connection, send some data to the server
-      const message: SocketMessage = { 
-        _ip: packagerIP === 'localhost' ? ipAddress : packagerIP, 
-        _name: config.name,
-        _entitlements: config.entitlements,
-        _headerOptions: config.headerOptions,
-      };
-      const json = JSON.stringify(message);
-      console.log('[Sleeper] Send IP address: ', ipAddress, config.name);
-      try {
-        connection.current?.write(json + '\n', "utf8", (error) => {
-          if (error) {
-            return stopSocket();
-          }
-          console.log('[Sleeper] Connected to the Sleeper App.');
-          _onConnected(true);
-        });
-      } catch (e) {
-        return stopSocket();
-      }
+      console.log('[Sleeper] Connected to the Sleeper App.');
+      const handler = proxyHandler(connection.current);
+      packetParser.current = createPacketParser(handler);
+
+      // When we establish a connection, request context
+      sendContextRequest(connection.current, "");
+      _onConnected(true);
     });
   
-    connection.current.on('data', (data, ...args) => {
-      const handler = proxyHandler(connection.current);
-      const onSocketHandler = onSocket(handler);
-      onSocketHandler(data);
+    connection.current.on('data', (data) => {
+      const msgString: string = data.toString();
+      packetParser.current?.parseMessage(msgString);
     });
     connection.current.on('error', err => {
       return stopSocket();
@@ -239,6 +164,7 @@ const DevServer = props => {
 
   const stopSocket = (retry = true) => {
     _onConnected(false);
+    packetParser.current = undefined;
 
     if (connection.current) {
       connection.current.destroy();
