@@ -85,12 +85,7 @@ module.exports = env => {
      * If you don't want to use Hot Module Replacement, set `hmr` option to `false`. By default,
      * HMR will be enabled in development mode.
      */
-    entry: [
-      ...Repack.getInitializationEntries(reactNativePath, {
-        hmr: devServer && devServer.hmr,
-      }),
-      entry,
-    ],
+    entry,
     resolve: {
       /**
        * `getResolveOptions` returns additional resolution configuration for React Native.
@@ -193,7 +188,7 @@ module.exports = env => {
             loader: 'babel-loader',
             options: {
               presets: [
-                'module:@react-native/babel-preset',
+                '@react-native/babel-preset',
                 ['@babel/preset-typescript', { allowDeclareFields: true }],
               ],
               babelrc: false,
@@ -214,15 +209,11 @@ module.exports = env => {
             loader: 'babel-loader',
             options: {
               presets: [
-                'module:@react-native/babel-preset',
+                '@react-native/babel-preset',
                 ['@babel/preset-typescript', { allowDeclareFields: true }],
               ],
               // sourceType: "unambiguous",
-              /** Add React Refresh transform only when HMR is enabled. */
-              plugins:
-                devServer && devServer.hmr
-                  ? ['@babel/plugin-transform-runtime', 'module:react-refresh/babel']
-                  : ['@babel/plugin-transform-runtime'],
+              plugins:['@babel/plugin-transform-runtime'],
               babelrc: false,
               comments: true, // necessary for named chunks
               cacheDirectory: true,
