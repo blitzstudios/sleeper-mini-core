@@ -44,7 +44,7 @@
     "@react-native-community/netinfo": "11.3.2",
     "axios": "0.15.3",
     "babel-loader": "9.1.3",
-    "react-native-fast-image": "https://github.com/blitzstudios/react-native-fast-image.git#release/1.2",
+    "react-native-fast-image": "https://github.com/blitzstudios/react-native-fast-image.git#release/1.4",
     "react-native-linear-gradient": "2.8.3",
     "react-native-rename": "blitzstudios/react-native-rename.git#react-native-rename-v3.2.17-gitpkg",
     "react-refresh": "0.14.0",
