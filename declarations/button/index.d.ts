@@ -16,7 +16,7 @@ export interface ButtonProps {
     text?: string;
 }
 declare const Button: {
-    (props: ButtonProps): JSX.Element;
+    (props: ButtonProps): React.JSX.Element;
     defaultProps: {
         height: number;
         shadowHeight: number;
