@@ -80,11 +80,6 @@ module.exports = env => {
      */
     devtool: false,
     context,
-    /**
-     * `getInitializationEntries` will return necessary entries with setup and initialization code.
-     * If you don't want to use Hot Module Replacement, set `hmr` option to `false`. By default,
-     * HMR will be enabled in development mode.
-     */
     entry,
     resolve: {
       /**
@@ -125,6 +120,7 @@ module.exports = env => {
         : 'index.ios.bundle',
       chunkFilename: '[name].chunk.bundle',
       publicPath: Repack.getPublicPath({platform, devServer}),
+      uniqueName: 'sleeper',
     },
     /**
      * Configures optimization of the built bundle.
@@ -193,6 +189,7 @@ module.exports = env => {
               ],
               babelrc: false,
               cacheDirectory: true,
+              sourceMaps: true,
             },
           },
         },
@@ -217,6 +214,7 @@ module.exports = env => {
               babelrc: false,
               comments: true, // necessary for named chunks
               cacheDirectory: true,
+              sourceMaps: true,
             },
           },
         },
