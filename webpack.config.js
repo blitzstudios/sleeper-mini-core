@@ -210,7 +210,9 @@ module.exports = env => {
                 ['@babel/preset-typescript', { allowDeclareFields: true }],
               ],
               // sourceType: "unambiguous",
-              plugins:['@babel/plugin-transform-runtime'],
+              plugins: devServer && devServer.hmr
+                ? ['@babel/plugin-transform-runtime', 'module:react-refresh/babel']
+                : ['@babel/plugin-transform-runtime'],
               babelrc: false,
               comments: true, // necessary for named chunks
               cacheDirectory: true,
