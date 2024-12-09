@@ -120,7 +120,7 @@ module.exports = env => {
         : 'index.ios.bundle',
       chunkFilename: '[name].chunk.bundle',
       publicPath: Repack.getPublicPath({platform, devServer}),
-      uniqueName: 'sleeper',
+      uniqueName: 'template',
     },
     /**
      * Configures optimization of the built bundle.
