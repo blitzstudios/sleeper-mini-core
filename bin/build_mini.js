@@ -131,13 +131,6 @@ const setProjectName = (name) => {
   fs.writeFileSync(podfilePath, newPodfileString);
 }
 
-const setUniqueName = (name) => {
-  const webpackConfigPath = path.join('node_modules', '@sleeperhq', 'mini-core', 'webpack.config.js');
-  const webpackConfigString = fs.readFileSync(webpackConfigPath).toString();
-  const newWebpackConfigString = webpackConfigString.replace(/uniqueName: '.*'/, `uniqueName: '${name}'`);
-  fs.writeFileSync(webpackConfigPath, newWebpackConfigString);
-}
-
 const validateProjectName = (name) => {
   const regex = /^[a-zA-Z0-9_]+$/;
   return regex.test(name);
@@ -155,7 +148,6 @@ const main = async () => {
   if (projectName !== fallback) {
     await spawnProcess(`yarn react-native-rename "${projectName}" --skipAllGitChecks`, "rename command exited with non-zero code");
     setProjectName(projectName);
-    setUniqueName(projectName);
   }
 
   const commands = getCommands(projectName);
