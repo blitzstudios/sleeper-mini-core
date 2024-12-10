@@ -1344,9 +1344,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@callstack/repack-dev-server@blitzstudios/repack.git#callstack-repack-dev-server-v0.5.3-gitpkg":
-  version: 0.5.3
-  resolution: "@callstack/repack-dev-server@https://github.com/blitzstudios/repack.git#commit=a09c48e61553dee8fd030aa34d11f82dcaa74f29"
+"@callstack/repack-dev-server@blitzstudios/repack.git#callstack-repack-dev-server-v5.0.0-gitpkg":
+  version: 5.0.0
+  resolution: "@callstack/repack-dev-server@https://github.com/blitzstudios/repack.git#commit=9fc86e57d16015c5fea22085741af68ac6e628b0"
   dependencies:
     "@babel/code-frame": "npm:^7.16.7"
     "@fastify/middie": "npm:^8.3.0"
@@ -1363,15 +1363,15 @@ __metadata:
   peerDependenciesMeta:
     "@react-native-community/cli-server-api":
       optional: true
-  checksum: 10c0/ecee994ac3cc48e9e10f9d3218dcd0baac415a0311f8c598b8cc4b0c8035a170e83c8848042857a5707737038a778d4caa1b2ec03b026656d0f4dba08f677f09
+  checksum: 10c0/d636c9686566cc755674476a7cd46678bcf54ca46ffdea0c1bbb6249b36327ac389fe582230eac7125192114aaab5b31bedd55d7e288e59cea60ca56588e20b1
   languageName: node
   linkType: hard
 
-"@callstack/repack@blitzstudios/repack.git#callstack-repack-v0.5.4-gitpkg":
-  version: 0.5.4
-  resolution: "@callstack/repack@https://github.com/blitzstudios/repack.git#commit=cd47c3405d23a3a5055e6ecd95b4f1f00c294d76"
+"@callstack/repack@blitzstudios/repack.git#callstack-repack-v5.0.0-gitpkg":
+  version: 5.0.0
+  resolution: "@callstack/repack@https://github.com/blitzstudios/repack.git#commit=c29890c7725f2eca64f706464883b0a5d20cf62b"
   dependencies:
-    "@callstack/repack-dev-server": "blitzstudios/repack.git#callstack-repack-dev-server-v0.5.3-gitpkg"
+    "@callstack/repack-dev-server": "blitzstudios/repack.git#callstack-repack-dev-server-v5.0.0-gitpkg"
     "@discoveryjs/json-ext": "npm:^0.5.7"
     colorette: "npm:^2.0.20"
     dedent: "npm:^0.7.0"
@@ -1403,7 +1403,7 @@ __metadata:
       optional: true
     webpack:
       optional: true
-  checksum: 10c0/61ccd8de296ecc3953e4e27acffca091fc84ff926a2dc2575da1f2fdf53f26eb9450d3f8633bff191588a8ad9dfdb79aff7968adbce24856d6d16eeb7f70f942
+  checksum: 10c0/eeb85d287d9c5c2220388718167b64105b27fc4c23008e7d57ec82cb53f21c6f9ab4d2b0273323ee317ad30b6a431388d19385cd9e4eea154a24946d8990c3e3
   languageName: node
   linkType: hard
 
@@ -2473,7 +2473,7 @@ __metadata:
     "@babel/plugin-transform-runtime": "npm:7.25.9"
     "@babel/preset-typescript": "npm:7.26.0"
     "@babel/runtime": "npm:7.26.0"
-    "@callstack/repack": "blitzstudios/repack.git#callstack-repack-v0.5.4-gitpkg"
+    "@callstack/repack": "blitzstudios/repack.git#callstack-repack-v5.0.0-gitpkg"
     "@react-native-community/cli": "npm:15.0.1"
     "@react-native-community/cli-platform-android": "npm:15.0.1"
     "@react-native-community/cli-platform-apple": "npm:15.0.1"
