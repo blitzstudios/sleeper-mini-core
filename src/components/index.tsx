@@ -7,10 +7,10 @@ import type {SwitchProps} from '../../declarations/switch';
 import { AvatarProps, AvatarLeagueProps, AvatarPlayerProps, AvatarTeamProps } from '../../declarations/avatar';
 
 const _SleeperModule = React.lazy(() =>
-  Federated.importModule('sleeper', 'index').catch(() => ({
+  Federated.importModule('sleeper', 'index').catch((e) => ({
     default: props => {
       console.log(
-        `[Sleeper] Failed to load <${props?.component}>. Check connection to the app.`,
+        `[Sleeper] Failed to load <${props?.component}>. Check connection to the app. (${e})`,
       );
       return <View />;
     },
