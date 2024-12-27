@@ -1,6 +1,6 @@
 {
   "name": "@sleeperhq/mini-core",
-  "version": "3.0.1",
+  "version": "3.0.2",
   "description": "Core library frameworks for developing Sleeper Mini Apps.",
   "main": "index.ts",
   "types": "index.d.ts",

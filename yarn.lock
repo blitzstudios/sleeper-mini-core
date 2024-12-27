@@ -2280,18 +2280,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@react-native/babel-plugin-codegen@npm:0.76.3":
-  version: 0.76.3
-  resolution: "@react-native/babel-plugin-codegen@npm:0.76.3"
+"@react-native/babel-plugin-codegen@npm:0.76.5":
+  version: 0.76.5
+  resolution: "@react-native/babel-plugin-codegen@npm:0.76.5"
   dependencies:
-    "@react-native/codegen": "npm:0.76.3"
-  checksum: 10c0/14ae5346973bc170f7c4a644dd76159a27ca65d2faabbe8ced760fb89bfdb925c0522aece174d137cd97c38b202eb1a15bb7ef3f6021787ffc8fc24dc1a319d6
+    "@react-native/codegen": "npm:0.76.5"
+  checksum: 10c0/f853d7b4f0114a5443128af4813ea473542db4470e55f2962b94578c587c47347745e4b23819dec147d4b3926a0eecf36389ce01af286923436cb859a7b4a481
   languageName: node
   linkType: hard
 
-"@react-native/babel-preset@npm:0.76.3":
-  version: 0.76.3
-  resolution: "@react-native/babel-preset@npm:0.76.3"
+"@react-native/babel-preset@npm:0.76.5":
+  version: 0.76.5
+  resolution: "@react-native/babel-preset@npm:0.76.5"
   dependencies:
     "@babel/core": "npm:^7.25.2"
     "@babel/plugin-proposal-export-default-from": "npm:^7.24.7"
@@ -2334,19 +2334,19 @@ __metadata:
     "@babel/plugin-transform-typescript": "npm:^7.25.2"
     "@babel/plugin-transform-unicode-regex": "npm:^7.24.7"
     "@babel/template": "npm:^7.25.0"
-    "@react-native/babel-plugin-codegen": "npm:0.76.3"
+    "@react-native/babel-plugin-codegen": "npm:0.76.5"
     babel-plugin-syntax-hermes-parser: "npm:^0.25.1"
     babel-plugin-transform-flow-enums: "npm:^0.0.2"
     react-refresh: "npm:^0.14.0"
   peerDependencies:
     "@babel/core": "*"
-  checksum: 10c0/0946e8db45fb768755624b979d97632445c1d0c6b5764125dead371dd78328ea14fd00b3daa643052923cf384c73c549278ce290c907e8215651e20345bad950
+  checksum: 10c0/06fced0a8b804b66991b846048f99bdb0c510a84ff859d9dadeab5a51cc96313694a9c9ca0e3b304f12aa620f482cd6cc69e319f2b7fa500a1bd91a2d0e833ba
   languageName: node
   linkType: hard
 
-"@react-native/codegen@npm:0.76.3":
-  version: 0.76.3
-  resolution: "@react-native/codegen@npm:0.76.3"
+"@react-native/codegen@npm:0.76.5":
+  version: 0.76.5
+  resolution: "@react-native/codegen@npm:0.76.5"
   dependencies:
     "@babel/parser": "npm:^7.25.3"
     glob: "npm:^7.1.1"
@@ -2358,7 +2358,7 @@ __metadata:
     yargs: "npm:^17.6.2"
   peerDependencies:
     "@babel/preset-env": ^7.1.6
-  checksum: 10c0/6099bac12646a5ac533aeb37fe0cc61b2b2b4b51772974adb23d5f8493c8cfca42ceeb4856155e87f39746f2b86e6429766b6096885976ff3ecc3f031ee7f188
+  checksum: 10c0/e4c160b0100bf0c44a6a621e1cf14fa50203671350a22da6d87d86af8427d24bc836ed6e8b6958438695655d2bea3bec19058587286e027c5f68477ca267067b
   languageName: node
   linkType: hard
 
@@ -2388,10 +2388,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@react-native/typescript-config@npm:0.76.3":
-  version: 0.76.3
-  resolution: "@react-native/typescript-config@npm:0.76.3"
-  checksum: 10c0/eb4823e0d3c5a0d723e26aa54b4e5d484f3c8ca6bfb2ad6df49772425d28c4fe982dd34623a124480e196244c805bf14e6c167d2f4e00c374d43a0ac3fd13644
+"@react-native/typescript-config@npm:0.76.5":
+  version: 0.76.5
+  resolution: "@react-native/typescript-config@npm:0.76.5"
+  checksum: 10c0/9990ebf37895dca535b2e89555beb824f12a525b2ee43f298ea49cceb9e314ccf38d314c6460dbaaacd6fc5c595774f45a99091401bb81fdd5ed415f9624593a
   languageName: node
   linkType: hard
 
@@ -2480,8 +2480,8 @@ __metadata:
     "@react-native-community/cli-platform-ios": "npm:15.0.1"
     "@react-native-community/eslint-config": "npm:2.0.0"
     "@react-native-community/netinfo": "npm:11.3.2"
-    "@react-native/babel-preset": "npm:0.76.3"
-    "@react-native/typescript-config": "npm:0.76.3"
+    "@react-native/babel-preset": "npm:0.76.5"
+    "@react-native/typescript-config": "npm:0.76.5"
     "@rspack/plugin-react-refresh": "npm:1.0.0"
     "@types/react": "npm:18.2.31"
     "@typescript-eslint/eslint-plugin": "npm:5.62.0"
@@ -2504,7 +2504,7 @@ __metadata:
     webpack: "npm:5.94.0"
   peerDependencies:
     react: 18.3.1
-    react-native: 0.76.3
+    react-native: 0.76.5
     react-native-svg: 15.8.0
   bin:
     build-mini: ./bin/build_mini.js
