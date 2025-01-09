@@ -1,4 +1,4 @@
-/// <reference types="react" />
+import React from 'react';
 import { GestureResponderEvent } from 'react-native';
 export interface ButtonProps {
     height?: number;
@@ -15,23 +15,5 @@ export interface ButtonProps {
     onPress?: (event: GestureResponderEvent) => void;
     text?: string;
 }
-declare const Button: {
-    (props: ButtonProps): React.JSX.Element;
-    defaultProps: {
-        height: number;
-        shadowHeight: number;
-        gradient: string[];
-        type: string;
-        size: string;
-        isForSmallScreen: boolean;
-        start: {
-            x: number;
-            y: number;
-        };
-        end: {
-            x: number;
-            y: number;
-        };
-    };
-};
+declare const Button: (props: ButtonProps) => React.JSX.Element;
 export default Button;

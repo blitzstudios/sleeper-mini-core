@@ -21,11 +21,9 @@ export type Mini = {
     entitlements?: Entitlement[];
     headerOptions?: HeaderOptions;
     metadata?: Metadata;
-};
-export type Location = {
-    state: string;
-    country: string;
-    hasPermission: 'pending' | 'yes' | 'no';
+    leagueIds?: string[];
+    ownerId?: string;
+    ownerName?: string;
 };
 export type VersionMap = Record<string, Mini>;
 export type ToastConfig = Omit<ToastConfigOriginal, 'icon'> & {

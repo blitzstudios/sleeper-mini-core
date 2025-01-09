@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react';
 import { TextProps } from 'react-native';
-
 type Props = {
     color?: string;
     inheritStyles?: boolean;

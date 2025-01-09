@@ -18,22 +18,24 @@ export type Scalars = {
     Boolean: boolean;
     Int: number;
     Float: number;
-    /** JSON */
     Json: {
         [key: string]: any;
     };
-    /** Lists */
     List: string[];
-    /** Map / Dictionary */
+    LocalizedJson: {
+        [key: string]: any;
+    };
+    LocalizedMap: {
+        [key: string]: any;
+    };
+    LocalizedString: string;
     Map: {
         [key: string]: any;
     };
     MapWithSnowflakeKey: {
         [key: string]: any;
     };
-    /** Sets */
     Set: string[];
-    /** Snowflake ID */
     Snowflake: string;
     SnowflakeList: string[];
     SnowflakeSet: string[];
@@ -65,6 +67,7 @@ export type DraftPick = {
     pick_no?: Maybe<Scalars['Int']>;
     picked_by?: Maybe<Scalars['Snowflake']>;
     player_id?: Maybe<Scalars['String']>;
+    reactions?: Maybe<Scalars['Map']>;
 };
 export type League = {
     __typename?: 'League';
@@ -136,6 +139,7 @@ export type MatchupLeg = {
     round?: Maybe<Scalars['Int']>;
     starters?: Maybe<Scalars['List']>;
     starters_games?: Maybe<Scalars['Map']>;
+    subs?: Maybe<Scalars['Map']>;
 };
 export type Player = {
     __typename?: 'Player';
@@ -174,6 +178,9 @@ export type Player = {
     status?: Maybe<Scalars['String']>;
     swish_id?: Maybe<Scalars['Int']>;
     team?: Maybe<Scalars['String']>;
+    team_abbr?: Maybe<Scalars['String']>;
+    team_changed_at?: Maybe<Scalars['Int']>;
+    username?: Maybe<Scalars['String']>;
     weight?: Maybe<Scalars['String']>;
     yahoo_id?: Maybe<Scalars['Int']>;
     years_exp?: Maybe<Scalars['Int']>;
@@ -213,23 +220,28 @@ export type Topic = {
     channel_tags?: Maybe<Scalars['Set']>;
     client_id?: Maybe<Scalars['String']>;
     created?: Maybe<Scalars['Int']>;
+    engagement_score?: Maybe<Scalars['Int']>;
     hidden?: Maybe<Scalars['Boolean']>;
     last_message_id?: Maybe<Scalars['Snowflake']>;
     last_pinned_message_id?: Maybe<Scalars['Snowflake']>;
     last_read_id?: Maybe<Scalars['Snowflake']>;
+    metadata?: Maybe<Scalars['Map']>;
     num_messages?: Maybe<Scalars['Int']>;
     num_viewers?: Maybe<Scalars['Int']>;
     pinned?: Maybe<Scalars['Boolean']>;
     player_tags?: Maybe<Scalars['Set']>;
     pushed_by?: Maybe<Scalars['Json']>;
+    reactions?: Maybe<Scalars['Map']>;
     score?: Maybe<Scalars['Int']>;
     shadowed?: Maybe<Scalars['Boolean']>;
     shard_max?: Maybe<Scalars['Int']>;
     shard_min?: Maybe<Scalars['Int']>;
-    title?: Maybe<Scalars['String']>;
-    title_map?: Maybe<Scalars['Json']>;
+    title?: Maybe<Scalars['LocalizedString']>;
+    title_map?: Maybe<Scalars['LocalizedJson']>;
+    top_message_id?: Maybe<Scalars['Snowflake']>;
     topic_id?: Maybe<Scalars['Snowflake']>;
     upvotes?: Maybe<Scalars['Int']>;
+    user_reactions?: Maybe<Array<Maybe<TopicReaction>>>;
 };
 export type User = {
     __typename?: 'User';
@@ -242,11 +254,14 @@ export type User = {
     deleted?: Maybe<Scalars['Int']>;
     display_name?: Maybe<Scalars['String']>;
     email?: Maybe<Scalars['String']>;
+    ip_country_code?: Maybe<Scalars['String']>;
+    ip_region_codes?: Maybe<Array<Maybe<Scalars['String']>>>;
     is_bot?: Maybe<Scalars['Boolean']>;
     metadata?: Maybe<Scalars['Json']>;
     notifications?: Maybe<Scalars['Map']>;
     pending?: Maybe<Scalars['Boolean']>;
     phone?: Maybe<Scalars['String']>;
+    picks?: Maybe<Scalars['Map']>;
     real_name?: Maybe<Scalars['String']>;
     solicitable?: Maybe<Scalars['Boolean']>;
     summoner_name?: Maybe<Scalars['String']>;
