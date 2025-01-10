@@ -1,4 +1,4 @@
-import { User, League, LeaguesMap, RostersInLeagueMap, UserMap, MatchupsInLeagueMap, UsersInLeagueMap, PlayoffsInLeagueMap, TransactionsInLeagueMap, TransactionsMap, SportInfoMap, DraftsInLeagueMap, DraftPickTradesInLeagueMap, DraftPicksInDraftMap, PlayersInSportMap, Topic, Location, SportType } from '@sleeperhq/mini-core/declarations/types';
+import { User, League, LeaguesMap, RostersInLeagueMap, UserMap, MatchupsInLeagueMap, UsersInLeagueMap, PlayoffsInLeagueMap, TransactionsInLeagueMap, TransactionsMap, SportInfoMap, DraftsInLeagueMap, DraftPickTradesInLeagueMap, DraftPicksInDraftMap, PlayersInSportMap, Topic, SportType } from '@sleeperhq/mini-core/declarations/types';
 import type { SleeperActions } from '@sleeperhq/mini-core/declarations/sleeper_actions';
 declare class SleeperContext {
     static apiLevel: string;
@@ -22,7 +22,6 @@ declare class SleeperContext {
     playersInSportMap: PlayersInSportMap;
     podcasts: Topic[][];
     videos: Topic[][];
-    location: Location;
     actions: SleeperActions;
 }
 export default SleeperContext;
