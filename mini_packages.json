@@ -97,7 +97,7 @@
     "rn-prompt": "1.0.4"
   },
   "overrides": {
-    "@callstack/repack": "0.5.3",
+    "@callstack/repack": "0.5.6-c",
     "@react-native-async-storage/async-storage": "1.15.15",
     "@react-native-community/audio-toolkit": "2.0.3",
     "react-native-chart-kit": "6.7.0",
