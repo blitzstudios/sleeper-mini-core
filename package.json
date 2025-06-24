@@ -57,7 +57,7 @@
   "peerDependencies": {
     "react": "18.3.1",
     "react-native": "0.77.2",
-    "react-native-svg": "15.8.0"
+    "react-native-svg": "15.11.2"
   },
   "devDependencies": {
     "@babel/core": "7.26.0",
