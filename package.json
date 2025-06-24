@@ -56,19 +56,18 @@
   },
   "peerDependencies": {
     "react": "18.3.1",
-    "react-native": "0.76.5",
+    "react-native": "0.77.2",
     "react-native-svg": "15.8.0"
   },
   "devDependencies": {
     "@babel/core": "7.26.0",
     "@babel/preset-typescript": "7.26.0",
-    "@react-native-community/eslint-config": "2.0.0",
-    "@react-native/babel-preset": "0.76.5",
-    "@react-native/typescript-config": "0.76.5",
+    "@react-native/babel-preset": "0.77.2",
+    "@react-native/eslint-config": "0.77.2",
+    "@react-native/typescript-config": "0.77.2",
     "@types/react": "18.2.31",
     "@typescript-eslint/eslint-plugin": "5.62.0",
     "@typescript-eslint/parser": "5.62.0",
-    "babel-jest": "26.6.3",
     "eslint": "8.38.0",
     "jest": "26.6.3",
     "lodash": "4.17.21",
