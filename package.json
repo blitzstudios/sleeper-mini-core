@@ -48,6 +48,7 @@
     "react-native-fast-image": "https://github.com/blitzstudios/react-native-fast-image.git#release/1.4",
     "react-native-linear-gradient": "2.8.3",
     "react-native-rename": "blitzstudios/react-native-rename.git#react-native-rename-v3.2.17-gitpkg",
+    "react-native-turbo-image": "1.22.3",
     "regenerator-runtime": "0.13.11",
     "rx": "4.1.0",
     "string-replace-loader": "3.1.0",
