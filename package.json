@@ -36,7 +36,7 @@
   "dependencies": {
     "@babel/plugin-transform-runtime": "7.25.9",
     "@babel/runtime": "7.26.0",
-    "@callstack/repack": "blitzstudios/repack.git#callstack-repack-v5.0.7-a-gitpkg",
+    "@callstack/repack": "blitzstudios/repack.git#callstack-repack-v5.0.7-c-gitpkg",
     "@react-native-community/cli": "15.0.1",
     "@react-native-community/cli-platform-android": "15.0.1",
     "@react-native-community/cli-platform-apple": "15.0.1",
