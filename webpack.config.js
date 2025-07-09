@@ -78,7 +78,7 @@ module.exports = env => {
      * This should be always `false`, since the Source Map configuration is done
      * by `SourceMapDevToolPlugin`.
      */
-    devtool: false,
+    devtool: 'source-map',
     context,
     entry,
     resolve: {
