@@ -47,7 +47,7 @@ const getCommands = (projectName) => {
     --sourcemap-output "${sourcemapOutputPath[platform]}" \
     --minify true \
     --assets-dest "${assetsDestPath[platform]}" \
-    --webpackConfig ./node_modules/@sleeperhq/mini-core/webpack.config.js`;
+    --webpackConfig ./node_modules/@sleeperhq/mini-core/rspack.config.js`;
   };
   
   // Exposed
