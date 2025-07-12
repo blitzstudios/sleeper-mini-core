@@ -1,11 +1,11 @@
 const path = require('path');
+const TerserPlugin = require('../../../node_modules/terser-webpack-plugin');
 const Repack = require('../../../node_modules/@callstack/repack');
 const config = require('../../../app.json');
-const { dependencies } = require('../../../package.json');
-const { RebuildNotifyPlugin } = require('./src/plugins/rebuildNotifyPlugin');
-const { ReanimatedPlugin } = require('@callstack/repack-plugin-reanimated');
+const {dependencies} = require('../../../package.json');
+const {RebuildNotifyPlugin} = require('./src/plugins/rebuildNotifyPlugin')
 
-const { samples, selectedSample } = config;
+const {samples, selectedSample} = config;
 const sampleClassPath = `../../../src/${samples[selectedSample]}`;
 const sampleClassPathLocal = `./src/${samples[selectedSample]}`
 
@@ -45,13 +45,7 @@ module.exports = env => {
   const dev = mode === 'development';
 
   const sharedDeps = Object.keys(dependencies).reduce((acc, key) => {
-    acc[key] = { 
-      requiredVersion: dependencies[key],
-      // Only set eager for development to prevent sync loading issues in production
-      eager: dev && (key === 'react' || key === 'react-native'),
-      // Only set singleton for critical packages
-      ...(key === 'react' || key === 'react-native' ? { singleton: true } : {})
-    };
+    acc[key] = { eager: dev, requiredVersion: dependencies[key] };
     return acc;
   }, {});
 
@@ -125,6 +119,7 @@ module.exports = env => {
         ? 'index.android.bundle'
         : 'index.ios.bundle',
       chunkFilename: '[name].chunk.bundle',
+      publicPath: Repack.getPublicPath({platform, devServer}),
       uniqueName: config.name,
     },
     /**
@@ -133,6 +128,23 @@ module.exports = env => {
     optimization: {
       /** Enables minification based on values passed from React Native CLI or from fallback. */
       minimize,
+      /** Configure minimizer to process the bundle. */
+      minimizer: [
+        new TerserPlugin({
+          test: /\.(js)?bundle(\?.*)?$/i,
+          /**
+           * Prevents emitting text file with comments, licenses etc.
+           * If you want to gather in-file licenses, feel free to remove this line or configure it
+           * differently.
+           */
+          extractComments: false,
+          terserOptions: {
+            format: {
+              comments: false,
+            },
+          },
+        }),
+      ],
       chunkIds: 'named',
     },
     /**
@@ -153,35 +165,69 @@ module.exports = env => {
        * https://github.com/babel/babel-loader#options
        */
       rules: [
-        ...Repack.getJsTransformRules(),
         {
-          test: /\.jsx?$/,
-          type: 'javascript/auto',
-          exclude: /node_modules/,
+          test: /\.[jt]sx?$/,
+          include: [
+            /node_modules(.*[/\\])+react/,
+            /node_modules(.*[/\\])+@react-native/,
+            /node_modules(.*[/\\])+@react-navigation/,
+            /node_modules(.*[/\\])+@react-native-community/,
+            /node_modules(.*[/\\])+@expo/,
+            /node_modules(.*[/\\])+pretty-format/,
+            /node_modules(.*[/\\])+metro/,
+            /node_modules(.*[/\\])+he/,
+            /node_modules(.*[/\\])+abort-controller/,
+            /node_modules(.*[/\\])+@callstack\/repack/,
+            /node_modules(.*[/\\])+@sleeperhq\/mini-core/,
+          ],
           use: {
-            loader: '@callstack/repack/flow-loader',
-            options: { all: true },
+            loader: 'babel-loader',
+            options: {
+              presets: [
+                '@react-native/babel-preset',
+                ['@babel/preset-typescript', { allowDeclareFields: true }],
+              ],
+              babelrc: false,
+              cacheDirectory: true,
+              sourceMaps: true,
+            },
           },
         },
+        /**
+         * Here you can adjust loader that will process your files.
+         *
+         * You can also enable persistent caching with `cacheDirectory` - please refer to:
+         * https://github.com/babel/babel-loader#options
+         */
         {
-          test: /\.jsx?$/,
-          include: Repack.getModulePaths([
-            'react-native-sms',
-            '@react-native-masked-view/masked-view',
-            'react-native-keyboard-aware-scroll-view',
-            'react-native-modal-datetime-picker',
-            '@react-native-community/art',
-            '@react-native-community/audio-toolkit',
-            'react-native-appsflyer',
-            'react-native-emoji-rain',
-            'react-native-keep-awake',
-            'react-native-sms',
-          ]),
+          test: /\.[jt]sx?$/,
+          exclude: /node_modules/,
           use: {
-            loader: '@callstack/repack/flow-loader',
-            options: { all: true },
+            loader: 'babel-loader',
+            options: {
+              presets: [
+                '@react-native/babel-preset',
+                ['@babel/preset-typescript', { allowDeclareFields: true }],
+              ],
+              // sourceType: "unambiguous",
+              plugins: devServer && devServer.hmr
+                ? ['@babel/plugin-transform-runtime', 'module:react-refresh/babel']
+                : ['@babel/plugin-transform-runtime'],
+              babelrc: false,
+              comments: true, // necessary for named chunks
+              cacheDirectory: true,
+              sourceMaps: true,
+            },
           },
-          type: 'javascript/auto',
+        },
+        dev && {
+          test: /\.[jt]sx?$/,
+          include: /src/,
+          loader: 'string-replace-loader',
+          options: {
+            search: 'console.log',
+            replace: 'log_mini',
+          }
         },
         /**
          * This loader handles all static assets (images, video, audio and others), so that you can
@@ -250,7 +296,7 @@ module.exports = env => {
         ],
         listenerIP: config.remoteIP,
       }),
-      new ReanimatedPlugin(),
+
       new Repack.plugins.ModuleFederationPlugin({
         name: config.name,
         exposes: {
