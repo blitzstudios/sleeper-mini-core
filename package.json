@@ -1,6 +1,6 @@
 {
   "name": "@sleeperhq/mini-core",
-  "version": "4.0.4",
+  "version": "4.0.4-a",
   "description": "Core library frameworks for developing Sleeper Mini Apps.",
   "main": "index.ts",
   "types": "index.d.ts",
@@ -38,6 +38,7 @@
     "@babel/runtime": "7.26.0",
     "@callstack/repack": "blitzstudios/repack.git#callstack-repack-v5.0.9-gitpkg",
     "@callstack/repack-plugin-reanimated": "5.1.1",
+    "@module-federation/enhanced": "0.14.3",
     "@react-native-community/cli": "15.0.1",
     "@react-native-community/cli-platform-android": "15.0.1",
     "@react-native-community/cli-platform-apple": "15.0.1",

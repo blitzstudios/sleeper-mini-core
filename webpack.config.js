@@ -119,7 +119,6 @@ module.exports = env => {
         ? 'index.android.bundle'
         : 'index.ios.bundle',
       chunkFilename: '[name].chunk.bundle',
-      publicPath: Repack.getPublicPath({platform, devServer}),
       uniqueName: config.name,
     },
     /**
