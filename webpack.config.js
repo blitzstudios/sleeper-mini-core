@@ -289,7 +289,7 @@ module.exports = env => {
         },
         extraChunks: [
           {
-            include: new RegExp('.*'),
+            include: /.*/,
             type: 'remote',
             outputPath: path.join(__dirname, '..', '..', '..', 'dist', config.name, platform),
           },
@@ -297,8 +297,9 @@ module.exports = env => {
         listenerIP: config.remoteIP,
       }),
 
-      new Repack.plugins.ModuleFederationPlugin({
+      new Repack.plugins.ModuleFederationPluginV2({
         name: config.name,
+        filename: `${config.name}.container.bundle`,
         exposes: {
           app: sampleClassPathLocal,
         },
