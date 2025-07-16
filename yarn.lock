@@ -1521,9 +1521,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@callstack/repack-dev-server@blitzstudios/repack.git#callstack-repack-dev-server-v5.0.7-c-gitpkg":
-  version: 5.0.7-c
-  resolution: "@callstack/repack-dev-server@https://github.com/blitzstudios/repack.git#commit=5718443a5a60c84c2b6be67ce075e9cfe7173dce"
+"@callstack/repack-dev-server@blitzstudios/repack.git#callstack-repack-dev-server-v5.1.0-gitpkg":
+  version: 5.1.0
+  resolution: "@callstack/repack-dev-server@https://github.com/blitzstudios/repack.git#commit=9945fb05b8636edede97caebea6ce6db1d9bd431"
   dependencies:
     "@babel/code-frame": "npm:^7.26.2"
     "@fastify/middie": "npm:^8.3.0"
@@ -1538,7 +1538,7 @@ __metadata:
     pretty-format: "npm:^28.1.0"
     source-map: "npm:^0.7.4"
     ws: "npm:^8.18.1"
-  checksum: 10c0/dbaa22baa094de56f72612546512991cbfc79a285e3c1c801b1e481342aaa5b8398fdff5f27d418ad6df5cd88b988012a07b223ab264b4b2b4eb2170ab48b851
+  checksum: 10c0/d38182f6d90910c7fec61264baac5b1bb05fa895b46ccd77a2f1cf12652c88fd7302f06c57f2ed54d2b0a33c0e034b15f480bccc2f7e7ad288387a4ca521cb36
   languageName: node
   linkType: hard
 
@@ -1552,11 +1552,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@callstack/repack@blitzstudios/repack.git#callstack-repack-v5.0.9-gitpkg":
-  version: 5.0.9
-  resolution: "@callstack/repack@https://github.com/blitzstudios/repack.git#commit=3fe250ff4414491979c5e8d4706f42482dc2ea6e"
+"@callstack/repack@blitzstudios/repack.git#callstack-repack-v5.1.0-gitpkg":
+  version: 5.1.0
+  resolution: "@callstack/repack@https://github.com/blitzstudios/repack.git#commit=9d4f678d616a72aa697c2e95e909e5a8d100cfd1"
   dependencies:
-    "@callstack/repack-dev-server": "blitzstudios/repack.git#callstack-repack-dev-server-v5.0.7-c-gitpkg"
+    "@callstack/repack-dev-server": "blitzstudios/repack.git#callstack-repack-dev-server-v5.1.0-gitpkg"
     "@discoveryjs/json-ext": "npm:^0.5.7"
     "@rspack/plugin-react-refresh": "npm:1.0.0"
     babel-loader: "npm:^9.2.1"
@@ -1565,7 +1565,8 @@ __metadata:
     estree-util-is-identifier-name: "npm:^1.1.0"
     events: "npm:^3.3.0"
     execa: "npm:^5.0.0"
-    flow-remove-types: "npm:^2.250.0"
+    exit-hook: "npm:^4.0.0"
+    flow-remove-types: "npm:^2.268.0"
     gradient-string: "npm:^2.0.2"
     image-size: "npm:^1.1.1"
     jsonwebtoken: "npm:^9.0.2"
@@ -1576,6 +1577,7 @@ __metadata:
     react-refresh: "npm:^0.14.0"
     schema-utils: "npm:^4.2.0"
     shallowequal: "npm:^1.1.0"
+    tapable: "npm:^2.2.1"
     throttleit: "npm:^2.1.0"
     webpack-merge: "npm:^6.0.1"
   peerDependencies:
@@ -1590,7 +1592,7 @@ __metadata:
       optional: true
     webpack:
       optional: true
-  checksum: 10c0/bf35f4eba82b346855fcf807dd0f83f68159bb0cae557171af17c336f6349073afc625de41b4a6f0e2ab823c230862ac2d75b78ae611835cc5bf7289ad97be07
+  checksum: 10c0/8af9467186d7ca14612348c47500c80b337d42ccabf88a2f366f5e4e8b03d30e7bfe501babcf4d609e6fac51e3b960deb2d8af07724da55f941e6967d841357c
   languageName: node
   linkType: hard
 
@@ -3138,7 +3140,7 @@ __metadata:
     "@babel/plugin-transform-runtime": "npm:7.25.9"
     "@babel/preset-typescript": "npm:7.26.0"
     "@babel/runtime": "npm:7.26.0"
-    "@callstack/repack": "blitzstudios/repack.git#callstack-repack-v5.0.9-gitpkg"
+    "@callstack/repack": "blitzstudios/repack.git#callstack-repack-v5.1.0-gitpkg"
     "@callstack/repack-plugin-reanimated": "npm:5.1.1"
     "@module-federation/enhanced": "npm:0.14.3"
     "@react-native-community/cli": "npm:15.0.1"
@@ -6470,6 +6472,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"exit-hook@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "exit-hook@npm:4.0.0"
+  checksum: 10c0/7fb33eaeb9050aee9479da9c93d42b796fb409c40e1d2b6ea2f40786ae7d7db6dc6a0f6ecc7bc24e479f957b7844bcb880044ded73320334743c64e3ecef48d7
+  languageName: node
+  linkType: hard
+
 "exit@npm:^0.1.2":
   version: 0.1.2
   resolution: "exit@npm:0.1.2"
@@ -6899,17 +6908,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"flow-remove-types@npm:^2.250.0":
-  version: 2.265.3
-  resolution: "flow-remove-types@npm:2.265.3"
+"flow-remove-types@npm:^2.268.0":
+  version: 2.275.0
+  resolution: "flow-remove-types@npm:2.275.0"
   dependencies:
-    hermes-parser: "npm:0.25.1"
+    hermes-parser: "npm:0.29.1"
     pirates: "npm:^3.0.2"
     vlq: "npm:^0.2.1"
   bin:
     flow-node: flow-node
     flow-remove-types: flow-remove-types
-  checksum: 10c0/8ec1e6bf6a9eaad548351ec88d23e5e465ee50cd1e260eb17c99a118cec9ff6fad0db633f2299c04726445660d32d72ddc3014c50e1495faf5bd314a1930c972
+  checksum: 10c0/3130306edd70ecfa7e8857cf91ddf0291b94ded1615c12783d5c9f719bb71cae78a193539accd4882695b04a443f765f282d63b2aa27dde88441e358b6f5af31
   languageName: node
   linkType: hard
 
@@ -7477,12 +7486,28 @@ __metadata:
   languageName: node
   linkType: hard
 
+"hermes-estree@npm:0.29.1":
+  version: 0.29.1
+  resolution: "hermes-estree@npm:0.29.1"
+  checksum: 10c0/e6b01f79ba708697d61a74b871d5ebae5f863c6d782657d8e2d2256eb838f1eb86ff9c34773a81d9cc69e54be3a5059c686e0ab54a4afba903b40dde92dd0ccb
+  languageName: node
+  linkType: hard
+
 "hermes-parser@npm:0.25.1":
   version: 0.25.1
   resolution: "hermes-parser@npm:0.25.1"
   dependencies:
     hermes-estree: "npm:0.25.1"
   checksum: 10c0/3abaa4c6f1bcc25273f267297a89a4904963ea29af19b8e4f6eabe04f1c2c7e9abd7bfc4730ddb1d58f2ea04b6fee74053d8bddb5656ec6ebf6c79cc8d14202c
+  languageName: node
+  linkType: hard
+
+"hermes-parser@npm:0.29.1":
+  version: 0.29.1
+  resolution: "hermes-parser@npm:0.29.1"
+  dependencies:
+    hermes-estree: "npm:0.29.1"
+  checksum: 10c0/7f40d9bdfb5acaa700f333a24c644b17f5f8d0e823b1e7a9fb6dcf253a54d54716ae63c74effa023688ee4f09013c80188c40d601570fee256a44954e04c2926
   languageName: node
   linkType: hard
 
@@ -12438,6 +12463,13 @@ __metadata:
   version: 2.2.1
   resolution: "tapable@npm:2.2.1"
   checksum: 10c0/bc40e6efe1e554d075469cedaba69a30eeb373552aaf41caeaaa45bf56ffacc2674261b106245bd566b35d8f3329b52d838e851ee0a852120acae26e622925c9
+  languageName: node
+  linkType: hard
+
+"tapable@npm:^2.2.1":
+  version: 2.2.2
+  resolution: "tapable@npm:2.2.2"
+  checksum: 10c0/8ad130aa705cab6486ad89e42233569a1fb1ff21af115f59cebe9f2b45e9e7995efceaa9cc5062510cdb4ec673b527924b2ab812e3579c55ad659ae92117011e
   languageName: node
   linkType: hard
 
