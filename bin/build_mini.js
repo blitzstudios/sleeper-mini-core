@@ -5,10 +5,11 @@ const os = require('os');
 const path = require('path');
 const readLine = require('readline');
 const fs = require('fs');
+const yargs = require('yargs');
 
 const isWindows = os.platform() === 'win32';
 
-const getCommands = (projectName) => {
+const getCommands = (projectName, useWebpack = false) => {
   // Pathing
   const distPath = path.join('dist', projectName);
   const zipFilePath = `${distPath}.zip`;
@@ -25,6 +26,9 @@ const getCommands = (projectName) => {
     android: path.join(assetsDestPath["android"], 'index.bundle.map'),
   };
   const reactNativeCliPath = path.join('node_modules', 'react-native', 'cli.js');
+  
+  // Choose config file based on useWebpack flag
+  const configFile = useWebpack ? 'webpack.config.js' : 'rspack.config.js';
   
   // Commands
   const removeDir = (isWindows ? 'rmdir /s /q ' : 'rm -rf ');
@@ -47,7 +51,7 @@ const getCommands = (projectName) => {
     --sourcemap-output "${sourcemapOutputPath[platform]}" \
     --minify true \
     --assets-dest "${assetsDestPath[platform]}" \
-    --webpackConfig ./node_modules/@sleeperhq/mini-core/webpack.config.js`;
+    --webpackConfig ./node_modules/@sleeperhq/mini-core/${configFile}`;
   };
   
   // Exposed
@@ -88,15 +92,15 @@ const spawnProcess = (command, errorMessage) => {
 };
 
 const printError = (error) => {
-  console.error("\n\033[91m" + error + "\033[0m");
+  console.error("\n\x1b[91m" + error + "\x1b[0m");
 };
 
 const printInfo = (message) => {
-  console.log("\n\033[96m" + message + "\033[0m");
+  console.log("\n\x1b[96m" + message + "\x1b[0m");
 };
 
 const printComplete = (message) => {
-  console.log("\033[92m" + message + "\033[0m");
+  console.log("\x1b[92m" + message + "\x1b[0m");
 };
 
 const getInput = (message, fallback) => {
@@ -106,7 +110,7 @@ const getInput = (message, fallback) => {
   });
   
   return new Promise((resolve) => {
-    interface.question("\n\033[96m[current: " + fallback + "]\033[0m " + message, (name) => {
+    interface.question("\n\x1b[96m[current: " + fallback + "]\x1b[0m " + message, (name) => {
       const result = name.trim();
       if (!result) {
         resolve(fallback);
@@ -136,7 +140,11 @@ const validateProjectName = (name) => {
   return regex.test(name);
 }
 
-const main = async () => {
+const main = async (useWebpack = false) => {
+  // Print configuration info
+  const configType = useWebpack ? 'webpack' : 'rspack';
+  printInfo(`Using ${configType} configuration`);
+  
   // Enter project name.
   const fallback = getProjectName();
   const projectName = await getInput("Enter project name (return to skip): ", fallback);
@@ -150,7 +158,7 @@ const main = async () => {
     setProjectName(projectName);
   }
 
-  const commands = getCommands(projectName);
+  const commands = getCommands(projectName, useWebpack);
 
   const shouldClean = await getInput("Clean and rebuild project? (y/n): ", 'y');
   if (shouldClean === 'y') {
@@ -186,4 +194,15 @@ const main = async () => {
   process.exit(0);
 };
 
-main();
+// Set up command line arguments
+const argv = yargs(process.argv.slice(2))
+  .option('webpack', {
+    alias: 'w',
+    type: 'boolean',
+    description: 'Use webpack configuration instead of rspack',
+    default: false,
+  })
+  .help()
+  .alias('help', 'h').argv;
+
+main(argv.webpack).catch(console.error);
