@@ -1521,14 +1521,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@callstack/repack-dev-server@blitzstudios/repack.git#callstack-repack-dev-server-v5.1.0-gitpkg":
-  version: 5.1.0
-  resolution: "@callstack/repack-dev-server@https://github.com/blitzstudios/repack.git#commit=9945fb05b8636edede97caebea6ce6db1d9bd431"
+"@callstack/repack-dev-server@blitzstudios/repack.git#callstack-repack-dev-server-v5.1.1-gitpkg":
+  version: 5.1.1
+  resolution: "@callstack/repack-dev-server@https://github.com/blitzstudios/repack.git#commit=6363a5784c4afda9f8e91480ad4a74427d495934"
   dependencies:
     "@babel/code-frame": "npm:^7.26.2"
     "@fastify/middie": "npm:^8.3.0"
     "@fastify/sensible": "npm:^5.5.0"
-    "@react-native/dev-middleware": "npm:0.76.5"
+    "@react-native/dev-middleware": "npm:0.77.3"
     fastify: "npm:^4.24.3"
     fastify-favicon: "npm:^4.3.0"
     fastify-plugin: "npm:^4.5.1"
@@ -1538,7 +1538,7 @@ __metadata:
     pretty-format: "npm:^28.1.0"
     source-map: "npm:^0.7.4"
     ws: "npm:^8.18.1"
-  checksum: 10c0/d38182f6d90910c7fec61264baac5b1bb05fa895b46ccd77a2f1cf12652c88fd7302f06c57f2ed54d2b0a33c0e034b15f480bccc2f7e7ad288387a4ca521cb36
+  checksum: 10c0/363b6a2a39370628b5a288c5173e0a5c88b75c13dd96ac4493c0e7ae1a27727478f3293fc03d82ca8161f492c31fae6c7cbf04d15921309cf94b6a0e8a249894
   languageName: node
   linkType: hard
 
@@ -1552,11 +1552,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@callstack/repack@blitzstudios/repack.git#callstack-repack-v5.1.0-gitpkg":
-  version: 5.1.0
-  resolution: "@callstack/repack@https://github.com/blitzstudios/repack.git#commit=9d4f678d616a72aa697c2e95e909e5a8d100cfd1"
+"@callstack/repack@blitzstudios/repack.git#callstack-repack-v5.1.1-gitpkg":
+  version: 5.1.1
+  resolution: "@callstack/repack@https://github.com/blitzstudios/repack.git#commit=883e97c464a4f626bb36d153457eff5ed0283921"
   dependencies:
-    "@callstack/repack-dev-server": "blitzstudios/repack.git#callstack-repack-dev-server-v5.1.0-gitpkg"
+    "@callstack/repack-dev-server": "blitzstudios/repack.git#callstack-repack-dev-server-v5.1.1-gitpkg"
     "@discoveryjs/json-ext": "npm:^0.5.7"
     "@rspack/plugin-react-refresh": "npm:1.0.0"
     babel-loader: "npm:^9.2.1"
@@ -1592,7 +1592,7 @@ __metadata:
       optional: true
     webpack:
       optional: true
-  checksum: 10c0/8af9467186d7ca14612348c47500c80b337d42ccabf88a2f366f5e4e8b03d30e7bfe501babcf4d609e6fac51e3b960deb2d8af07724da55f941e6967d841357c
+  checksum: 10c0/9a97f4953b401359eb709dd26357a7f642f7439e64da8a8385508ff78672b9c4973c9be3eae4c106cb174cf5383213ae00bd7bd7be033e307ac10a4cd210d5bc
   languageName: node
   linkType: hard
 
@@ -2793,12 +2793,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@react-native-community/netinfo@npm:11.3.2":
-  version: 11.3.2
-  resolution: "@react-native-community/netinfo@npm:11.3.2"
+"@react-native-community/netinfo@npm:11.4.1":
+  version: 11.4.1
+  resolution: "@react-native-community/netinfo@npm:11.4.1"
   peerDependencies:
     react-native: ">=0.59"
-  checksum: 10c0/1f54960ca49edbc226e48e7b7788e457e25d1a0770501c09f63e587873a905b80168231ebd13f4013bb34c865f5a36f26e330058c3e1be84e865c21b5aca92b6
+  checksum: 10c0/118ba6d495bd14c2dab3d228a0c1857620a293ae8592d170d70eaf88a6ac6a4e35c7f84527975a9054e36891a9694aacc8ec053326b5f05961459ed08a70dd35
   languageName: node
   linkType: hard
 
@@ -2884,29 +2884,30 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@react-native/debugger-frontend@npm:0.76.5":
-  version: 0.76.5
-  resolution: "@react-native/debugger-frontend@npm:0.76.5"
-  checksum: 10c0/273fb3902eda18a28653889868e2e2b2b8453c2f999733000730d8d0ff6227d8948a4b885ba05d957cba5d9766ceb1c919c6245bc9e3947fe8ad79435bd77382
+"@react-native/debugger-frontend@npm:0.77.3":
+  version: 0.77.3
+  resolution: "@react-native/debugger-frontend@npm:0.77.3"
+  checksum: 10c0/2ca7b70ec96b632b3eaaad8519a8eead4fa17fcfadbe0927ff57d92794f5f46839880c055bbe7a04774a78ca7932026113ee94eb9c809608a05eab29ae006dad
   languageName: node
   linkType: hard
 
-"@react-native/dev-middleware@npm:0.76.5":
-  version: 0.76.5
-  resolution: "@react-native/dev-middleware@npm:0.76.5"
+"@react-native/dev-middleware@npm:0.77.3":
+  version: 0.77.3
+  resolution: "@react-native/dev-middleware@npm:0.77.3"
   dependencies:
     "@isaacs/ttlcache": "npm:^1.4.1"
-    "@react-native/debugger-frontend": "npm:0.76.5"
+    "@react-native/debugger-frontend": "npm:0.77.3"
     chrome-launcher: "npm:^0.15.2"
     chromium-edge-launcher: "npm:^0.2.0"
     connect: "npm:^3.6.5"
     debug: "npm:^2.2.0"
+    invariant: "npm:^2.2.4"
     nullthrows: "npm:^1.1.1"
     open: "npm:^7.0.3"
     selfsigned: "npm:^2.4.1"
-    serve-static: "npm:^1.13.1"
+    serve-static: "npm:^1.16.2"
     ws: "npm:^6.2.3"
-  checksum: 10c0/c5c62546370f3b1f5fa9212c06ec48399371b73004c35da5b20b1453a0b00fbe19c3ed17d2277bd21b7400ef6e753b3c92c303be3be66eee616f3371298c7b8f
+  checksum: 10c0/a64a242a68f43f49da44858fcc037b0c3a32c3c56099eadf934197f0723c16aa52285e73e82f5a5bc6a6bcc77271e0a2c78661c3b5fb9c159006900b5bd13083
   languageName: node
   linkType: hard
 
@@ -3140,14 +3141,14 @@ __metadata:
     "@babel/plugin-transform-runtime": "npm:7.25.9"
     "@babel/preset-typescript": "npm:7.26.0"
     "@babel/runtime": "npm:7.26.0"
-    "@callstack/repack": "blitzstudios/repack.git#callstack-repack-v5.1.0-gitpkg"
+    "@callstack/repack": "blitzstudios/repack.git#callstack-repack-v5.1.1-gitpkg"
     "@callstack/repack-plugin-reanimated": "npm:5.1.1"
     "@module-federation/enhanced": "npm:0.14.3"
     "@react-native-community/cli": "npm:15.0.1"
     "@react-native-community/cli-platform-android": "npm:15.0.1"
     "@react-native-community/cli-platform-apple": "npm:15.0.1"
     "@react-native-community/cli-platform-ios": "npm:15.0.1"
-    "@react-native-community/netinfo": "npm:11.3.2"
+    "@react-native-community/netinfo": "npm:11.4.1"
     "@react-native/babel-preset": "npm:0.77.3"
     "@react-native/eslint-config": "npm:0.77.3"
     "@react-native/typescript-config": "npm:0.77.3"
@@ -3162,12 +3163,11 @@ __metadata:
     eslint: "npm:8.38.0"
     jest: "npm:26.6.3"
     lodash: "npm:4.17.21"
-    react-native-fast-image: "https://github.com/blitzstudios/react-native-fast-image.git#release/1.4"
     react-native-linear-gradient: "npm:2.8.3"
     react-native-reanimated: "npm:3.17.5"
     react-native-rename: "blitzstudios/react-native-rename.git#react-native-rename-v3.2.17-gitpkg"
     react-native-tcp-socket: "npm:6.0.6"
-    react-native-turbo-image: "npm:1.22.3"
+    react-native-turbo-image: "blitzstudios/react-native-turbo-image.git#react-native-turbo-image-v1.0.4-gitpkg"
     regenerator-runtime: "npm:0.13.11"
     rx: "npm:4.1.0"
     string-replace-loader: "npm:3.1.0"
@@ -10914,16 +10914,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-fast-image@https://github.com/blitzstudios/react-native-fast-image.git#release/1.4":
-  version: 8.5.11
-  resolution: "react-native-fast-image@https://github.com/blitzstudios/react-native-fast-image.git#commit=8e512296de8748aeb1e801015a3805b64e1ffbc3"
-  peerDependencies:
-    react: ^16.8.6 || ^17.0.0
-    react-native: ">=0.60.0"
-  checksum: 10c0/2431e8bbdd386480e2a00fef4307e86a680d715db02b6e94010ae20c1ff3b3b2ca25a2812ddf33d588b090a5109d8228daa7bf3a9dd9ea06e991929f38a75a52
-  languageName: node
-  linkType: hard
-
 "react-native-is-edge-to-edge@npm:1.1.7":
   version: 1.1.7
   resolution: "react-native-is-edge-to-edge@npm:1.1.7"
@@ -11000,13 +10990,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-turbo-image@npm:1.22.3":
-  version: 1.22.3
-  resolution: "react-native-turbo-image@npm:1.22.3"
+"react-native-turbo-image@blitzstudios/react-native-turbo-image.git#react-native-turbo-image-v1.0.4-gitpkg":
+  version: 1.0.4
+  resolution: "react-native-turbo-image@https://github.com/blitzstudios/react-native-turbo-image.git#commit=387f5106083294d906e02d92665a72f16d3d696a"
   peerDependencies:
     react: "*"
     react-native: "*"
-  checksum: 10c0/7605739e9de7cb7e2d5f7c003fa58d2284f3bc7fcf5f870b7d5a600f778159ff41015eb9e7bee65fd08469b96f5a2aacaa18e0a5823ebac653ca3149fd25e8d7
+  checksum: 10c0/d484387674a83dde89e5adc5ee8b1e61c8764654d4bf824f4e810a08a472ceefca8b93926e1e052ba15252519d5c60b0106f3a27153ec4189c82fef8fc6082e8
   languageName: node
   linkType: hard
 
@@ -11699,7 +11689,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"serve-static@npm:^1.13.1":
+"serve-static@npm:^1.13.1, serve-static@npm:^1.16.2":
   version: 1.16.2
   resolution: "serve-static@npm:1.16.2"
   dependencies:
