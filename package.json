@@ -36,15 +36,15 @@
   "dependencies": {
     "@babel/plugin-transform-runtime": "7.25.9",
     "@babel/runtime": "7.26.0",
-    "@callstack/repack": "blitzstudios/repack.git#callstack-repack-v5.1.1-gitpkg",
-    "@callstack/repack-plugin-reanimated": "5.1.1",
+    "@callstack/repack": "blitzstudios/repack.git#callstack-repack-v5.2.1-a-gitpkg",
+    "@callstack/repack-plugin-reanimated": "5.2.1",
     "@module-federation/enhanced": "0.14.3",
     "@react-native-community/cli": "20.0.0",
     "@react-native-community/cli-platform-android": "20.0.0",
     "@react-native-community/cli-platform-apple": "20.0.0",
     "@react-native-community/cli-platform-ios": "20.0.0",
     "@react-native-community/netinfo": "11.4.1",
-    "@rspack/core": "1.3.15",
+    "@rspack/core": "1.4.11",
     "@rspack/plugin-react-refresh": "1.0.0",
     "@swc/helpers": "0.5.17",
     "axios": "0.15.3",
@@ -56,8 +56,8 @@
     "regenerator-runtime": "0.13.11",
     "rx": "4.1.0",
     "string-replace-loader": "3.1.0",
-    "terser-webpack-plugin": "5.3.10",
-    "webpack": "5.94.0"
+    "terser-webpack-plugin": "5.3.14",
+    "webpack": "5.99.9"
   },
   "peerDependencies": {
     "react": "19.1.0",
