@@ -3174,7 +3174,7 @@ __metadata:
     react-native-reanimated: "npm:3.19.2"
     react-native-rename: "blitzstudios/react-native-rename.git#react-native-rename-v3.2.17-gitpkg"
     react-native-tcp-socket: "npm:6.0.6"
-    react-native-turbo-image: "blitzstudios/react-native-turbo-image.git#react-native-turbo-image-v1.0.4-gitpkg"
+    react-native-turbo-image: "blitzstudios/react-native-turbo-image.git#react-native-turbo-image-v1.0.7-gitpkg"
     regenerator-runtime: "npm:0.13.11"
     rx: "npm:4.1.0"
     string-replace-loader: "npm:3.1.0"
@@ -10871,13 +10871,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-turbo-image@blitzstudios/react-native-turbo-image.git#react-native-turbo-image-v1.0.4-gitpkg":
-  version: 1.0.4
-  resolution: "react-native-turbo-image@https://github.com/blitzstudios/react-native-turbo-image.git#commit=387f5106083294d906e02d92665a72f16d3d696a"
+"react-native-turbo-image@blitzstudios/react-native-turbo-image.git#react-native-turbo-image-v1.0.7-gitpkg":
+  version: 1.0.7
+  resolution: "react-native-turbo-image@https://github.com/blitzstudios/react-native-turbo-image.git#commit=9eb7be4871cd1de3d3db20dce22a597f6e13aa4b"
   peerDependencies:
     react: "*"
     react-native: "*"
-  checksum: 10c0/d484387674a83dde89e5adc5ee8b1e61c8764654d4bf824f4e810a08a472ceefca8b93926e1e052ba15252519d5c60b0106f3a27153ec4189c82fef8fc6082e8
+  checksum: 10c0/619d7fc6c9f680fb8b0ed453f306a025a846c30421080dc5f59a8c28b4ac1107593b7dbedf1266727aa8aff40a27a27fc6ca8f7ab0ffb265e2d220bc9ab2254a
   languageName: node
   linkType: hard
 
