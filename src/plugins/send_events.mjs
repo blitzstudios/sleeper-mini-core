@@ -12,7 +12,7 @@ const socketConnect = (client, appConfig) => {
 
 const packagerConnect = async (rootPath) => {
   const appJsonPath = path.join(rootPath, appJsonFilename);
-  const { default: appConfig } = await import(appJsonPath, { assert: { type: "json" } });
+  const { default: appConfig } = await import(appJsonPath, { with: { type: "json" } });
 
   if (!appConfig.remoteIP) {
     throw new Error(appJsonFilename + ' is missing remoteIP field');
