@@ -3184,7 +3184,7 @@ __metadata:
   peerDependencies:
     react: 19.1.0
     react-native: 0.81.4
-    react-native-svg: 15.11.2
+    react-native-svg: 15.15.0
   bin:
     build-mini: ./bin/build_mini.js
     preload-packages: ./bin/preload_packages.js
