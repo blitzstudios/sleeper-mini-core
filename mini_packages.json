@@ -10,7 +10,7 @@
     "@react-native-community/hooks": "100.1.0",
     "@react-native-community/netinfo": "11.4.1",
     "@react-native-masked-view/masked-view": "0.3.1",
-    "@react-native-picker/picker": "1.16.8",
+    "@react-native-picker/picker": "2.11.4",
     "@react-navigation/bottom-tabs": "6.6.0",
     "@react-navigation/compat": "5.3.20",
     "@react-navigation/drawer": "6.7.0",
