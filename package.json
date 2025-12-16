@@ -1,6 +1,6 @@
 {
   "name": "@sleeperhq/mini-core",
-  "version": "5.0.4",
+  "version": "5.1.0",
   "description": "Core library frameworks for developing Sleeper Mini Apps.",
   "main": "index.ts",
   "types": "index.d.ts",
@@ -36,7 +36,7 @@
   "dependencies": {
     "@babel/plugin-transform-runtime": "7.25.9",
     "@babel/runtime": "7.26.0",
-    "@callstack/repack": "blitzstudios/repack.git#callstack-repack-v5.2.4-gitpkg",
+    "@callstack/repack": "blitzstudios/repack.git#callstack-repack-v5.2.5-gitpkg",
     "@callstack/repack-plugin-reanimated": "5.2.1",
     "@module-federation/enhanced": "0.14.3",
     "@react-native-community/cli": "20.0.0",
@@ -60,17 +60,17 @@
     "webpack": "5.99.9"
   },
   "peerDependencies": {
-    "react": "19.1.0",
-    "react-native": "0.81.4",
+    "react": "19.2.0",
+    "react-native": "0.83.0",
     "react-native-svg": "15.15.0"
   },
   "devDependencies": {
     "@babel/core": "7.26.0",
     "@babel/preset-typescript": "7.26.0",
-    "@react-native/babel-preset": "0.81.4",
-    "@react-native/eslint-config": "0.81.4",
-    "@react-native/typescript-config": "0.81.4",
-    "@types/react": "19.1.0",
+    "@react-native/babel-preset": "0.83.0",
+    "@react-native/eslint-config": "0.83.0",
+    "@react-native/typescript-config": "0.83.0",
+    "@types/react": "19.2.0",
     "@typescript-eslint/eslint-plugin": "5.62.0",
     "@typescript-eslint/parser": "5.62.0",
     "eslint": "8.38.0",
