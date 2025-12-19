@@ -101,6 +101,6 @@
     "react-native-circular-progress": "1.3.6",
     "react-native-modal": "13.0.1",
     "react-native-popup-dialog": "0.11.46",
-    "react-native-turbo-image": "1.0.8"
+    "react-native-turbo-image": "1.0.10"
   }
 }

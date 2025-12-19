@@ -52,7 +52,7 @@
     "react-native-linear-gradient": "2.8.3",
     "react-native-reanimated": "4.1.5",
     "react-native-rename": "blitzstudios/react-native-rename.git#react-native-rename-v1.0.0-gitpkg",
-    "react-native-turbo-image": "blitzstudios/react-native-turbo-image.git#react-native-turbo-image-v1.0.7-gitpkg",
+    "react-native-turbo-image": "blitzstudios/react-native-turbo-image.git#react-native-turbo-image-v1.0.10-gitpkg",
     "regenerator-runtime": "0.13.11",
     "rx": "4.1.0",
     "string-replace-loader": "3.1.0",
