@@ -147,7 +147,15 @@ module.exports = env => {
        * https://github.com/babel/babel-loader#options
        */
       rules: [
-        ...Repack.getJsTransformRules(),
+        {
+          test: /\.[cm]?[jt]sx?$/,
+          type: 'javascript/auto',
+          use: {
+            loader: '@callstack/repack/babel-swc-loader',
+            parallel: true,
+            options: {},
+          },
+        },
         {
           test: /\.jsx?$/,
           type: 'javascript/auto',
@@ -244,13 +252,15 @@ module.exports = env => {
         ],
         listenerIP: config.remoteIP,
       }),
-      new ReanimatedPlugin(),
+      new ReanimatedPlugin({ unstable_disableTransform: true }),
       new Repack.plugins.ModuleFederationPluginV2({
         name: config.name,
         filename: `${config.name}.container.bundle`,
         exposes: {
           app: sampleClassPathLocal,
         },
+        // Disable DTS generation to avoid @module-federation/dts-plugin errors during dev
+        dts: false,
         shared: {
           // Adding this here fixes the named chunks problem.
           // It also makes sure any third party javascript packages are included in the container,
