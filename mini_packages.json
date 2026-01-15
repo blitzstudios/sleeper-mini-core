@@ -58,7 +58,7 @@
     "react-native-keep-awake": "4.0.0",
     "react-native-keyboard-aware-scroll-view": "0.9.5",
     "react-native-keyboard-spacer": "0.4.1",
-    "react-native-linear-gradient": "2.8.3",
+    "react-native-linear-gradient": "3.0.0-beta.1",
     "react-native-modal-datetime-picker": "13.0.1",
     "react-native-parsed-text": "0.0.21",
     "react-native-permissions": "3.6.1",
