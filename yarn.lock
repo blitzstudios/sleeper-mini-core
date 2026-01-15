@@ -3269,7 +3269,7 @@ __metadata:
     eslint: "npm:8.38.0"
     jest: "npm:26.6.3"
     lodash: "npm:4.17.21"
-    react-native-linear-gradient: "npm:2.8.3"
+    react-native-linear-gradient: "npm:3.0.0-beta.1"
     react-native-reanimated: "npm:4.2.0"
     react-native-rename: "blitzstudios/react-native-rename.git#react-native-rename-v1.0.0-gitpkg"
     react-native-tcp-socket: "npm:6.0.6"
@@ -10961,13 +10961,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-linear-gradient@npm:2.8.3":
-  version: 2.8.3
-  resolution: "react-native-linear-gradient@npm:2.8.3"
+"react-native-linear-gradient@npm:3.0.0-beta.1":
+  version: 3.0.0-beta.1
+  resolution: "react-native-linear-gradient@npm:3.0.0-beta.1"
   peerDependencies:
     react: "*"
     react-native: "*"
-  checksum: 10c0/cd41bf28e9f468173f1e5e768685128ebf8bbf9077710e43b63482c1a76f37bff8ab3d1d6adfd7b4d54e648672356c02bea46c47cdbdb1844ebe5c5caf720114
+  checksum: 10c0/1dd4eff552fcb47c17a3564b51f842a3a9a7f88590556298cb9d744572b4e28b06ef5285227e90bf3fba9acdec611d64f3164cfd3985fe78dfd1b48f354163ef
   languageName: node
   linkType: hard
 
