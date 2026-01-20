@@ -3270,7 +3270,7 @@ __metadata:
     jest: "npm:26.6.3"
     lodash: "npm:4.17.21"
     react-native-linear-gradient: "npm:3.0.0-beta.1"
-    react-native-reanimated: "npm:4.2.0"
+    react-native-reanimated: "npm:4.2.1"
     react-native-rename: "blitzstudios/react-native-rename.git#react-native-rename-v1.0.0-gitpkg"
     react-native-tcp-socket: "npm:6.0.6"
     react-native-turbo-image: "blitzstudios/react-native-turbo-image.git#react-native-turbo-image-v1.0.10-gitpkg"
@@ -10971,9 +10971,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-reanimated@npm:4.2.0":
-  version: 4.2.0
-  resolution: "react-native-reanimated@npm:4.2.0"
+"react-native-reanimated@npm:4.2.1":
+  version: 4.2.1
+  resolution: "react-native-reanimated@npm:4.2.1"
   dependencies:
     react-native-is-edge-to-edge: "npm:1.2.1"
     semver: "npm:7.7.3"
@@ -10981,7 +10981,7 @@ __metadata:
     react: "*"
     react-native: "*"
     react-native-worklets: ">=0.7.0"
-  checksum: 10c0/29b9bbcf58c0801947357abcf8ecff2ec1e87a73854ccf390e26c20d23f0b4b5f99d524a74bb6c104c7b94127db60533797fdaa78bb602df7e91a042ce2b4d6e
+  checksum: 10c0/1458fb634d374125931c5815b2b0941e12b1a880ba12b4ff6bba12b6c101e0ce1f5c32a2226034ae762558e38077ae112d8498eb2c8af6bd967524c7e7f87c6b
   languageName: node
   linkType: hard
 
