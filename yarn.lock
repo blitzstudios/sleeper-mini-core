@@ -3274,7 +3274,7 @@ __metadata:
     react-native-rename: "blitzstudios/react-native-rename.git#react-native-rename-v1.0.0-gitpkg"
     react-native-tcp-socket: "npm:6.0.6"
     react-native-turbo-image: "blitzstudios/react-native-turbo-image.git#react-native-turbo-image-v1.0.10-gitpkg"
-    react-native-worklets: "npm:0.7.1"
+    react-native-worklets: "npm:0.7.2"
     regenerator-runtime: "npm:0.13.11"
     rx: "npm:4.1.0"
     string-replace-loader: "npm:3.1.0"
@@ -11027,9 +11027,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-worklets@npm:0.7.1":
-  version: 0.7.1
-  resolution: "react-native-worklets@npm:0.7.1"
+"react-native-worklets@npm:0.7.2":
+  version: 0.7.2
+  resolution: "react-native-worklets@npm:0.7.2"
   dependencies:
     "@babel/plugin-transform-arrow-functions": "npm:7.27.1"
     "@babel/plugin-transform-class-properties": "npm:7.27.1"
@@ -11046,7 +11046,7 @@ __metadata:
     "@babel/core": "*"
     react: "*"
     react-native: "*"
-  checksum: 10c0/6965ff3cef7981e10585e15c222fb78f12c54807fcd6f7f9fccdd4dea2bd59d234797fe26a9f47d5c5ba6609f653b807d67f2d03e513e179a25ba28c3ad413ff
+  checksum: 10c0/ee5f57c3d12dfa6b58a8b16588cc925e4543d3e4733c01051af43e113494296681d3af06dcc334100511c692e17d6be7fdb3e86b1774cfca825f30a1289e062e
   languageName: node
   linkType: hard
 
